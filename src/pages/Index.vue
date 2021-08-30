@@ -1,69 +1,38 @@
 <template>
   <q-page padding class="bg-image" >
-      <div class="row">
-        <div class="col-3">
-        
-        </div>
-        <div class="col">
-            
-            <div class="q-pa-md " style="" >
-                <div class="q-gutter-md" style="max-width: 1000px;  ">
-                    <div class="column">
-                        <div class="col-6" style="padding: 20px">
-                             <div class="text-h4"> Search for Alumni</div>
-                           </div>
-                        <div class="col-6">
-                             <q-input standout="bg-white text-black"  bg-color="white" rounded outlined label="Search" />
-                         </div>
-                         <div class="col-6" style="padding: 20px">
-                             <q-card
-                                class="my-card text-white"
-                                style="
-                                 background: linear-gradient(#014a88 0%, #1794A5 100%);
-                                 max-width: 1000px;
-                                border-radius: 15px; 
-                                ">
-                                    <q-card-section>
-                                        <div class="text-h6">Our Changing Planet</div>
-                                    </q-card-section>
-
-                                    <q-card-section class="q-pt-none">
-                                        Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
+    <div class="text-center" style="padding:50px">
+     <div class="text-h4" style="padding:20px"> Search for Alumni</div>
+      <q-input standout="bg-white text-black"  bg-color="white" rounded outlined label="Search" style="padding:20px" />
+        <q-card class="my-card text-white text-center" style="background: linear-gradient(#014a88 0%, #1794A5 100%); border-radius: 15px; padding:20px">
+          <q-card-section>
+            <div class="text-h6">Our Changing Planet</div>
+          </q-card-section>
+          <q-card-section class="q-pt-none">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
                                         eiusmod tempor incididunt ut labore et dolore magna aliqua.
-                                    </q-card-section>
-
-                                    <q-separator inset />
-
-                                    <q-card-section>
-                                        Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-                                        eiusmod tempor incididunt ut labore et dolore magna aliqua.
-                                    </q-card-section>
-                             </q-card>
-                         </div>
-                     </div>
-                 </div>
-            </div>
+          </q-card-section>
+          <q-separator inset />
+          <q-card-section>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
+                            eiusmod tempor incididunt ut labore et dolore magna aliqua.
+          </q-card-section>
+        </q-card>
+    </div>
+    <div class="col-4 text-right" style="padding:50px">
+         <div class="q-pa-md q-gutter-sm">
+          <q-btn color="outline" text-color="black" label="LOG IN" @click="toPageLogin" style="font-size:1cm"/>
          </div>
-      <div class="col-3">
-       
-      </div>
-    </div>
-    <div class="row">
-    <div class="col-4">
-    </div>
-    <div class="col-4">
-    </div>
-    <div class="col-4">
-        <h4 @click="login">LOG IN</h4> 
     </div>
     
-    </div>
+   
   </q-page>
 </template>
 <script>
 import { useQuasar } from 'quasar'
 export default {
-  
+  methods :{
+    toPageLogin(){
+      this.$router.push({name:"loginPage"})
+    }
+  },
   setup() {
     const $q = useQuasar()
 
