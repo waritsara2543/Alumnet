@@ -1,5 +1,5 @@
 <template>
-  <q-layout class="bg-image">
+  <q-layout class="bg-image-main">
    
 
     <q-page-container>
@@ -12,7 +12,7 @@
 
 </script>
 <style>
-.bg-image {
+.bg-image-main {
     background-image: url("../assets/background.jpg");
     background-repeat: no-repeat;
     background-size:cover;

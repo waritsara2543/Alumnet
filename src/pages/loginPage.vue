@@ -67,6 +67,7 @@
   </q-page>
 </template>
 <style>
+
 </style>
 <script>
 import { ref } from "vue";
