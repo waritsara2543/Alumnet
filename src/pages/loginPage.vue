@@ -59,6 +59,17 @@
           background: linear-gradient(#B42425 0%, #B42425 100%);
         "
       />
+      <div class="row">
+      <div class="col">
+          <p style="color: #014a88">no account?</p>
+      </div>
+      <div class="col">
+        <p class="text-italic" style="color: #1794a5" @click="toRegist">create one</p>
+      </div>
+    </div>
+    <p class="text-bold" style="color: #014a88" @click="toLoginAdmin">For admin click here</p>
+      
+
     </div>
     
      
@@ -72,6 +83,14 @@
 <script>
 import { ref } from "vue";
 export default {
+    methods :{
+    toRegist(){
+      this.$router.push({name:"regist1"})
+    },
+    toLoginAdmin(){
+      this.$router.push({name:"loginAdmin"})
+    },
+  },
   setup() {
     return {
       password: ref(""),
