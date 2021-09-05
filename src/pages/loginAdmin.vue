@@ -1,6 +1,6 @@
 <template>
   <q-page >
-    <div class="q-pa-md q-gutter-sm text-center">
+    <div class="q-pa-md q-gutter-sm text-center" style="max-width: 800px ; margin:0 auto;">
       <img
         src="../assets/Alumnet.png"
         alt=""
@@ -12,7 +12,12 @@
    
       
 
-      <q-input outlined label="Username" class="full-width" style=""></q-input>
+      <q-input  outlined
+          v-model="username" 
+          type="email"
+          label="Username"
+          class="full-width"
+          style=""></q-input>
       <q-input
         v-model="password"
         outlined
@@ -47,6 +52,7 @@ export default {
     return {
       password: ref(""),
       isPwd: ref(true),
+      username: ref(""),
     };
   },
 };

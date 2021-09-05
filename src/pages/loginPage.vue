@@ -1,6 +1,6 @@
 <template>
   <q-page padding >
-    <div class="q-pa-md q-gutter-sm text-center">
+    <div class="q-pa-md q-gutter-sm text-center"  style="max-width: 800px ; margin:0 auto;">
       <img
         src="../assets/Alumnet.png"
         alt=""
@@ -13,7 +13,6 @@
         label="log in with google"
         class="full-width"
         style="
-          
           font-size: 0.5cm;
           background: linear-gradient(#014a88 0%, #1794a5 100%);
         "
@@ -30,6 +29,8 @@
 
       <q-input
           outlined
+          v-model="username" 
+          type="email"
           label="Username"
           class="full-width"
           style=""
@@ -95,6 +96,8 @@ export default {
     return {
       password: ref(""),
       isPwd: ref(true),
+      username: ref(""),
+      
     };
   },
 };

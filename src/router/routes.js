@@ -23,6 +23,12 @@ const routes = [
         component: () => import('pages/loginAdmin.vue') 
 
       },
+      {
+        name : "confirmEmail",
+        path: '/confirmEmail', 
+        component: () => import('pages/confirmEmail.vue') 
+
+      },
     ]
   },
   {
