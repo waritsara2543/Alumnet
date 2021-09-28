@@ -29,6 +29,18 @@ const routes = [
         component: () => import('pages/confirmEmail.vue') 
 
       },
+      {
+        name : "stdIdSignup",
+        path: '/stdIdSignup', 
+        component: () => import('pages/stdIdSignup.vue') 
+
+      },
+      {
+        name : "persenalInform",
+        path: '/persenalInform', 
+        component: () => import('pages/persenalInform.vue') 
+
+      },
     ]
   },
   {

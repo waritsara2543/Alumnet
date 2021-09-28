@@ -19,6 +19,7 @@
           font-size: 20px;
           background: linear-gradient(#b42425 0%, #b42425 100%);
         "
+        @click="tostdIdSignup"
       />
        <div class="row">
       <div class="col">
@@ -40,6 +41,9 @@ export default {
     },
     sendAgain(){
       
+    },
+    tostdIdSignup(){
+      this.$router.push({name:"stdIdSignup"})
     },
    
    
