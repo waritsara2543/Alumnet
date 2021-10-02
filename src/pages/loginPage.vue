@@ -69,8 +69,6 @@
       </div>
     </div>
     <p class="text-bold" style="color: #014a88" @click="toLoginAdmin">For admin click here</p>
-      
-
     </div>
     
      
