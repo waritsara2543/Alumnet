@@ -68,7 +68,7 @@
         <p class="text-italic" style="color: #1794a5" @click="toRegist">create one</p>
       </div>
     </div>
-    <p class="text-bold" style="color: #014a88" @click="toLoginAdmin">For admin click here</p>
+   
     </div>
     
      
@@ -86,9 +86,7 @@ export default {
     toRegist(){
       this.$router.push({name:"regist1"})
     },
-    toLoginAdmin(){
-      this.$router.push({name:"loginAdmin"})
-    },
+    
   },
   setup() {
     return {
