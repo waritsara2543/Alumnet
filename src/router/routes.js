@@ -1,10 +1,10 @@
 
 const routes = [
   {
-    path: '/',
+    path: '/regist',
     component: () => import('layouts/regisLayout.vue'),
     children: [
-      { path: '', component: () => import('pages/Index.vue') },
+      
       {
         name : "loginPage",
         path: '/loginPage', 
@@ -44,9 +44,9 @@ const routes = [
     ]
   },
   {
-    path: '/main',
-    component: () => import('layouts/MainLayout.vue'),
-    children: [{ path: '', component: () => import('pages/first.vue') }],
+    path: '/',
+    component: () => import('layouts/firstLayout.vue'),
+    children: [{ path: '', component: () => import('pages/Index.vue') },],
   },
 
   // Always leave this as last one,
@@ -58,3 +58,5 @@ const routes = [
 ]
 
 export default routes
+
+
