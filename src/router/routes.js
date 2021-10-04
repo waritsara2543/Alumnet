@@ -41,6 +41,12 @@ const routes = [
         component: () => import('pages/persenalInform.vue') 
 
       },
+      {
+        name : "HomeAdmin",
+        path: '/HomeAdmin', 
+        component: () => import('pages/HomeAdmin.vue') 
+
+      },
     ]
   },
   {
