@@ -13,13 +13,43 @@
 
   <div class="q-pa-md">
 
-    <div class="row" style="">
+    <div class="row" style="padding:10px" >
       <div class="col">
         Student ID
       </div>
       <div class="col" style="">
         <q-input
-        outlined
+        rounded outlined
+        v-model="code"
+        label=""
+        class=""
+        style="height: 50px;"
+      ></q-input>
+      </div>
+    </div>
+
+    <div class="row" style="padding:10px">
+      <div class="col">
+        Name
+      </div>
+      <div class="col" style="">
+        <q-input
+        rounded outlined
+        v-model="code"
+        label=""
+        class=""
+        style="height: 50px;"
+      ></q-input>
+      </div>
+    </div>
+
+    <div class="row" style="padding:10px">
+      <div class="col">
+        Surname
+      </div>
+      <div class="col" style="">
+        <q-input
+        rounded outlined
         v-model="code"
         label=""
         class=""
