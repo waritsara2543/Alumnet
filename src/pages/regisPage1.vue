@@ -1,13 +1,17 @@
 <template>
-  <q-page padding >
-    <q-icon name="arrow_back" style="font-size: 32px;" @click="backLogin" />
-    <div class="q-pa-md q-gutter-sm text-center"  style="max-width: 800px ; margin:0 auto;">
+  <q-page padding>
+    <q-icon name="arrow_back" style="font-size: 32px" @click="backLogin" />
+    <div
+      class="q-pa-md q-gutter-sm text-center"
+      style="max-width: 800px; margin: 0 auto"
+    >
       <h2 class="text-bold" style="color: #014a88">SIGN UP</h2>
-       <q-input
+      <q-form action="https://some-url.com" method="post">
+        <q-input
           outlined
-          v-model="username" 
+          v-model="username"
           type="email"
-          label="Username"
+          label="Email"
           class="full-width"
           style=""
         ></q-input>
@@ -27,7 +31,7 @@
             />
           </template>
         </q-input>
-         <q-input
+        <q-input
           v-model="confirmpassword"
           outlined
           :type="isconfirmPwd ? 'password' : 'text'"
@@ -43,65 +47,67 @@
             />
           </template>
         </q-input>
-       <q-btn
-       @click="toConfirmEmail"
-        label="JOIN "
-        class="full-width"
-        style="
-          
-          font-size:20px;
-          background: linear-gradient(#B42425 0%, #B42425 100%);
-        "
-      />
-      <h5 style="color: #014a88">or</h5>
-       <q-btn
-        label="sign up with google"
-        class="full-width"
-        style="
-          font-size: 0.5cm;
-          background: linear-gradient(#014a88 0%, #1794a5 100%);
-        "
-      >
 
-        <img
-          src="../assets/google-logo.png"
-          alt=""
-          style="width: 40px; padding: 5px"
+        <q-btn
+          @click="signUp()"
+          label="JOIN "
+          class="full-width"
+          style="
+            font-size: 20px;
+            background: linear-gradient(#b42425 0%, #b42425 100%);
+          "
         />
-      </q-btn>
-     
-  
-      
-
+      </q-form>
     </div>
-    
-     
-       
-   
   </q-page>
 </template>
 <script>
 import { ref } from "vue";
+
+import {
+  getAuth,
+  createUserWithEmailAndPassword,
+  sendEmailVerification,
+} from "firebase/auth";
 export default {
-    methods :{
-    toConfirmEmail(){
-      this.$router.push({name:"confirmEmail"})
+  methods: {
+    toConfirmEmail() {
+      this.$router.push({ name: "confirmEmail" });
     },
-    backLogin(){
-      this.$router.push({name:"loginPage"})
+    backLogin() {
+      this.$router.push({ name: "loginPage" });
     },
-   
+    signUp() {
+      const auth = getAuth();
+      const email = this.username;
+      const password = this.password;
+      console.log(email);
+      createUserWithEmailAndPassword(auth, email, password)
+        .then((userCredential) => {
+          // Signed in
+          this.toConfirmEmail();
+          const user = userCredential.user;
+          sendEmailVerification(auth.currentUser).then(() => {
+            // Email verification sent!
+            // ...
+          });
+          // ...
+        })
+        .catch((error) => {
+          const errorCode = error.code;
+          const errorMessage = error.message;
+          // ..
+        });
+    },
   },
-    
+
   setup() {
     return {
-        username: ref(''),
+      username: ref(""),
       password: ref(""),
       isPwd: ref(true),
-      confirmpassword: ref(''),
+      confirmpassword: ref(""),
       isconfirmPwd: ref(true),
-      
-
     };
   },
 };
