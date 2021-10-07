@@ -25,7 +25,7 @@
   </div>
         <q-card class="my-card text-black text-center" style=" border-radius: 50px; padding:20px ;max-width: 800px ;margin:0 auto;">
           <q-card-section>
-            <div class="text-h6" style="">เสริช์แล้วแสดงตรงนี้</div>
+            <div class="text-h6" style=""></div>
           </q-card-section>
         </q-card>
           <q-btn  label="GET STARTED" @click="toPageLogin" />

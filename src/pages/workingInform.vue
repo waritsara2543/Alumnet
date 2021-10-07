@@ -5,11 +5,11 @@
       class="q-pa-md q-gutter-sm text-center"
       style="max-width: 800px; margin: 0 auto"
     >
-      <h5 class="text-bold" style="color: #014a88">Persenal Information</h5>
+      <h5 class="text-bold" style="color: #014a88">Working Information</h5>
 
       <div class="q-pa-md">
         <div class="row" style="padding: 10px">
-          <div class="col">Student ID</div>
+          <div class="col">Company name</div>
           <div class="col" style="">
             <q-input
               rounded
@@ -22,62 +22,7 @@
         </div>
 
         <div class="row" style="padding: 10px">
-          <div class="col">Name</div>
-          <div class="col" style="">
-            <q-input
-              rounded
-              outlined
-              v-model="code"
-              label=""
-              class=""
-              style="height: 50px"
-            ></q-input>
-          </div>
-        </div>
-
-        <div class="row" style="padding: 10px">
-          <div class="col">Surname</div>
-          <div class="col" style="">
-            <q-input
-              rounded
-              outlined
-              v-model="code"
-              label=""
-              class=""
-              style="height: 50px"
-            ></q-input>
-          </div>
-        </div>
-
-        <div class="row" style="padding: 10px">
-          <div class="col">Faculty</div>
-          <div class="col" style="">
-            <q-select
-              rounded
-              outlined
-              v-model="model"
-              :options="options"
-              label="Outlined"
-              style="height: 50px"
-            />
-          </div>
-        </div>
-        <div class="row" style="padding: 10px">
-          <div class="col">major</div>
-          <div class="col" style="">
-            <q-select
-              rounded
-              outlined
-              v-model="model"
-              :options="options"
-              label="Outlined"
-              style="height: 50px"
-            />
-          </div>
-        </div>
-
-        <div class="row" style="padding: 10px">
-          <div class="col">phone number</div>
+          <div class="col">Job Title</div>
           <div class="col" style="">
             <q-input
               rounded
@@ -94,7 +39,7 @@
           <div class="col"></div>
           <div class="col" style="padding: 20px">
             <q-btn
-              @click="workingInform"
+              @click="toavatar"
               rounded
               label="CONTINUE >>"
               class="full-width"
@@ -133,8 +78,8 @@ export default {
     // backconfirmEmail() {
     //   this.$router.push({ name: "confirmEmail" });
     // },
-    workingInform() {
-      this.$router.push({ name: "workingInform" });
+    toavatar() {
+      this.$router.push({ name: "toavatar" });
     },
   },
 

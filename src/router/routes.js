@@ -41,12 +41,29 @@ const routes = [
         component: () => import('pages/persenalInform.vue') 
 
       },
+      {
+        name : "workingInform",
+        path: '/workingInform', 
+        component: () => import('pages/workingInform.vue') 
+
+      },
+      {
+        name : "toavatar",
+        path: '/toavatar', 
+        component: () => import('pages/avatar.vue') 
+
+      },
     ]
   },
   {
     path: '/',
     component: () => import('layouts/firstLayout.vue'),
-    children: [{ path: '', component: () => import('pages/Index.vue') },],
+    children: [{ path: '', component: () => import('pages/Index.vue') },
+    { name : "homepage",
+      path: 'homepage', 
+    component: () => import('pages/home.vue')
+   },
+  ],
   },
 
   // Always leave this as last one,
