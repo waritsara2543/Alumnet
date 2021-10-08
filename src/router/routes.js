@@ -59,9 +59,32 @@ const routes = [
     path: '/',
     component: () => import('layouts/firstLayout.vue'),
     children: [{ path: '', component: () => import('pages/Index.vue') },
+    
+  ],
+  },
+  {
+    path: '/',
+    component: () => import('layouts/MainLayout.vue'),
+    children: [
     { name : "homepage",
       path: 'homepage', 
     component: () => import('pages/home.vue')
+   },
+   { name : "profilepage",
+      path: 'profilepage', 
+    component: () => import('pages/profilepage.vue')
+   },
+   { name : "notificationpage",
+      path: 'notificationpage', 
+    component: () => import('pages/notificationpage.vue')
+   },
+   { name : "classDirectorypage",
+      path: 'classDirectorypage', 
+    component: () => import('pages/classDirectorypage.vue')
+   },
+   { name : "locationpage",
+      path: 'locationpage', 
+    component: () => import('pages/locationpage.vue')
    },
   ],
   },

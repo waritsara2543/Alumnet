@@ -8,66 +8,35 @@
       <h5 class="text-bold" style="color: #014a88">Working Information</h5>
 
       <div class="q-pa-md">
-        <div class="row" style="padding: 10px">
-          <div class="col">Company name</div>
-          <div class="col" style="">
-            <q-input
-              rounded
-              outlined
-              v-model="code"
-              label=""
-              style="height: 50px"
-            ></q-input>
-          </div>
-        </div>
+        <q-input
+          v-model="workplace_name"
+          id="workplace_name"
+          label="Company name"
+          :dense="dense"
+          style="padding: 15px; margin-top: -50px"
+        />
 
-        <div class="row" style="padding: 10px">
-          <div class="col">Job Title</div>
-          <div class="col" style="">
-            <q-input
-              rounded
-              outlined
-              v-model="code"
-              label=""
-              class=""
-              style="height: 50px"
-            ></q-input>
-          </div>
-        </div>
+        <q-input
+          v-model="position"
+          id="position"
+          label="Position"
+          :dense="dense"
+          style="padding: 15px"
+        />
 
-        <div class="row" style="padding: 10px">
-          <div class="col"></div>
-          <div class="col" style="padding: 20px">
-            <q-btn
-              @click="toavatar"
-              rounded
-              label="CONTINUE >>"
-              class="full-width"
-              style="
-                font-size: 10px;
-                background: linear-gradient(#b42425 0%, #b42425 100%);
-              "
-            />
-          </div>
+        <div style="padding: 15px">
+          <q-btn
+            @click="toavatar"
+            rounded
+            label="CONTINUE"
+            class="full-width text-white"
+            style="
+              font-size: 15px;
+              background: linear-gradient(#b42425 0%, #b42425 100%);
+            "
+          />
         </div>
       </div>
-
-      <!-- <q-input
-        outlined
-        v-model="code"
-        label=""
-        class="full-width"
-        style=""
-      ></q-input>
-      <q-btn
-        label="CONFIRM"
-        class="full-width"
-        style="
-          font-size: 20px;
-          background: linear-gradient(#b42425 0%, #b42425 100%);
-        "
-      
-      /> -->
     </div>
   </q-page>
 </template>
@@ -85,9 +54,9 @@ export default {
 
   setup() {
     return {
-      code: ref(""),
-      model: ref(null),
-      options: ["Google", "Facebook", "Twitter", "Apple", "Oracle"],
+      workplace_name: ref(""),
+      position: ref(""),
+      dense: ref(false),
     };
   },
 };

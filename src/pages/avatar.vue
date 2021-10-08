@@ -7,14 +7,25 @@
     >
       <h5 class="text-bold" style="color: #014a88">Avatar</h5>
 
+      <img
+        src="../assets/man.png"
+        alt=""
+        style="width: 200px; padding: 5px"
+      />
+
+
       <div class="q-pa-md text-center">
+
         <q-file
           v-model="files"
           label="Pick image"
           outlined
           multiple
           style="max-width: 800px"
+          accept=".jpg, image/*"
+          max-files="1"
         />
+         
 
         <div class="col" style="padding: 20px">
           <q-btn
@@ -46,7 +57,6 @@ export default {
 
   setup() {
     return {
-      code: ref(""),
       files: ref(null),
     };
   },

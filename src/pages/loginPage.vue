@@ -138,7 +138,6 @@ export default {
           console.log("login");
           console.log(auth.currentUser.emailVerified);
           if (auth.currentUser.emailVerified) {
-            
             this.tohome();
           } else {
             alert("Please verify your email");

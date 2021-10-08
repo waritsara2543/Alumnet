@@ -21,7 +21,7 @@
          <p> Welcome to Alumnet System. We are a social media alumni platform,<br>
           making people who are alumni to meet again.</p>
          <div>
-    <q-input standout="bg-white text-black"  bg-color="white" rounded outlined label="Search" style="max-width: 800px ; margin:0 auto; padding:10px" class="search"  />
+    <q-input standout="bg-white text-black"  bg-color="white" rounded outlined label="Search" style="max-width: 800px ; margin:0 auto; padding:10px" class="search" id="search" />
   </div>
         <q-card class="my-card text-black text-center" style=" border-radius: 50px; padding:20px ;max-width: 800px ;margin:0 auto;">
           <q-card-section>
