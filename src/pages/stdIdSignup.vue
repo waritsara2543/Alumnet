@@ -14,10 +14,11 @@
 
       <q-input
         outlined
-        v-model="code"
+        v-model="student_id"
         label=""
         class="full-width"
         style=""
+        id="student_id"
       ></q-input>
       <q-btn
         label="CONFIRM"
@@ -45,7 +46,7 @@ export default {
 
   setup() {
     return {
-      code: ref(""),
+      student_id: ref(""),
     };
   },
 };
