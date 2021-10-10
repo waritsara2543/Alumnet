@@ -47,6 +47,7 @@ const routes = [
         component: () => import('pages/HomeAdmin.vue') 
 
       },
+
     ]
   },
   {
