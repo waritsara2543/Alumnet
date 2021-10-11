@@ -39,3 +39,28 @@ export  function test(email) {
     console.log(email);
     
 }
+export function confirmEmaill(email,student_id) {
+    // console.log(email);
+    // console.log(mainapi);
+    console.log(student_id);
+    let insert = {
+        student_id: student_id
+    }
+    var data = qs.stringify(insert);
+    var config = {
+        method: 'put',
+        url: `${mainapi}/confiremd/${email}`,
+        headers: {
+            'Content-Type': 'application/x-www-form-urlencoded'
+        },
+        data: data
+    };
+    console.log(config);
+    axios(config)
+        .then(function (response) {
+            console.log(JSON.stringify(response.data));
+        })
+        .catch(function (error) {
+            console.log(error);
+        });
+}

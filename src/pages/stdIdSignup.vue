@@ -10,7 +10,9 @@
       style="max-width: 800px; margin: 0 auto"
     >
       <h2 class="text-bold" style="color: #014a88">SIGN UP</h2>
-      <h6 class="text-bold" style="color: #014a88">Please type your Student ID</h6>
+      <h6 class="text-bold" style="color: #014a88">
+        Please type your Student ID
+      </h6>
 
       <q-input
         outlined
@@ -19,6 +21,7 @@
         class="full-width"
         style=""
         id="student_id"
+        name="student_id"
       ></q-input>
       <q-btn
         label="CONFIRM"
@@ -34,13 +37,24 @@
 </template>
  <script>
 import { ref } from "vue";
+import {confirmEmaill} from "../api/api"
 export default {
   methods: {
+    // async mounted() {
+    //   const email = localStorage.getItem("email");
+    //   console.log(email);
+    //   let test = await getStudentById(email);
+    //   console.log(test);
+    // },
     backconfirmEmail() {
       this.$router.push({ name: "confirmEmail" });
     },
-    topersonalInform(){
-        this.$router.push({name:"persenalInform"})
+    async topersonalInform() {
+      const email = localStorage.getItem("email");
+      // console.log(email);
+      let test = await confirmEmaill(email);
+      console.log(test);
+      // this.$router.push({ name: "persenalInform" });
     },
   },
 

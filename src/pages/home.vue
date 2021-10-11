@@ -89,6 +89,7 @@ export default {
     console.log(cat);
     let test = await getStudentById(cat);
     console.log(test);
+
   },
 
   setup() {

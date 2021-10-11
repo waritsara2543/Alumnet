@@ -97,11 +97,13 @@ export default {
     async tohome(email) {
       try {
         let value = await getStudentById(email);
-        console.log(value);
+        // console.log(value);
         if (value.length == 0) {
           console.log("don't have database");
+          localStorage.setItem("email", email);
+          this.$router.push({ name: "stdIdSignup" });
         } else {
-          console.log(value);
+          // console.log(value);
           localStorage.setItem("email", email);
           this.$router.push({ name: "homepage" });
         }
@@ -160,7 +162,7 @@ export default {
         .catch((error) => {
           const errorCode = error.code;
           const errorMessage = error.message;
-          console.log(errorMessage);
+           console.log(errorMessage);
         });
     },
   },
