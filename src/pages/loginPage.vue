@@ -13,6 +13,7 @@
       <h2 class="text-bold" style="color: #014a88">LOG IN</h2>
 
       <q-btn
+        @click="singinGoogle()"
         label="log in with google"
         class="full-width"
         style="
@@ -37,6 +38,10 @@
         label="Username"
         class="full-width"
         style=""
+<<<<<<< HEAD
+=======
+        :rules="[(val) => !!val || 'email is required']"
+>>>>>>> waritsarabranch
       ></q-input>
       <q-input
         v-model="password"
@@ -45,6 +50,10 @@
         label="Password"
         class="full-width"
         style=""
+<<<<<<< HEAD
+=======
+        :rules="[(val) => !!val || 'password is required']"
+>>>>>>> waritsarabranch
       >
         <template v-slot:append>
           <q-icon
@@ -55,7 +64,12 @@
         </template>
       </q-input>
       <q-btn
+<<<<<<< HEAD
         label="log in "
+=======
+        @click="login()"
+        label="login "
+>>>>>>> waritsarabranch
         class="full-width"
         style="
           font-size: 20px;
@@ -81,13 +95,23 @@
 </style>
 <script>
 import { ref } from "vue";
+<<<<<<< HEAD
 import { getAuth, signInWithPopup, GoogleAuthProvider } from "firebase/auth";
 import { put_workplace_history } from "../api/api";
+=======
+import {
+  getAuth,
+  signInWithPopup,
+  GoogleAuthProvider,
+  signInWithEmailAndPassword,
+} from "firebase/auth";
+>>>>>>> waritsarabranch
 export default {
   methods: {
     toRegist() {
       this.$router.push({ name: "regist1" });
     },
+<<<<<<< HEAD
    async datalocal(){
       // const obj = {name: "John", age: 30, city: "New York"};
       // localStorage.setItem('peple', JSON.stringify(obj));
@@ -155,6 +179,15 @@ export default {
       //   .then(function () {
       //     // always executed
       //   });
+=======
+    tohome() {
+      this.$router.push({ name: "homepage" });
+    },
+    singinGoogle() {
+      console.log("click");
+
+      const auth = getAuth();
+>>>>>>> waritsarabranch
 
       const provider = new GoogleAuthProvider();
       signInWithPopup(auth, provider)
@@ -165,10 +198,16 @@ export default {
           // The signed-in user info.
           const user = result.user;
           // ...
+<<<<<<< HEAD
          
           console.log(token);
           console.log(user);
           console.log(user.email);
+=======
+          // console.log(token);
+          // console.log(user);
+          // console.log(user.email);
+>>>>>>> waritsarabranch
         })
         .catch((error) => {
           // Handle Errors here.
@@ -180,6 +219,32 @@ export default {
           const credential = GoogleAuthProvider.credentialFromError(error);
           // ...
         });
+<<<<<<< HEAD
+=======
+    },
+    login() {
+      const auth = getAuth();
+      const email = this.username;
+      const password = this.password;
+      console.log("click");
+      signInWithEmailAndPassword(auth, email, password)
+        .then((userCredential) => {
+          // Signed in
+          const user = userCredential.user;
+
+          console.log("login");
+          console.log(auth.currentUser.emailVerified);
+          if (auth.currentUser.emailVerified) {
+            this.tohome();
+          } else {
+            alert("Please verify your email");
+          }
+        })
+        .catch((error) => {
+          const errorCode = error.code;
+          const errorMessage = error.message;
+        });
+>>>>>>> waritsarabranch
     },
   },
   setup() {

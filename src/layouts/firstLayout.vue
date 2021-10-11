@@ -1,14 +1,12 @@
 <template>
   <q-layout class="">
-   
-
     <q-page-container>
       <router-view />
     </q-page-container>
   </q-layout>
 </template>
 
-<script lang="ts">
+<script >
 </script>
 <style>
 .bg {
