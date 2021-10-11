@@ -20,7 +20,6 @@
           font-size: 0.5cm;
           background: linear-gradient(#014a88 0%, #1794a5 100%);
         "
-       
       >
         <img
           src="../assets/google-logo.png"
@@ -65,7 +64,6 @@
           font-size: 20px;
           background: linear-gradient(#b42425 0%, #b42425 100%);
         "
-       
       />
       <div class="row">
         <div class="col">
@@ -79,7 +77,6 @@
       </div>
     </div>
   </q-page>
-
 </template>
 <style>
 </style>
@@ -91,13 +88,27 @@ import {
   GoogleAuthProvider,
   signInWithEmailAndPassword,
 } from "firebase/auth";
+import { getStudentById } from "../api/api";
 export default {
   methods: {
     toRegist() {
       this.$router.push({ name: "regist1" });
     },
-    tohome() {
-      this.$router.push({ name: "homepage" });
+    async tohome(email) {
+      try {
+        let value = await getStudentById(email);
+        console.log(value);
+        if (value.length == 0) {
+          console.log("don't have database");
+        } else {
+          console.log(value);
+          localStorage.setItem("email", email);
+          this.$router.push({ name: "homepage" });
+        }
+      } catch (e) {
+        console.log(e);
+        console.log("done");
+      }
     },
     singinGoogle() {
       console.log("click");
@@ -141,7 +152,7 @@ export default {
           console.log("login");
           console.log(auth.currentUser.emailVerified);
           if (auth.currentUser.emailVerified) {
-            this.tohome();
+            this.tohome(email);
           } else {
             alert("Please verify your email");
           }
@@ -149,6 +160,7 @@ export default {
         .catch((error) => {
           const errorCode = error.code;
           const errorMessage = error.message;
+          console.log(errorMessage);
         });
     },
   },

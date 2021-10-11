@@ -1,6 +1,6 @@
 var axios = require('axios');
 var qs = require('qs');
-import {mainapi} from './currentapi'
+import { mainapi, api } from './currentapi'
 export function put_workplace_history(data) {
     console.log(data);
     console.log(mainapi);
@@ -29,4 +29,13 @@ export function put_workplace_history(data) {
         .catch(function (error) {
             console.log(error);
         });
+}
+export async function getStudentById(email) {
+    console.log(email);
+    let res = await axios.get(`${api}/student/${email}`);
+    return res.data.results
+}
+export  function test(email) {
+    console.log(email);
+    
 }
