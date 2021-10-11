@@ -1,47 +1,68 @@
 <template>
-  <div class="q-pa-md">
-    <div
-      class="text-white"
-      style="border-radius : 10px ;background-color: #1794A5 ;50px"
-    >
-      <q-toolbar>
-        <q-toolbar-title container style="height: 60px"
-          ><q-img
-            src="../assets/Alumnet.png"
-            width="60px"
-            style="margin-left"
-          /> </q-toolbar-title
-        ><q-input
-          v-model="search"
-          filled
-          placeholder="Search"
-          style="height: 55px : margin-left"
+  <div class="row">
+    <div class="col-4">
+      <div class="q-pa-md">
+        <div class="col" style="padding: 5px 100px 100px 100px">
+          <q-card
+            class="my-card text-white text-center"
+            style="
+              background: #D0DFE6;
+              height: 100px;
+              margin: 0 auto;">
+          </q-card>
+          <q-card
+            class="my-card text-white text-center"
+            style="
+              background: linear-gradient(#032030 0%, #1794a5 100%);
+              height: 500px;
+              margin: 0 auto;
+            ">
+            <q-avatar class="q-mr-xs" id="image_profile" style="position:relative; width:100px; height:100px; top:-60px; ">
+                  <img src="../assets/man.png" style=""  />
+                </q-avatar>
+            <div class="text-caption" id="" style=""></div>
+          </q-card>
+        </div>
+      </div>
+    </div>
+    
+    <div class="col-8">
+      <div class="q-pa-md">
+      <q-card style="background: #D0DFE6; ">
+      <div class="col" style="padding: 50px 50px 50px 50px">
+      
+        <q-card
+          class="my-card text-white text-center"
+          style="
+            background: #8D949E;
+            height: 200px;
+            width: 100%;
+            margin: 0 auto;
+            margin: 0px 0px 20px 0px;
+          "
         >
-          <template v-slot:append>
-            <q-icon name="search" />
-          </template>
-        </q-input>
-        
-      </q-toolbar>
+          <div class="text-caption" id="" style=""><q-icon name="add_circle_outline" v-for="size in ['xl']"/> </div>
+        </q-card>
+        <q-card
+          class="my-card text-white text-center"
+          style="
+            background: linear-gradient(#032030 0%, #1794a5 100%);
+            height: 200px;
+            width: 100%;
+            margin: 0 auto;
+            
+          "
+        >
+          <div class="text-caption" id="" style=""></div>
+        </q-card>
+      
+      </div>
+      </q-card>
     </div>
   </div>
-  <div>
-    <q-card class="q-ma-sm" >
-          <!-- <img src="https://cdn.quasar.dev/img/mountains.jpg"> -->
-
-          <q-card-section>
-            <div class="text-h6">Card #</div>
-            <div class="text-subtitle2">by John Doe</div>
-          </q-card-section>
-        </q-card>
-    </div>
-
+  </div>
 </template>
-<style lang="sass" scoped>
-.example-item
-  height: 500px
-  width: 500px
-</style>
+
 <script>
 import { ref } from "vue";
 
