@@ -100,7 +100,6 @@ export default {
         });
     },
   },
-
   setup() {
     return {
       username: ref(""),
