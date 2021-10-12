@@ -42,14 +42,20 @@ export function put_workplace_history(data) {
             console.log(error);
         });
 }
+export async function getTimelineById(student_id) {
+    console.log(student_id);
+    console.log("timelineById")
+    let res = await api.get(`/timeline/${student_id}`);
+    return res.data.results
+}
+
 export async function getStudentById(email) {
-    console.log(email);
-    let res = await axios.get(`${api}/student/${email}`);
+    // console.log(email);
+    let res = await api.get(`/student/${email}`);
     return res.data.results
 }
 export function test(email) {
     console.log(email);
-
 }
 export async function confirmEmaill(email, student_id) {
     // var axios = require('axios');

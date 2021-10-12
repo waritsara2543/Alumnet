@@ -1,5 +1,6 @@
 <template>
   <q-page padding>
+
     <div
       class="q-pa-md q-gutter-sm text-center"
       style="max-width: 800px; margin: 0 auto"
@@ -97,14 +98,21 @@ export default {
     async tohome(email) {
       try {
         let value = await getStudentById(email);
-        // console.log(value);
+        console.log(value);
         if (value.length == 0) {
           console.log("don't have database");
           localStorage.setItem("email", email);
           this.$router.push({ name: "stdIdSignup" });
         } else {
           // console.log(value);
-          localStorage.setItem("email", email);
+          localStorage.setItem("student", JSON.stringify(value));
+          // const myJSON = JSON.stringify(value);
+          // const obj = JSON.parse(myJSON);
+          // const myJSON1 = JSON.stringify(obj);
+          // console.log(value);
+          // console.log(myJSON);
+          // console.log(obj);
+          // localStorage.setItem("email",myJSON1);
           this.$router.push({ name: "homepage" });
         }
       } catch (e) {

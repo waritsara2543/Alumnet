@@ -1,5 +1,10 @@
 <template>
   <q-page>
+    <!-- {{ student }} <br>
+    <div v-for="(col,index) in student" :key="index">
+      {{ col.student_id }}
+    </div> -->
+    {{ timeline }}
     <div class="q-pa-md">
       <div class="q-gutter-y-md column" style="max-width: 100%">
         <q-toolbar
@@ -36,7 +41,7 @@
           </q-input>
         </q-toolbar>
 
-        <q-card
+        <q-card v-for="(col,index) in timeline" :key ="index"
           class="my-card text-white"
           style="
             background: linear-gradient(#032030 0%, #1794a5 100%);
@@ -55,14 +60,14 @@
               </div>
               <div class="col">
                 <div class="text-subtitle2" id="student_name">
-                  Arnont Photdoung
+                  {{ this.student[0].firstname }} {{ this.student[0].lastname }} 
                 </div>
                 <div class="" style="font-size: 10px" id="date">18 May</div>
                 <div style="text-align: center">
                   <q-icon name="business_center" />
                 </div>
                 <div class="" style="text-align: center" id="update_working">
-                  Software Egineer at Agoda
+                   {{ col.position}} {{ col.name }}
                 </div>
                 <div
                   class=""
@@ -81,20 +86,28 @@
 </template>
  <script>
 import { ref } from "vue";
-import { getStudentById } from "../api/api";
+import { getTimelineById } from "../api/api";
 export default {
-  methods: {},
+  methods: {  
+    async timelinefeed() {
+      console.log(this.student[0].student_id);
+      this.timeline = await getTimelineById(this.student[0].student_id);
+        
+      console.log("timeline");
+    console.log(this.timeline);
+    },
+  },
   async mounted() {
-    const cat = localStorage.getItem("email");
-    console.log(cat);
-    let test = await getStudentById(cat);
-    console.log(test);
-
+    const value = localStorage.getItem("student");
+    this.student = JSON.parse(value);
+    await this.timelinefeed();
   },
 
-  setup() {
+  data() {
     return {
       search: ref(""),
+      student: [],
+      timeline: [],
     };
   },
 };
