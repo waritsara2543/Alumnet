@@ -21,7 +21,7 @@
         class="full-width"
         style=""
         id="student_id"
-        name="student_id"
+        :rules="[(val) => !!val || 'student_id is required']"
       ></q-input>
       <q-btn
         label="CONFIRM"
@@ -37,7 +37,7 @@
 </template>
  <script>
 import { ref } from "vue";
-import {confirmEmaill} from "../api/api"
+import { confirmEmaill } from "../api/api";
 export default {
   methods: {
     // async mounted() {
@@ -51,8 +51,10 @@ export default {
     },
     async topersonalInform() {
       const email = localStorage.getItem("email");
+      console.log(email);
+      console.log(this.student_id);
       // console.log(email);
-      let test = await confirmEmaill(email);
+       let test = await confirmEmaill(email,this.student_id);
       console.log(test);
       // this.$router.push({ name: "persenalInform" });
     },

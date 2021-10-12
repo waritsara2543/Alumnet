@@ -1,6 +1,18 @@
-var axios = require('axios');
+import axios from 'axios'
+
+// Be careful when using SSR for cross-request state pollution
+// due to creating a Singleton instance here;
+// If any client changes this (global) instance, it might be a
+// good idea to move this instance creation inside of the
+// "export default () => {}" function below (which runs individually
+// for each client)
 var qs = require('qs');
-import { mainapi, api } from './currentapi'
+import { devapi, Herokuapi } from './currentapi'
+const api = axios.create({ baseURL: devapi },{
+  headers: {
+      'Content-Type': 'application/json'
+  },
+})
 export function put_workplace_history(data) {
     console.log(data);
     console.log(mainapi);
@@ -35,32 +47,41 @@ export async function getStudentById(email) {
     let res = await axios.get(`${api}/student/${email}`);
     return res.data.results
 }
-export  function test(email) {
+export function test(email) {
     console.log(email);
-    
+
 }
-export function confirmEmaill(email,student_id) {
-    // console.log(email);
-    // console.log(mainapi);
-    console.log(student_id);
-    let insert = {
-        student_id: student_id
-    }
-    var data = qs.stringify(insert);
-    var config = {
-        method: 'put',
-        url: `${mainapi}/confiremd/${email}`,
-        headers: {
-            'Content-Type': 'application/x-www-form-urlencoded'
-        },
-        data: data
+export async function confirmEmaill(email, student_id) {
+    // var axios = require('axios');
+    // var data = JSON.stringify({
+    //   "email": email
+    // });
+
+    // var config = {
+    //   method: 'put',
+    //   url: `${mainapi}/student/updateemail/${student_id}`,
+    //   headers: { 
+    //     'Content-Type': 'application/json'
+    //   },
+    //   data : data
+    // };
+
+    // axios(config)
+    // .then(function (response) {
+    //   console.log(JSON.stringify(response.data));
+    // })
+    // .catch(function (error) {
+    //   console.log(error);
+    // });
+
+    var data = {
+        email: email
     };
-    console.log(config);
-    axios(config)
-        .then(function (response) {
-            console.log(JSON.stringify(response.data));
-        })
-        .catch(function (error) {
-            console.log(error);
-        });
+    try {
+       const res = await api.put(`/student/updateemail/${student_id}`, data)
+       return res
+    }
+    catch (err) {
+        console.log(err);
+    }
 }
