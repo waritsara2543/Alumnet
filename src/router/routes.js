@@ -71,8 +71,17 @@ const routes = [
     component: () => import('layouts/AdminLayout.vue'),
     children: [
        {
-        path: 'homepage', component: () => import('pages/HomeAdmin.vue')
+        path: 'homeadmin', component: () => import('pages/HomeAdmin.vue')
       },
+      {
+        path: 'mapadmin', component: () => import('pages/MapAdmin.vue')
+      },
+      {
+        path: 'reportadmin', component: () => import('pages/ReportAdmin.vue')
+      },
+      {
+        path: 'createevent', component: () => import('pages/Createevent.vue')
+      }
 
     ],
   },

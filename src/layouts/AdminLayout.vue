@@ -58,27 +58,22 @@ export default {
         {
           label: "Home",
           icon: "home",
-          to: "/homepage",
+          to: "",
         },
         {
           label: "map",
           icon: "map",
-          to: "/profilepage",
-        },
-        {
-          label: "person",
-          icon: "person",
-          to: "/notificationpage",
+          to: "",
         },
         {
           label: "pie_chart",
           icon: "pie_chart",
-          to: "/classDirectorypage",
+          to: "",
         },
         {
           label: "notifications",
           icon: "notifications",
-          to: "/locationpage",
+          to: "",
         },
       ],
     };
