@@ -56,7 +56,7 @@ export default {
       // console.log(email);
        let test = await confirmEmaill(email,this.student_id);
       console.log(test);
-      // this.$router.push({ name: "persenalInform" });
+      this.$router.push({ name: "persenalInform" });
     },
   },
 

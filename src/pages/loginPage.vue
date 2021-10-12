@@ -104,15 +104,8 @@ export default {
           localStorage.setItem("email", email);
           this.$router.push({ name: "stdIdSignup" });
         } else {
-          // console.log(value);
+  
           localStorage.setItem("student", JSON.stringify(value));
-          // const myJSON = JSON.stringify(value);
-          // const obj = JSON.parse(myJSON);
-          // const myJSON1 = JSON.stringify(obj);
-          // console.log(value);
-          // console.log(myJSON);
-          // console.log(obj);
-          // localStorage.setItem("email",myJSON1);
           this.$router.push({ name: "homepage" });
         }
       } catch (e) {

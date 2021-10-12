@@ -4,7 +4,7 @@
     <div v-for="(col,index) in student" :key="index">
       {{ col.student_id }}
     </div> -->
-    {{ timeline }}
+    <!-- {{ timeline }} -->
     <div class="q-pa-md">
       <div class="q-gutter-y-md column" style="max-width: 100%">
         <q-toolbar
