@@ -42,16 +42,20 @@
         >
           Software Engineering
         </div>
+        <q-select
+          v-model="model"
+          :options="contacts"
+          label="Contact"
+          bottom-slots
+          hint="Choose a convenient channel for contact."
+          style="padding: 20px 20px 20px 15px"
+        />
         <q-input
-          v-model="phone"
-          label="Phone number"
-          id="phone"
+          v-model="contact"
+          label="Please specify your contact"
+          id="contact"
           :dense="dense"
-          style="padding: 15px"
-          :rules="[
-            (val) => !!val || '* Required',
-            (val) => val.length == 10 || 'Please type correct phone number',
-          ]"
+          style="padding: 20px 20px 20px 15px"
         />
         <q-input
           v-model="status"
@@ -92,34 +96,18 @@ export default {
     //   this.$router.push({ name: "confirmEmail" });
     // },
     workingInform() {
-      const student_id = this.student_id;
-      const firstname = this.firstname;
-      const lastname = this.lastname;
-      const faculty = this.faculty;
-      const major = this.major;
-      const phone = this.phone;
-      if (
-        student_id == "" ||
-        student_id.length != 10 ||
-        firstname == "" ||
-        lastname == "" ||
-        faculty == "" ||
-        major == "" ||
-        phone == "" ||
-        phone.length != 10
-      ) {
-      } else {
-        this.$router.push({ name: "workingInform" });
-      }
+      this.$router.push({ name: "workingInform" });
     },
   },
 
   setup() {
     return {
-      phone: ref(""),
+      contact: ref(""),
       status: ref(""),
       epigram: ref(""),
       dense: ref(false),
+      model: ref(null),
+      contacts: ["Facebook", "LINE", "Email", "Phone"],
     };
   },
 };
