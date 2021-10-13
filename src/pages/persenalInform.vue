@@ -1,60 +1,49 @@
 <template>
   <q-page>
     <q-icon name="arrow_back" style="font-size: 32px" />
-    <div
+    <div  
       class="q-pa-md q-gutter-sm text-center"
       style="max-width: 800px; margin: 0 auto"
     >
       <h5 class="text-bold" style="color: #014a88">Persenal Information</h5>
 
-      <div class="q-pa-md">
-        <q-input
-          v-model="student_id"
+      <div v-for="(col,index) in person" :key ="index" class="q-pa-md" >
+        <div 
+          class="text-subtitle1 text-left"
+          style="padding: 20px 20px 20px 15px"
           id="student_id"
-          label="Student ID"
-          :dense="dense"
-          style="padding: 15px; margin-top: -50px"
-          :rules="[
-            (val) => !!val || '* Required',
-            (val) => val.length == 10 || 'Please type correct student id',
-          ]"
-        />
+        >
+        {{ this.person[0].student_id }}
+        </div>
         <div class="row">
           <div class="col" style="padding: 20px 20px 20px 15px">
-            <q-input
-              v-model="firstname"
-              label="Firstname"
-              id="firstname"
-              :dense="dense"
-              :rules="[(val) => !!val || '* Required']"
-            />
+            <div class="text-subtitle1 text-left" id="firstname">
+             {{ this.person[0].firstname }}
+            </div>
           </div>
+
           <div class="col" style="padding: 20px 15px 20px 20px">
-            <q-input
-              v-model="lastname"
-              label="Lastname"
-              id="lastname"
-              :dense="dense"
-              :rules="[(val) => !!val || '* Required']"
-            />
+            <div class="text-subtitle1 text-left" id="lastname">
+              {{ this.person[0].lastname }}
+            </div>
           </div>
         </div>
-        <q-select
-          v-model="faculty"
-          :options="faculties"
-          label="Faculty"
+
+        <div
+          class="text-subtitle1 text-left"
+          style="padding: 20px 20px 20px 15px"
           id="faculty"
-          style="padding: 15px"
-          :rules="[(val) => !!val || '* Required']"
-        />
-        <q-select
-          v-model="major"
-          :options="majors"
-          label="Major"
+        >
+          {{ this.person[0].campus }}
+        </div>
+
+        <div
+          class="text-subtitle1 text-left"
+          style="padding: 20px 20px 20px 15px"
           id="major"
-          style="padding: 15px"
-          :rules="[(val) => !!val || '* Required']"
-        />
+        >
+          {{ this.person[0].major }}
+        </div>
         <q-input
           v-model="phone"
           label="Phone number"
@@ -106,35 +95,30 @@ export default {
     //   this.$router.push({ name: "confirmEmail" });
     // },
     workingInform() {
-      // const student_id = this.student_id;
-      // const firstname = this.firstname;
-      // const lastname = this.lastname;
-      // const faculty = this.faculty;
-      // const major = this.major;
-      // const phone = this.phone
-      if(student_id == "" || student_id.length != 10  || firstname == "" ||  lastname == "" || faculty == "" || major == "" || phone == "" || phone.length != 10){
-
-      }else{
+      const phone = this.phone;
+      if (phone == "" || phone.length != 10) {
+      } else {
         this.$router.push({ name: "workingInform" });
       }
-      
     },
-    
+    async personInformation() {
+      this.person = await getPersonInformation(this.student[0].student_id);
+    },
+  },
+  async mounted() {
+    const value = localStorage.getItem("student");
+    this.student = JSON.parse(value);
+    await this.personInformation();
   },
 
-  setup() {
+  data() {
     return {
-      student_id: ref(""),
-      firstname: ref(""),
-      lastname: ref(""),
-      faculty: ref(null),
-      faculties: ["Google", "Facebook", "Twitter", "Apple", "Oracle"],
-      major: ref(null),
-      majors: ["Google", "Facebook", "Twitter", "Apple", "Oracle"],
       phone: ref(""),
       status: ref(""),
       epigram: ref(""),
       dense: ref(false),
+      person: [],
+      student: [],
     };
   },
 };

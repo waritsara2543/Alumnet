@@ -37,7 +37,7 @@
 </template>
  <script>
 import { ref } from "vue";
-import { confirmEmaill } from "../api/api";
+import { confirmEmaill , getStudentById} from "../api/api";
 export default {
   methods: {
     // async mounted() {
@@ -50,12 +50,15 @@ export default {
       this.$router.push({ name: "confirmEmail" });
     },
     async topersonalInform() {
+      
       const email = localStorage.getItem("email");
       console.log(email);
       console.log(this.student_id);
       // console.log(email);
        let test = await confirmEmaill(email,this.student_id);
       console.log(test);
+      let value = await getStudentById(email);
+      localStorage.setItem("student", JSON.stringify(value));
       this.$router.push({ name: "persenalInform" });
     },
   },
