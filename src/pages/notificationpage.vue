@@ -23,11 +23,8 @@
 
         
         <q-card
-          class="my-card text-white "
-          style="
-            background: linear-gradient(#032030 0%, #1794a5 100%);
-            height: 60px; width: 345px; margin: 0 auto; margin-top:20px;
-          "
+          class="my-card text-white full-width "
+          style="margin:0 auto; margin-top:20px; max-width: 800px"
         >
           <q-card-section class="text-left">
             <div class="text-subtitle2" id="title_content">title :มอบเงินทุนการศึกษาให้กับผู้สนใจศึกษาต่อในระดับ ปริญญาโท</div>

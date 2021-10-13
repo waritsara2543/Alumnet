@@ -8,53 +8,40 @@
       <h5 class="text-bold" style="color: #014a88">Persenal Information</h5>
 
       <div class="q-pa-md">
-        <q-input
-          v-model="student_id"
+        <div
+          class="text-subtitle1 text-left"
+          style="padding: 20px 20px 20px 15px"
           id="student_id"
-          label="Student ID"
-          :dense="dense"
-          style="padding: 15px; margin-top: -50px"
-          :rules="[
-            (val) => !!val || '* Required',
-            (val) => val.length == 10 || 'Please type correct student id',
-          ]"
-        />
+        >
+          6130613003
+        </div>
         <div class="row">
           <div class="col" style="padding: 20px 20px 20px 15px">
-            <q-input
-              v-model="firstname"
-              label="Firstname"
-              id="firstname"
-              :dense="dense"
-              :rules="[(val) => !!val || '* Required']"
-            />
+            <div class="text-subtitle1 text-left" id="firstname">Waritsara</div>
           </div>
+
           <div class="col" style="padding: 20px 15px 20px 20px">
-            <q-input
-              v-model="lastname"
-              label="Lastname"
-              id="lastname"
-              :dense="dense"
-              :rules="[(val) => !!val || '* Required']"
-            />
+            <div class="text-subtitle1 text-left" id="lastname">
+              Wichiansrang
+            </div>
           </div>
         </div>
-        <q-select
-          v-model="faculty"
-          :options="faculties"
-          label="Faculty"
+
+        <div
+          class="text-subtitle1 text-left"
+          style="padding: 20px 20px 20px 15px"
           id="faculty"
-          style="padding: 15px"
-          :rules="[(val) => !!val || '* Required']"
-        />
-        <q-select
-          v-model="major"
-          :options="majors"
-          label="Major"
+        >
+          College Of Computing
+        </div>
+
+        <div
+          class="text-subtitle1 text-left"
+          style="padding: 20px 20px 20px 15px"
           id="major"
-          style="padding: 15px"
-          :rules="[(val) => !!val || '* Required']"
-        />
+        >
+          Software Engineering
+        </div>
         <q-input
           v-model="phone"
           label="Phone number"
@@ -110,25 +97,25 @@ export default {
       const lastname = this.lastname;
       const faculty = this.faculty;
       const major = this.major;
-      const phone = this.phone
-      if(student_id == "" || student_id.length != 10  || firstname == "" ||  lastname == "" || faculty == "" || major == "" || phone == "" || phone.length != 10){
-
-      }else{
+      const phone = this.phone;
+      if (
+        student_id == "" ||
+        student_id.length != 10 ||
+        firstname == "" ||
+        lastname == "" ||
+        faculty == "" ||
+        major == "" ||
+        phone == "" ||
+        phone.length != 10
+      ) {
+      } else {
         this.$router.push({ name: "workingInform" });
       }
-      
     },
   },
 
   setup() {
     return {
-      student_id: ref(""),
-      firstname: ref(""),
-      lastname: ref(""),
-      faculty: ref(null),
-      faculties: ["Google", "Facebook", "Twitter", "Apple", "Oracle"],
-      major: ref(null),
-      majors: ["Google", "Facebook", "Twitter", "Apple", "Oracle"],
       phone: ref(""),
       status: ref(""),
       epigram: ref(""),
