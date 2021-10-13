@@ -49,6 +49,13 @@ export async function getTimelineById(student_id) {
     return res.data.results
 }
 
+export async function getPersonInformation(email) {
+    console.log(email);
+    console.log("person")
+    let res = await api.get(`/student/infomation/${email}`);
+    return res.data.results
+}
+
 export async function getStudentById(email) {
     // console.log(email);
     let res = await api.get(`/student/${email}`);

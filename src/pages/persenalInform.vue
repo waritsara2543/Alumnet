@@ -99,18 +99,19 @@
 </template>
  <script>
 import { ref } from "vue";
+import { getPersonInformation } from "../api/api";
 export default {
   methods: {
     // backconfirmEmail() {
     //   this.$router.push({ name: "confirmEmail" });
     // },
     workingInform() {
-      const student_id = this.student_id;
-      const firstname = this.firstname;
-      const lastname = this.lastname;
-      const faculty = this.faculty;
-      const major = this.major;
-      const phone = this.phone
+      // const student_id = this.student_id;
+      // const firstname = this.firstname;
+      // const lastname = this.lastname;
+      // const faculty = this.faculty;
+      // const major = this.major;
+      // const phone = this.phone
       if(student_id == "" || student_id.length != 10  || firstname == "" ||  lastname == "" || faculty == "" || major == "" || phone == "" || phone.length != 10){
 
       }else{
@@ -118,6 +119,7 @@ export default {
       }
       
     },
+    
   },
 
   setup() {
