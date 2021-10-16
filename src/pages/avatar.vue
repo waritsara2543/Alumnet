@@ -1,6 +1,5 @@
 <template>
   <q-page>
-    <q-icon name="arrow_back" style="font-size: 32px" />
     <div
       class="q-pa-md q-gutter-sm text-center"
       style="max-width: 800px; margin: 0 auto"

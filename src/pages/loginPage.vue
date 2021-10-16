@@ -109,6 +109,7 @@ export default {
           const token = credential.accessToken;
           // The signed-in user info.
           const user = result.user;
+          this.tohome();
           // ...
           // console.log(token);
           // console.log(user);
