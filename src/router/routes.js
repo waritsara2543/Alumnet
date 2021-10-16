@@ -59,7 +59,7 @@ const routes = [
     path: '/',
     component: () => import('layouts/firstLayout.vue'),
     children: [{ path: '', component: () => import('pages/Index.vue') },
-    
+
   ],
   },
   {
@@ -85,6 +85,11 @@ const routes = [
    { name : "locationpage",
       path: 'locationpage', 
     component: () => import('pages/locationpage.vue')
+   },
+
+   { name : "test",
+      path: 'test', 
+    component: () => import('pages/test.vue')
    },
   ],
   },

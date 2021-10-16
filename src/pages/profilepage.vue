@@ -2,7 +2,7 @@
 
   <q-page padding>
 
-    <q-card
+    <q-card v-for="(col, index) in person" :key="index"
           class="my-card text-white "
           style="
             background: linear-gradient(#032030 0%, #1794a5 100%);
@@ -17,7 +17,7 @@
                 </q-avatar>
                 <q-icon @click="toavatar" name="add_circle" style="position:relative;bottom:20px; right:20px ;font-size:30px" />
               
-                <div class="text-h6" id="user_name" style="margin-top: -40px">Waritsara Wichiansrang</div>
+                <div class="text-h6" id="user_name" style="margin-top: -40px">  {{ this.person[0].firstname }} {{ this.person[0].lastname }}</div>
                 <div class="text-h6"  style="border-top: 3px solid #ffffff; padding:20px ;margin-top: 20px"></div>
             
           </q-card-section>
@@ -27,7 +27,7 @@
                   <q-icon name="school" />
               </div>
               <div class="col" id="graduate">
-               Graduation Software Engineering 2016 at PSU Phuket Campus <q-icon  @click="prompt = true" name="edit" />
+               Graduation {{ this.person[0].major }}  {{ this.person[0].graduate_year }}  at  {{ this.person[0].campus }}  <q-icon  @click="prompt = true" name="edit" />
               </div>
                
             </div>
@@ -37,7 +37,7 @@
                   <q-icon name="business_center" />
               </div>
               <div class="col" id="workplace">
-                Software Engineer at Focal Solution<q-icon name="edit" />
+               {{ this.person[0].position }}  at {{ this.person[0].workplace }} <q-icon name="edit" />
               </div>
                
             </div>
@@ -47,7 +47,7 @@
                   <q-icon name="location_on" />
               </div>
               <div class="col" id="province">
-                Lives in Bangkok, Thailand<q-icon name="edit" />
+                Lives in {{ this.person[0].province }}, {{ this.person[0].country}} <q-icon name="edit" />
               </div>
                
             </div>
@@ -57,7 +57,7 @@
                   <q-icon name="favorite" />
               </div>
               <div class="col" id="status">
-                single<q-icon name="edit" />
+                {{ this.person[0].status }} <q-icon name="edit" />
               </div>
                
             </div>
@@ -67,7 +67,7 @@
                   <q-icon name="description" />
               </div>
               <div class="col" id="epigram">
-                มีดบาด<q-icon name="edit" />
+                {{ this.person[0].epigram }} <q-icon name="edit" />
               </div>
                
             </div>
@@ -158,6 +158,7 @@
 </template>
  <script>
 import { ref } from "vue";
+import {  getProfileById } from "../api/api";
 export default {
   methods: {
     // backconfirmEmail() {
@@ -166,13 +167,24 @@ export default {
     toavatar() {
       this.$router.push({ name: "toavatar" });
     },
+    async detailstudent(){
+      this.person = await  getProfileById(this.student[0].student_id)
+      console.log(this.person);
+    }
+  },
+  async mounted(){
+    const value = localStorage.getItem("student");
+    this.student = JSON.parse(value);
+    await this.detailstudent();
   },
 
-  setup() {
+  data() {
     return {
      prompt: ref(false),
-
-      address: ref('')
+      address: ref(''),
+      person: [],
+      student:[]
+      
     };
   },
 };

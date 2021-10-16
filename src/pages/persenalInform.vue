@@ -1,24 +1,24 @@
 <template>
   <q-page>
     <q-icon name="arrow_back" style="font-size: 32px" />
-    <div  
+    <div
       class="q-pa-md q-gutter-sm text-center"
       style="max-width: 800px; margin: 0 auto"
     >
       <h5 class="text-bold" style="color: #014a88">Persenal Information</h5>
 
-      <div v-for="(col,index) in person" :key ="index" class="q-pa-md" >
-        <div 
+      <div v-for="(col, index) in person" :key="index" class="q-pa-md">
+        <div
           class="text-subtitle1 text-left"
           style="padding: 20px 20px 20px 15px"
           id="student_id"
         >
-        {{ this.person[0].student_id }}
+          {{ this.person[0].student_id }}
         </div>
         <div class="row">
           <div class="col" style="padding: 20px 20px 20px 15px">
             <div class="text-subtitle1 text-left" id="firstname">
-             {{ this.person[0].firstname }}
+              {{ this.person[0].firstname }}
             </div>
           </div>
 
@@ -88,16 +88,22 @@
 </template>
  <script>
 import { ref } from "vue";
-import { getPersonInformation } from "../api/api";
+import {
+  getPersonInformation,
+  createinformation,
+  updateinformation,
+} from "../api/api";
 export default {
   methods: {
     // backconfirmEmail() {
     //   this.$router.push({ name: "confirmEmail" });
     // },
-    workingInform() {
+    async workingInform() {
       const phone = this.phone;
       if (phone == "" || phone.length != 10) {
       } else {
+        let test = await createinformation(this.student[0].student_id,this.phone);
+        let information = await updateinformation(this.epigram,this.status,this.student[0].student_id)
         this.$router.push({ name: "workingInform" });
       }
     },

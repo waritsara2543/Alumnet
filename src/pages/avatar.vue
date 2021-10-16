@@ -6,15 +6,9 @@
     >
       <h5 class="text-bold" style="color: #014a88">Avatar</h5>
 
-      <img
-        src="../assets/man.png"
-        alt=""
-        style="width: 200px; padding: 5px"
-      />
-
+      <img src="../assets/man.png" alt="" style="width: 200px; padding: 5px" />
 
       <div class="q-pa-md text-center">
-
         <q-file
           v-model="files"
           label="Pick image"
@@ -24,7 +18,6 @@
           accept=".jpg, image/*"
           max-files="1"
         />
-         
 
         <div class="col" style="padding: 20px">
           <q-btn
@@ -44,19 +37,26 @@
 </template>
  <script>
 import { ref } from "vue";
+import { updateprofile } from "../api/api";
 export default {
   methods: {
     // backconfirmEmail() {
     //   this.$router.push({ name: "confirmEmail" });
     // },
-    tohomepage() {
+    async tohomepage() {
+      let profile = await updateprofile(this.files, this.student[0].student_id);
       this.$router.push({ name: "homepage" });
     },
   },
-
-  setup() {
+  async mounted() {
+    const value = localStorage.getItem("student");
+    this.student = JSON.parse(value);
+    console.log(this.student[0].student_id);
+  },
+  data() {
     return {
       files: ref(null),
+      student: [],
     };
   },
 };

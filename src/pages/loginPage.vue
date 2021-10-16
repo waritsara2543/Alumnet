@@ -1,6 +1,5 @@
 <template>
   <q-page padding>
-
     <div
       class="q-pa-md q-gutter-sm text-center"
       style="max-width: 800px; margin: 0 auto"
@@ -66,6 +65,18 @@
           background: linear-gradient(#b42425 0%, #b42425 100%);
         "
       />
+      <!--  -->
+      <q-btn
+        @click="test()"
+        label="test "
+        class="full-width"
+        style="
+          font-size: 20px;
+          background: linear-gradient(#b42425 0%, #b42425 100%);
+        "
+      />
+      <!--  -->
+
       <div class="row">
         <div class="col">
           <p style="color: #014a88">no account?</p>
@@ -92,6 +103,10 @@ import {
 import { getStudentById } from "../api/api";
 export default {
   methods: {
+    test() {
+      this.$router.push({ name: "test" });
+    },
+
     toRegist() {
       this.$router.push({ name: "regist1" });
     },
@@ -104,7 +119,6 @@ export default {
           localStorage.setItem("email", email);
           this.$router.push({ name: "stdIdSignup" });
         } else {
-  
           localStorage.setItem("student", JSON.stringify(value));
           this.$router.push({ name: "homepage" });
         }
@@ -121,6 +135,7 @@ export default {
       const provider = new GoogleAuthProvider();
       signInWithPopup(auth, provider)
         .then((result) => {
+          this.$router.push({ name: "homepage" });
           // This gives you a Google Access Token. You can use it to access the Google API.
           const credential = GoogleAuthProvider.credentialFromResult(result);
           const token = credential.accessToken;
@@ -154,6 +169,7 @@ export default {
 
           console.log("login");
           console.log(auth.currentUser.emailVerified);
+          console.log(auth.currentUser.email);
           if (auth.currentUser.emailVerified) {
             this.tohome(email);
           } else {
@@ -163,7 +179,7 @@ export default {
         .catch((error) => {
           const errorCode = error.code;
           const errorMessage = error.message;
-           console.log(errorMessage);
+          console.log(errorMessage);
         });
     },
   },
