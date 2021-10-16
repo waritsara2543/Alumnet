@@ -1,5 +1,6 @@
 <template>
   <q-page padding>
+
     <div
       class="q-pa-md q-gutter-sm text-center"
       style="max-width: 800px; margin: 0 auto"
@@ -88,13 +89,29 @@ import {
   GoogleAuthProvider,
   signInWithEmailAndPassword,
 } from "firebase/auth";
+import { getStudentById } from "../api/api";
 export default {
   methods: {
     toRegist() {
       this.$router.push({ name: "regist1" });
     },
-    tohome() {
-      this.$router.push({ name: "homepage" });
+    async tohome(email) {
+      try {
+        let value = await getStudentById(email);
+        console.log(value);
+        if (value.length == 0) {
+          console.log("don't have database");
+          localStorage.setItem("email", email);
+          this.$router.push({ name: "stdIdSignup" });
+        } else {
+  
+          localStorage.setItem("student", JSON.stringify(value));
+          this.$router.push({ name: "homepage" });
+        }
+      } catch (e) {
+        console.log(e);
+        console.log("done");
+      }
     },
     singinGoogle() {
       console.log("click");
@@ -139,7 +156,7 @@ export default {
           console.log("login");
           console.log(auth.currentUser.emailVerified);
           if (auth.currentUser.emailVerified) {
-            this.tohome();
+            this.tohome(email);
           } else {
             alert("Please verify your email");
           }
@@ -147,6 +164,7 @@ export default {
         .catch((error) => {
           const errorCode = error.code;
           const errorMessage = error.message;
+           console.log(errorMessage);
         });
     },
   },

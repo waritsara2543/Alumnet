@@ -58,22 +58,22 @@ export default {
         {
           label: "Home",
           icon: "home",
-          to: "",
+          to: "/admin/homeadmin",
         },
         {
           label: "map",
           icon: "map",
-          to: "",
+          to: "/admin/MapAdmin",
         },
         {
           label: "pie_chart",
           icon: "pie_chart",
-          to: "",
+          to: "/admin/reportadmin",
         },
         {
           label: "notifications",
           icon: "notifications",
-          to: "",
+          to: "/admin/createevent",
         },
       ],
     };

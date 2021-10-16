@@ -81,8 +81,7 @@ const routes = [
       },
       {
         path: 'createevent', component: () => import('pages/Createevent.vue')
-      }
-
+      },
     ],
   },
 

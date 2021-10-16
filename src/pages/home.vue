@@ -1,18 +1,20 @@
 <template>
   <q-page>
+    <!-- {{ student }} <br>
+    <div v-for="(col,index) in student" :key="index">
+      {{ col.student_id }}
+    </div> -->
+    <!-- {{ timeline }} -->
     <div class="q-pa-md">
       <div class="q-gutter-y-md column" style="max-width: 100%">
         <q-toolbar
           class="text-white rounded-borders"
-          style="background:#032030 "
+          style="background: #032030"
         >
           <q-avatar class="q-mr-xs q-ml-md" id="image_profile">
             <img src="../assets/man.png" />
           </q-avatar>
-          <p
-            style="padding: 15px 0px 0px 20px; font-size: 15px"
-            id="user_name"
-          >
+          <p style="padding: 15px 0px 0px 20px; font-size: 15px" id="user_name">
             Waritsara Wichiansrang
           </p>
 
@@ -39,16 +41,14 @@
           </q-input>
         </q-toolbar>
 
-
-
-        
-
-        
-        <q-card
-          class="my-card text-white "
+        <q-card v-for="(col,index) in timeline" :key ="index"
+          class="my-card text-white"
           style="
             background: linear-gradient(#032030 0%, #1794a5 100%);
-            height: 120px; width: 345px; margin: 0 auto; margin-top:20px;
+            height: 120px;
+            width: 345px;
+            margin: 0 auto;
+            margin-top: 20px;
           "
         >
           <q-card-section>
@@ -59,13 +59,15 @@
                 </q-avatar>
               </div>
               <div class="col">
-                <div class="text-subtitle2" id="student_name">Arnont Photdoung</div>
+                <div class="text-subtitle2" id="student_name">
+                  {{ this.student[0].firstname }} {{ this.student[0].lastname }} 
+                </div>
                 <div class="" style="font-size: 10px" id="date">18 May</div>
                 <div style="text-align: center">
                   <q-icon name="business_center" />
                 </div>
                 <div class="" style="text-align: center" id="update_working">
-                  Software Egineer at Agoda
+                   {{ col.position}} {{ col.name }}
                 </div>
                 <div
                   class=""
@@ -84,13 +86,28 @@
 </template>
  <script>
 import { ref } from "vue";
+import { getTimelineById } from "../api/api";
 export default {
-  methods: {},
+  methods: {  
+    async timelinefeed() {
+      console.log(this.student[0].student_id);
+      this.timeline = await getTimelineById(this.student[0].student_id);
+        
+      console.log("timeline");
+    console.log(this.timeline);
+    },
+  },
+  async mounted() {
+    const value = localStorage.getItem("student");
+    this.student = JSON.parse(value);
+    await this.timelinefeed();
+  },
 
-  setup() {
+  data() {
     return {
       search: ref(""),
-      
+      student: [],
+      timeline: [],
     };
   },
 };

@@ -1,28 +1,30 @@
 <template>
   <q-page>
     <q-icon name="arrow_back" style="font-size: 32px" />
-    <div
+    <div  
       class="q-pa-md q-gutter-sm text-center"
       style="max-width: 800px; margin: 0 auto"
     >
       <h5 class="text-bold" style="color: #014a88">Persenal Information</h5>
 
-      <div class="q-pa-md">
-        <div
+      <div v-for="(col,index) in person" :key ="index" class="q-pa-md" >
+        <div 
           class="text-subtitle1 text-left"
           style="padding: 20px 20px 20px 15px"
           id="student_id"
         >
-          6130613003
+        {{ this.person[0].student_id }}
         </div>
         <div class="row">
           <div class="col" style="padding: 20px 20px 20px 15px">
-            <div class="text-subtitle1 text-left" id="firstname">Waritsara</div>
+            <div class="text-subtitle1 text-left" id="firstname">
+             {{ this.person[0].firstname }}
+            </div>
           </div>
 
           <div class="col" style="padding: 20px 15px 20px 20px">
             <div class="text-subtitle1 text-left" id="lastname">
-              Wichiansrang
+              {{ this.person[0].lastname }}
             </div>
           </div>
         </div>
@@ -32,7 +34,7 @@
           style="padding: 20px 20px 20px 15px"
           id="faculty"
         >
-          College Of Computing
+          {{ this.person[0].campus }}
         </div>
 
         <div
@@ -40,16 +42,8 @@
           style="padding: 20px 20px 20px 15px"
           id="major"
         >
-          Software Engineering
+          {{ this.person[0].major }}
         </div>
-        <q-select
-          v-model="model"
-          :options="contacts"
-          label="Contact"
-          bottom-slots
-          hint="Choose a convenient channel for contact."
-          style="padding: 20px 20px 20px 15px"
-        />
         <q-input
           v-model="contact"
           label="Please specify your contact"
@@ -90,24 +84,38 @@
 </template>
  <script>
 import { ref } from "vue";
+import { getPersonInformation } from "../api/api";
 export default {
   methods: {
     // backconfirmEmail() {
     //   this.$router.push({ name: "confirmEmail" });
     // },
     workingInform() {
-      this.$router.push({ name: "workingInform" });
+      const phone = this.phone;
+      if (phone == "" || phone.length != 10) {
+      } else {
+        this.$router.push({ name: "workingInform" });
+      }
+    },
+    async personInformation() {
+      this.person = await getPersonInformation(this.student[0].student_id);
     },
   },
+  async mounted() {
+    const value = localStorage.getItem("student");
+    this.student = JSON.parse(value);
+    await this.personInformation();
+  },
 
-  setup() {
+  data() {
     return {
-      contact: ref(""),
+      phone: ref(""),
       status: ref(""),
       epigram: ref(""),
+      contact:ref(""),
       dense: ref(false),
-      model: ref(null),
-      contacts: ["Facebook", "LINE", "Email", "Phone"],
+      person: [],
+      student: [],
     };
   },
 };
