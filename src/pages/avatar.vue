@@ -6,15 +6,15 @@
     >
       <h5 class="text-bold" style="color: #014a88">Avatar</h5>
 
-      <img
-        src="../assets/man.png"
-        alt=""
-        style="width: 200px; padding: 5px"
-      />
+      
+     <img src="../assets/man.png"  alt="" style="width: 200px; padding: 5px" id="imageurl">
+    
+    
+
+    
 
 
       <div class="q-pa-md text-center">
-
         <q-file
           v-model="files"
           label="Pick image"
@@ -24,11 +24,10 @@
           accept=".jpg, image/*"
           max-files="1"
         />
-         
 
         <div class="col" style="padding: 20px">
           <q-btn
-            @click="tohomepage"
+            @click="getImage"
             rounded
             label="UPLOAD"
             class="full-width"
@@ -43,20 +42,62 @@
   </q-page>
 </template>
  <script>
-import { ref } from "vue";
+// import { ref } from "vue";
+import {
+  getStorage,
+  ref,
+  uploadBytesResumable,
+  getDownloadURL,
+} from "firebase/storage";
 export default {
   methods: {
+    
     // backconfirmEmail() {
     //   this.$router.push({ name: "confirmEmail" });
     // },
     tohomepage() {
       this.$router.push({ name: "homepage" });
     },
+    getImage() {
+      const files = this.files;
+      
+
+      // Create the file metadata
+      /** @type {any} */
+      const metadata = {
+        contentType: "image/png",
+      };
+
+      const storage = getStorage();
+      const imageRef = ref(storage, "images/" + files[0].name);
+      uploadBytesResumable(imageRef, files[0], metadata)
+        .then((snapshot) => {
+          // console.log(files[0]);
+          // console.log("Uploaded", snapshot.totalBytes, "bytes.");
+          // console.log("File metadata:", snapshot.metadata);
+          // Let's get a download URL for the file.
+          getDownloadURL(snapshot.ref).then((url) => {
+            console.log("File available at", url);
+            // var img = document.getElementById("imageurl");
+            //   console.log(img.getAttribute("src"));
+           this.tohomepage()
+            
+            
+          });
+        })
+        .catch((error) => {
+          console.error("Upload failed", error);
+          
+        });
+      
+    },
   },
 
-  setup() {
+
+  data() {
     return {
-      files: ref(null),
+      files: null,
+      url:[],
     };
   },
 };
