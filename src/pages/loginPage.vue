@@ -65,6 +65,18 @@
           background: linear-gradient(#b42425 0%, #b42425 100%);
         "
       />
+      <!--  -->
+      <q-btn
+        @click="test()"
+        label="test "
+        class="full-width"
+        style="
+          font-size: 20px;
+          background: linear-gradient(#b42425 0%, #b42425 100%);
+        "
+      />
+      <!--  -->
+
       <div class="row">
         <div class="col">
           <p style="color: #014a88">no account?</p>
@@ -88,13 +100,32 @@ import {
   GoogleAuthProvider,
   signInWithEmailAndPassword,
 } from "firebase/auth";
+import { getStudentById } from "../api/api";
 export default {
   methods: {
+    test() {
+      this.$router.push({ name: "test" });
+    },
+
     toRegist() {
       this.$router.push({ name: "regist1" });
     },
-    tohome() {
-      this.$router.push({ name: "homepage" });
+    async tohome(email) {
+      try {
+        let value = await getStudentById(email);
+        console.log(value);
+        if (value.length == 0) {
+          console.log("don't have database");
+          localStorage.setItem("email", email);
+          this.$router.push({ name: "stdIdSignup" });
+        } else {
+          localStorage.setItem("student", JSON.stringify(value));
+          this.$router.push({ name: "homepage" });
+        }
+      } catch (e) {
+        console.log(e);
+        console.log("done");
+      }
     },
     singinGoogle() {
       console.log("click");
@@ -104,6 +135,7 @@ export default {
       const provider = new GoogleAuthProvider();
       signInWithPopup(auth, provider)
         .then((result) => {
+          this.$router.push({ name: "homepage" });
           // This gives you a Google Access Token. You can use it to access the Google API.
           const credential = GoogleAuthProvider.credentialFromResult(result);
           const token = credential.accessToken;
@@ -138,8 +170,9 @@ export default {
 
           console.log("login");
           console.log(auth.currentUser.emailVerified);
+          console.log(auth.currentUser.email);
           if (auth.currentUser.emailVerified) {
-            this.tohome();
+            this.tohome(email);
           } else {
             alert("Please verify your email");
           }
@@ -147,6 +180,7 @@ export default {
         .catch((error) => {
           const errorCode = error.code;
           const errorMessage = error.message;
+          console.log(errorMessage);
         });
     },
   },

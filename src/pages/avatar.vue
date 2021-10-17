@@ -55,7 +55,8 @@ export default {
     // backconfirmEmail() {
     //   this.$router.push({ name: "confirmEmail" });
     // },
-    tohomepage() {
+    async tohomepage() {
+      let profile = await updateprofile(this.files, this.student[0].student_id);
       this.$router.push({ name: "homepage" });
     },
     getImage() {

@@ -7,22 +7,24 @@
     >
       <h5 class="text-bold" style="color: #014a88">Persenal Information</h5>
 
-      <div class="q-pa-md">
+      <div v-for="(col, index) in person" :key="index" class="q-pa-md">
         <div
           class="text-subtitle1 text-left"
           style="padding: 20px 20px 20px 15px"
           id="student_id"
         >
-          6130613003
+          {{ this.person[0].student_id }}
         </div>
         <div class="row">
           <div class="col" style="padding: 20px 20px 20px 15px">
-            <div class="text-subtitle1 text-left" id="firstname">Waritsara</div>
+            <div class="text-subtitle1 text-left" id="firstname">
+              {{ this.person[0].firstname }}
+            </div>
           </div>
 
           <div class="col" style="padding: 20px 15px 20px 20px">
             <div class="text-subtitle1 text-left" id="lastname">
-              Wichiansrang
+              {{ this.person[0].lastname }}
             </div>
           </div>
         </div>
@@ -32,7 +34,7 @@
           style="padding: 20px 20px 20px 15px"
           id="faculty"
         >
-          College Of Computing
+          {{ this.person[0].campus }}
         </div>
 
         <div
@@ -40,8 +42,9 @@
           style="padding: 20px 20px 20px 15px"
           id="major"
         >
-          Software Engineering
+                   {{ this.person[0].major }}
         </div>
+        
         <q-select
           v-model="model"
           :options="contacts"
@@ -50,6 +53,7 @@
           hint="Choose a convenient channel for contact."
           style="padding: 20px 20px 20px 15px"
         />
+       
         <q-input
           v-model="contact"
           label="Please specify your contact"
@@ -90,24 +94,46 @@
 </template>
  <script>
 import { ref } from "vue";
+import {
+  getPersonInformation,
+  createinformation,
+  updateinformation,
+} from "../api/api";
 export default {
   methods: {
     // backconfirmEmail() {
     //   this.$router.push({ name: "confirmEmail" });
     // },
-    workingInform() {
-      this.$router.push({ name: "workingInform" });
+    async workingInform() {
+      const phone = this.phone;
+      if (phone == "" || phone.length != 10) {
+      } else {
+        let test = await createinformation(this.student[0].student_id,this.phone);
+        let information = await updateinformation(this.epigram,this.status,this.student[0].student_id)
+        this.$router.push({ name: "workingInform" });
+      }
+    },
+    async personInformation() {
+      this.person = await getPersonInformation(this.student[0].student_id);
     },
   },
+  async mounted() {
+    const value = localStorage.getItem("student");
+    this.student = JSON.parse(value);
+    await this.personInformation();
+  },
 
-  setup() {
+  data() {
     return {
       contact: ref(""),
+      model: ref(null),
+      contacts: ["Facebook", "LINE", "Email", "Phone"],
+      phone: ref(""),
       status: ref(""),
       epigram: ref(""),
       dense: ref(false),
-      model: ref(null),
-      contacts: ["Facebook", "LINE", "Email", "Phone"],
+      person: [],
+      student: [],
     };
   },
 };

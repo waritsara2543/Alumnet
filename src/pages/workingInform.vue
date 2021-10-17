@@ -42,21 +42,31 @@
 </template>
  <script>
 import { ref } from "vue";
+import { createcompany } from "../api/api"
 export default {
   methods: {
     // backconfirmEmail() {
     //   this.$router.push({ name: "confirmEmail" });
     // },
-    toavatar() {
+    async toavatar() {
+      let work = await createcompany(this. workplace_name,this.position,this.student[0].student_id)
       this.$router.push({ name: "toavatar" });
     },
+
+  },
+    async mounted() {
+      
+    const value = localStorage.getItem("student");
+    this.student = JSON.parse(value);
+    console.log(this.student[0].student_id);
   },
 
-  setup() {
+  data() {
     return {
       workplace_name: ref(""),
       position: ref(""),
       dense: ref(false),
+      student:[]
     };
   },
 };
