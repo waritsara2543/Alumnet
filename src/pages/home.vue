@@ -74,7 +74,7 @@
                   style="font-size: 12px; text-align: center"
                   id="update_date"
                 >
-                  18 May 2020
+                   {{ col.start_work }} 
                 </div>
               </div>
             </div>
