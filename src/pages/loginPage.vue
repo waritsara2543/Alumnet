@@ -65,18 +65,7 @@
           background: linear-gradient(#b42425 0%, #b42425 100%);
         "
       />
-      <!--  -->
-      <q-btn
-        @click="test()"
-        label="test "
-        class="full-width"
-        style="
-          font-size: 20px;
-          background: linear-gradient(#b42425 0%, #b42425 100%);
-        "
-      />
-      <!--  -->
-
+     
       <div class="row">
         <div class="col">
           <p style="color: #014a88">no account?</p>
@@ -103,9 +92,7 @@ import {
 import { getStudentById } from "../api/api";
 export default {
   methods: {
-    test() {
-      this.$router.push({ name: "test" });
-    },
+   
 
     toRegist() {
       this.$router.push({ name: "regist1" });
