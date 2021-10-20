@@ -1,15 +1,16 @@
 <template>
   <q-page>
-    <div class="row q-gutter-md " style="margin:0 auto;">
+    <div class="row justify-center q-gutter-md " style="margin:0 auto;">
 
       
-        <q-card
-          class="my-card text-white"
-          style="margin:0 auto; margin-top:20px"
+        <q-card  v-for="index in 13" :key="index"
+          class="my-card text-white text-center"
+          style="margin-left:90px ;margin-right:90px ;margin-top:20px ;"
+         
         >
           <q-card-section class="text-center" >
 
-            <q-avatar class="q-mr-xs" id="image_profile" style=" width:60px; height:60px; ">
+            <q-avatar class="q-mr-xs" id="image_profile" style=" width:80px; height:80px; ">
                   <img src="../assets/man.png" style=""  />
             </q-avatar>
             <div class="text-subtitle2" id="student_name">
@@ -20,6 +21,8 @@
             </div>
           </q-card-section>
         </q-card>
+
+        
         
         
 
@@ -34,6 +37,7 @@ export default {
 
   setup() {
     return {};
+    i
   },
 };
 </script>
