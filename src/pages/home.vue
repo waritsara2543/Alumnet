@@ -20,28 +20,12 @@
 
           <q-space />
 
-          <q-input
-            dark
-            dense
-            standout
-            v-model="search"
-            input-class="text-left"
-            class="q-ml-md"
-            id="search"
-          >
-            <template v-slot:append>
-              <q-icon v-if="search === ''" name="search" />
-              <q-icon
-                v-else
-                name="clear"
-                class="cursor-pointer"
-                @click="search = ''"
-              />
-            </template>
-          </q-input>
+          <q-icon name="search" @click="searchPage()" style="font-size: 25px" />
         </q-toolbar>
 
-        <q-card v-for="(col,index) in timeline" :key ="index"
+        <q-card
+          v-for="(col, index) in timeline"
+          :key="index"
           class="my-card text-white"
           style="
             background: linear-gradient(#032030 0%, #1794a5 100%);
@@ -60,21 +44,21 @@
               </div>
               <div class="col">
                 <div class="text-subtitle2" id="student_name">
-                  {{ this.student[0].firstname }} {{ this.student[0].lastname }} 
+                  {{ this.student[0].firstname }} {{ this.student[0].lastname }}
                 </div>
                 <div class="" style="font-size: 10px" id="date">18 May</div>
                 <div style="text-align: center">
                   <q-icon name="business_center" />
                 </div>
                 <div class="" style="text-align: center" id="update_working">
-                   {{ col.position}} {{ col.name }}
+                  {{ col.position }} {{ col.name }}
                 </div>
                 <div
                   class=""
                   style="font-size: 12px; text-align: center"
                   id="update_date"
                 >
-                   {{ col.start_work }} 
+                  {{ col.start_work }}
                 </div>
               </div>
             </div>
@@ -88,13 +72,17 @@
 import { ref } from "vue";
 import { getTimelineById } from "../api/api";
 export default {
-  methods: {  
+  methods: {
     async timelinefeed() {
       console.log(this.student[0].student_id);
       this.timeline = await getTimelineById(this.student[0].student_id);
-        
+
       console.log("timeline");
-    console.log(this.timeline);
+      console.log(this.timeline);
+    },
+    searchPage() {
+      this.$router.push({ name: "searchPage" });
+      console.log("hhikk");
     },
   },
   async mounted() {

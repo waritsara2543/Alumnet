@@ -58,8 +58,12 @@ const routes = [
   {
     path: '/',
     component: () => import('layouts/firstLayout.vue'),
-    children: [{ path: '', component: () => import('pages/Index.vue') },
-
+    children: [
+      { path: '',
+       component: () => import('pages/Index.vue') },
+      {name : "searchPage",
+       path: 'searchPage', 
+      component: () => import('pages/searchPage.vue') },
   ],
   },
   {
