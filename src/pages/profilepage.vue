@@ -118,6 +118,7 @@
     <div class="row">
       <div class="col" style="padding: 5px 5px 10px 0px">
         <q-card
+          @click="accountSetting()"
           class="my-card text-white text-center"
           style="
             background: linear-gradient(#032030 0%, #1794a5 100%);
@@ -131,6 +132,7 @@
       </div>
       <div class="col" style="padding: 5px 0px 10px 5px">
         <q-card
+          @click="contactChannel()"
           class="my-card text-white text-center"
           style="
             background: linear-gradient(#032030 0%, #1794a5 100%);
@@ -188,6 +190,12 @@ export default {
     // backconfirmEmail() {
     //   this.$router.push({ name: "confirmEmail" });
     // },
+    contactChannel() {
+      this.$router.push({ name: "contactChannel" });
+    },
+    accountSetting() {
+      this.$router.push({ name: "accountSetting" });
+    },
     toavatar() {
       this.$router.push({ name: "toavatar" });
     },

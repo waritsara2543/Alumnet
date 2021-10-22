@@ -34,7 +34,7 @@
         outlined
         v-model="username"
         type="email"
-        label="Username"
+        label="Email"
         class="full-width"
         style=""
         :rules="[(val) => !!val || 'email is required']"
@@ -168,6 +168,7 @@ export default {
           const errorCode = error.code;
           const errorMessage = error.message;
           console.log(errorMessage);
+          alert("Email or Password is wrong")
         });
     },
   },

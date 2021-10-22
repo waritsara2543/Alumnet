@@ -24,12 +24,6 @@ const routes = [
 
       },
       {
-        name : "confirmEmail",
-        path: '/confirmEmail', 
-        component: () => import('pages/confirmEmail.vue') 
-
-      },
-      {
         name : "stdIdSignup",
         path: '/stdIdSignup', 
         component: () => import('pages/stdIdSignup.vue') 
@@ -64,6 +58,12 @@ const routes = [
       {name : "searchPage",
        path: 'searchPage', 
       component: () => import('pages/searchPage.vue') },
+      {name : "accountSetting",
+       path: 'accountSetting', 
+      component: () => import('pages/accountSetting.vue') },
+      {name : "contactChannel",
+       path: 'contactChannel', 
+      component: () => import('pages/contactChannel.vue') },
   ],
   },
   {
