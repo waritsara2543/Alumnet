@@ -22,8 +22,10 @@
           class="my-card text-white full-width "
           style="margin-top: 10px; "
         >
+
+
           <q-card-section class="text-left">
-            <div class="text-subtitle2" id="title_content">title :มอบเงินทุนการศึกษาให้กับผู้สนใจศึกษาต่อในระดับ ปริญญาโท</div>
+            <div class="text-subtitle2" id="title_content" @click="toDetailContent()">title :มอบเงินทุนการศึกษาให้กับผู้สนใจศึกษาต่อในระดับ ปริญญาโท</div>
           </q-card-section>
         </q-card>
         
@@ -36,7 +38,11 @@
  <script>
 import { ref } from "vue";
 export default {
-  methods: {},
+  methods: {
+    toDetailContent(){
+      this.$router.push({ name: "detailContent" });
+    },
+  },
 
   setup() {
     return {

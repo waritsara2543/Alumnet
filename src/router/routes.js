@@ -64,6 +64,9 @@ const routes = [
       {name : "contactChannel",
        path: 'contactChannel', 
       component: () => import('pages/contactChannel.vue') },
+      {name : "detailContent",
+      path: 'detailContent', 
+     component: () => import('pages/detailContent.vue') },
   ],
   },
   {
