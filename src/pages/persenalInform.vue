@@ -105,13 +105,11 @@ export default {
     //   this.$router.push({ name: "confirmEmail" });
     // },
     async workingInform() {
-      const phone = this.phone;
-      if (phone == "" || phone.length != 10) {
-      } else {
+      
         let test = await createinformation(this.student[0].student_id,this.phone);
         let information = await updateinformation(this.epigram,this.status,this.student[0].student_id)
         this.$router.push({ name: "workingInform" });
-      }
+     
     },
     async personInformation() {
       this.person = await getPersonInformation(this.student[0].student_id);
@@ -128,7 +126,7 @@ export default {
       contact: ref(""),
       model: ref(null),
       contacts: ["Facebook", "LINE", "Email", "Phone"],
-      phone: ref(""),
+      
       status: ref(""),
       epigram: ref(""),
       dense: ref(false),

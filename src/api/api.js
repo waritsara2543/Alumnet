@@ -7,8 +7,8 @@ import axios from 'axios'
 // "export default () => {}" function below (which runs individually
 // for each client)
 var qs = require('qs');
-import { devapi, herokuapi } from './currentapi'
-const api = axios.create({ baseURL: herokuapi }, {
+import { devapi, herokuapi,projectapi } from './currentapi'
+const api = axios.create({ baseURL: projectapi }, {
     headers: {
         'Content-Type': 'application/json'
     },
