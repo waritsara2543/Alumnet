@@ -106,7 +106,7 @@ export default {
         } else {
   
           localStorage.setItem("student", JSON.stringify(value));
-          this.$router.push({ name: "homepage" });
+          this.$router.push({ name: "/admin/homeadmin" });
         }
       } catch (e) {
         console.log(e);

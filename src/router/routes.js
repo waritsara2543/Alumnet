@@ -70,7 +70,7 @@ const routes = [
     path: '/admin',
     component: () => import('layouts/AdminLayout.vue'),
     children: [
-       {
+       {name:'homeadmin',
         path: 'homeadmin', component: () => import('pages/HomeAdmin.vue')
       },
       {

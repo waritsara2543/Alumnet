@@ -7,7 +7,7 @@
         style="background: #d0dfe6; height: 500px; margin: 0 auto"
       >
         <div style="padding: 50px 100px 100px 100px">
-          <q-input outlined v-model="text" label="Title" bg-color="cyan-8" />
+          <q-input outlined v-model="Title" label="Title" bg-color="cyan-8" />
 
           <div style="padding: 20px 0px 0px 0px">
             <div class="row">
@@ -15,13 +15,13 @@
                 class="my-card bg-cyan-8 text-white max-width"
                 style="height: 60px; margin: 0 auto; width: 1500px"
               >
-                <q-card-section>
-                  <div class="row" style="margin-top: -7px">
-                    <div class="text-subtitle1 text-left">Start</div>
+                <q-card-section >
+                  <div class="row" style="margin-top: -7px" >
+                    <div class="text-subtitle1 text-left" >Start</div>
 
                     <q-space />
 
-                    <q-btn icon="event" round color="black">
+                    <q-btn icon="event" round color="black" >
                       <q-popup-proxy
                         color="cyan-8"
                         @before-show="updateProxy"
@@ -135,7 +135,24 @@
               </q-card>
             </div>
           </div>
+           <div style="padding: 20px 0px 0px 0px">
+          <q-input
+        @update:model-value="val => { file = val[0] }"
+        filled
+        type="file"
+        bg-color="cyan-8"
+        accept=".jpg, image/*"
+      /></div>
+      <div class="q-pa-md" style="padding: 20px 0px 0px 0px">
+      <q-input
+      v-model="text"
+      filled
+      type="textarea"
+      bg-color="white"
+    />
+  </div>
         </div>
+        
       </q-card>
     </div>
   </div>

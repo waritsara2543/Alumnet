@@ -28,41 +28,50 @@
             >
               <img src="../assets/man.png" style="" />
             </q-avatar>
-            <div class="text-caption" id="" style="font-size : 20px"> Manee Mebun</div>
-              <div class="text-h6"  style="border-top: 3px solid #ffffff; padding:20px ;margin-top: 20px"></div>
-             <div
-                class="q-pa-md q-gutter-sm"
-              >
-                <q-btn
-                  style="
-                    background: #b42425;
-                    color: white;
-                    width: 90%;
-                    bottom: 0px;;
-                  "
-                  label="LOGIN"
-                />
+            <div class="text-caption" id="" style="font-size: 20px">
+              Manee Mebun
+            </div>
+            <div
+              class="text-h6 text-center"
+              style="
+                border-top: 3px solid #ffffff;
+                padding: 10px;
+                margin-top: 20px;
+                width: 50%;
 
-              </div>
-            
+              "
+            ></div>
+            <div class="q-pa-md q-gutter-sm">
+              <q-btn
+                style="
+                  background: #b42425;
+                  color: white;
+                  width: 90%;
+                  bottom: 0px; ;
+                "
+                label="LOGIN"
+              />
+            </div>
           </q-card>
-          <div
-                class="q-pa-md q-gutter-sm"
-              >
-                <q-btn
-                  style="
-                    background: #b42425;
-                    color: white;
-                    width: 100%;
-                    
-                  "
-                  label="IMPORT ALUMNI LIST"
-                />
-
-              </div>
+          <div class="q-pa-md q-gutter-sm">
+            <!-- <q-btn
+              style="color: white; width: 100%;  background: #b42425;"
+              label="IMPORT ALUMNI LIST"
+            /> -->
+            <q-file
+               class="text-center"
+              :model-value="files"
+              @update:model-value="updateFiles"
+              
+              outlined
+              multiple
+              :clearable="!isUploading"
+              style="max-width: 400px; background: #b42425"
+              label="IMPORT ALUMNI LIST"
+            ></q-file>
+          </div>
         </div>
       </div>
-      
     </div>
 
     <div class="col-8">
@@ -79,11 +88,10 @@
                 margin: 0px 0px 20px 0px;
               "
             >
-              <div class="text-caption" id="" style="">
-              </div>
+              <div  class="text-caption" id="" style=""> <q-icon name="add_circle_outline" style="font-size: 50px; padding: 70px 50px 50px 50px" /></div>
             </q-card>
             <q-card
-              class="my-card text-white text-center"
+              class="my-card text-white text-right"
               style="
                 background: linear-gradient(#032030 0%, #1794a5 100%);
                 height: 200px;
@@ -91,7 +99,8 @@
                 margin: 0 auto;
               "
             >
-              <div class="text-caption" id="" style=""></div>
+              <div class="text-caption" id="" style=""><q-icon name="edit" class="text-white" style="font-size: 32px;" />
+                                                       <q-icon name="delete" class="text-white" style="font-size: 32px;" /></div>
             </q-card>
           </div>
         </q-card>
@@ -107,6 +116,9 @@ export default {
   setup() {
     return {
       search: ref(""),
+      files: ref(null),
+      uploadProgress: ref([]),
+      uploading: ref(null),
     };
   },
 };

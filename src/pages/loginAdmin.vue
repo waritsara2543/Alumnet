@@ -51,6 +51,12 @@
 </template>
 <script>
 import { ref } from "vue";
+import {
+  getAuth,
+  signInWithEmailAndPassword,
+} from "firebase/auth";
+import { getadminbyemail } from "../api/api";
+import { LocalStorage } from 'quasar';
 export default {
   methods: {
     login() {
@@ -62,13 +68,31 @@ export default {
         .then((userCredential) => {
           // Signed in
           const user = userCredential.user;
-
+          this.tohome(email);
           console.log("login");
         })
         .catch((error) => {
           const errorCode = error.code;
           const errorMessage = error.message;
         });
+    },
+    async tohome(email) {
+      try {
+        let value = await getadminbyemail(email);
+        console.log(value);
+        // if (value.length == 0) {
+        //   console.log("don't have database");
+          localStorage.setItem("admin", email);
+          this.$router.push({ name: "homeadmin" });
+        // } else {
+
+        // localStorage.setItem("admin", JSON.stringify(value));
+        // this.$router.push({ name: "home" });
+        // }
+      } catch (e) {
+        console.log(e);
+        console.log("done");
+      }
     },
   },
   setup() {

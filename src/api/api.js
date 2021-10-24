@@ -97,3 +97,10 @@ export async function confirmEmaill(email, student_id) {
         console.log(err);
     }
 }
+// --------------------admin---------------------------
+
+export async function getadminbyemail(email) {
+    // console.log(email);
+    let res = await api.get(`/admin/${email}`);
+    return res
+}
