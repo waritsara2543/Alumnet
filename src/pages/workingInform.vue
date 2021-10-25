@@ -24,6 +24,30 @@
           style="padding: 15px"
         />
 
+        <q-input
+          label="start date"
+          v-model="date"
+          mask="date"
+          :rules="['date']"
+          style="padding: 15px"
+        >
+          <template v-slot:append>
+            <q-icon name="event" class="cursor-pointer">
+              <q-popup-proxy
+                ref="qDateProxy"
+                transition-show="scale"
+                transition-hide="scale"
+              >
+                <q-date v-model="date">
+                  <div class="row items-center justify-end">
+                    <q-btn v-close-popup label="Close" color="primary" flat />
+                  </div>
+                </q-date>
+              </q-popup-proxy>
+            </q-icon>
+          </template>
+        </q-input>
+
         <div style="padding: 15px">
           <q-btn
             @click="toavatar"
@@ -42,20 +66,22 @@
 </template>
  <script>
 import { ref } from "vue";
-import { createcompany } from "../api/api"
+import { createcompany } from "../api/api";
 export default {
   methods: {
     // backconfirmEmail() {
     //   this.$router.push({ name: "confirmEmail" });
     // },
     async toavatar() {
-      let work = await createcompany(this. workplace_name,this.position,this.student[0].student_id)
+      let work = await createcompany(
+        this.workplace_name,
+        this.position,
+        this.student[0].student_id
+      );
       this.$router.push({ name: "toavatar" });
     },
-
   },
-    async mounted() {
-      
+  async mounted() {
     const value = localStorage.getItem("student");
     this.student = JSON.parse(value);
     console.log(this.student[0].student_id);
@@ -66,7 +92,8 @@ export default {
       workplace_name: ref(""),
       position: ref(""),
       dense: ref(false),
-      student:[]
+      student: [],
+      date: ref(""),
     };
   },
 };
