@@ -48,7 +48,7 @@
         <q-select
           v-model="model"
           :options="contacts"
-          label="Contact"
+          label="Contact type"
           bottom-slots
           hint="Choose a convenient channel for contact."
           style="padding: 20px 20px 20px 15px"

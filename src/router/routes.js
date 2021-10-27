@@ -93,6 +93,10 @@ const routes = [
       path: 'locationpage', 
     component: () => import('pages/locationpage.vue')
    },
+   { name : "mappage",
+      path: 'mappage', 
+    component: () => import('pages/Maps.vue')
+   },
 
    { name : "test",
       path: 'test', 

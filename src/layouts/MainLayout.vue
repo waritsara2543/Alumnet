@@ -64,6 +64,11 @@ export default {
           icon: "pin_drop",
           to: "/locationpage",
         },
+        {
+          label: "location",
+          icon: "pin_drop",
+          to: "/mappage",
+        },
       ],
     };
   },
