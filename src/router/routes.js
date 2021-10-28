@@ -67,6 +67,9 @@ const routes = [
       {name : "detailContent",
       path: 'detailContent', 
      component: () => import('pages/detailContent.vue') },
+     {name : "pinLocation",
+      path: 'pinLocation', 
+     component: () => import('pages/pinLocation.vue') },
   ],
   },
   {
@@ -93,11 +96,7 @@ const routes = [
       path: 'locationpage', 
     component: () => import('pages/locationpage.vue')
    },
-   { name : "mappage",
-      path: 'mappage', 
-    component: () => import('pages/Maps.vue')
-   },
-
+   
    { name : "test",
       path: 'test', 
     component: () => import('pages/test.vue')
