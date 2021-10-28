@@ -28,17 +28,17 @@
             >
               <img src="../assets/man.png" style="" />
             </q-avatar>
-            <div class="text-caption" id="" style="font-size: 20px">
+            <div class="text-caption " id="" style="font-size: 20px">
               Manee Mebun
             </div>
             <div
-              class="text-h6 text-center"
+              class="row justify-center"
               style="
                 border-top: 3px solid #ffffff;
                 padding: 10px;
                 margin-top: 20px;
-                width: 50%;
-
+                width: 100%;
+                
               "
             ></div>
             <div class="q-pa-md q-gutter-sm">
@@ -59,10 +59,9 @@
               label="IMPORT ALUMNI LIST"
             /> -->
             <q-file
-               class="text-center"
+              class="text-center"
               :model-value="files"
               @update:model-value="updateFiles"
-              
               outlined
               multiple
               :clearable="!isUploading"
@@ -87,8 +86,15 @@
                 margin: 0 auto;
                 margin: 0px 0px 20px 0px;
               "
-            >
-              <div  class="text-caption" id="" style=""> <q-icon name="add_circle_outline" style="font-size: 50px; padding: 70px 50px 50px 50px" /></div>
+                >
+             
+                <q-icon name="add_circle_outline" style="font-size: 50px; padding: 70px 50px 50px 50px"
+                  @click="createEvent()">
+
+                </q-icon>
+                
+                
+            
             </q-card>
             <q-card
               class="my-card text-white text-right"
@@ -99,8 +105,18 @@
                 margin: 0 auto;
               "
             >
-              <div class="text-caption" id="" style=""><q-icon name="edit" class="text-white" style="font-size: 32px;" />
-                                                       <q-icon name="delete" class="text-white" style="font-size: 32px;" /></div>
+              <div class="text-caption" id="" style="">
+                <q-icon
+                  name="edit"
+                  class="text-white"
+                  style="font-size: 32px "
+                />
+                <q-icon
+                  name="delete"
+                  class="text-white"
+                  style="font-size: 32px"
+                />
+              </div>
             </q-card>
           </div>
         </q-card>
@@ -113,6 +129,11 @@
 import { ref } from "vue";
 
 export default {
+  methods: {
+    createEvent() {
+      this.$router.push({ name: "createevent" });
+    },
+  },
   setup() {
     return {
       search: ref(""),

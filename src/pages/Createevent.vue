@@ -1,4 +1,5 @@
 <template>
+  <link href="https://fonts.googleapis.com/css?family=Josefin+Sans" rel="stylesheet">
   <div class="q-pa-md">
     <div class="col">
       <h3>Create an event</h3>
@@ -189,3 +190,9 @@ export default {
   },
 };
 </script>
+<style>
+body {
+  font-family: 'Josefin Sans', sans-serif;
+  box-sizing: border-box;
+}
+</style>

@@ -79,8 +79,11 @@ const routes = [
       {
         path: 'reportadmin', component: () => import('pages/ReportAdmin.vue')
       },
-      {
+      {name:'createevent',
         path: 'createevent', component: () => import('pages/Createevent.vue')
+      },
+      {
+        path: 'Approve', component: () => import('pages/Approve.vue')
       },
     ],
   },

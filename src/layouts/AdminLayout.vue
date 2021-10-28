@@ -73,7 +73,7 @@ export default {
         {
           label: "notifications",
           icon: "notifications",
-          to: "/admin/createevent",
+          to: "/admin/Approve",
         },
       ],
     };

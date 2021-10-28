@@ -1,4 +1,5 @@
 <template>
+  <link href="https://fonts.googleapis.com/css?family=Josefin+Sans" rel="stylesheet">
   <div class="row">
     <div class="col-12">
       <div class="q-pa-md">
@@ -14,7 +15,7 @@
                     class="my-card"
                     style="height: 173px; width: 730px; background: #e7a33e"
                   >
-                    <q-card-section> Number of users of the system </q-card-section>
+                    <q-card-section> <div class="text-left text-uppercase text-top">Number of users of the system</div> </q-card-section>
                   </q-card>
                 </div>
               </div>
@@ -24,7 +25,7 @@
                     class="my-card"
                     style="height: 173px; width: 730px; background: #27A8A1"
                   >
-                    <q-card-section> working</q-card-section>
+                    <q-card-section><div class="text-left text-uppercase text-top"> working</div></q-card-section>
                   </q-card>
                 </div>
               </div>
@@ -34,7 +35,7 @@
                     class="my-card"
                     style="height: 373px; width: 690px; background: #F95DD6"
                   >
-                    <q-card-section>Graduate </q-card-section>
+                    <q-card-section><div class="text-left text-uppercase text-top">Graduate</div> </q-card-section>
                   </q-card>
                 </div>
               </div>
@@ -45,3 +46,9 @@
     </div>
   </div>
 </template>
+<style>
+body {
+  font-family: 'Josefin Sans', sans-serif;
+  box-sizing: border-box;
+}
+</style>
