@@ -49,17 +49,20 @@ import {
   uploadBytesResumable,
   getDownloadURL,
 } from "firebase/storage";
+
+import { updateprofile } from "../api/api"
 export default {
   methods: {
     
     // backconfirmEmail() {
     //   this.$router.push({ name: "confirmEmail" });
     // },
-    async tohomepage() {
-      let profile = await updateprofile(this.files, this.student[0].student_id);
-      this.$router.push({ name: "homepage" });
+    async tohomepage(url) {
+      let profile = await updateprofile(url, this.student[0].student_id);
+      // this.$router.push({ name: "homepage" });
+      console.log("Hello I am"+url);
     },
-    getImage() {
+    async getImage() {
       const files = this.files;
       
 
@@ -81,9 +84,9 @@ export default {
             console.log("File available at", url);
             // var img = document.getElementById("imageurl");
             //   console.log(img.getAttribute("src"));
-           this.tohomepage()
+            this.tohomepage(url);
             
-            
+          
           });
         })
         .catch((error) => {
@@ -93,12 +96,17 @@ export default {
       
     },
   },
+    async mounted() {
+    const value = localStorage.getItem("student");
+    this.student = JSON.parse(value);
+  },
 
 
   data() {
     return {
       files: null,
       url:[],
+      student: [],
     };
   },
 };

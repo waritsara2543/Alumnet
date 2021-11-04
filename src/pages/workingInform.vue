@@ -66,18 +66,25 @@
 </template>
  <script>
 import { ref } from "vue";
-import { createcompany } from "../api/api";
+import { date } from 'quasar';
+import { createworkplace } from "../api/api";
 export default {
   methods: {
     // backconfirmEmail() {
     //   this.$router.push({ name: "confirmEmail" });
     // },
     async toavatar() {
-      let work = await createcompany(
+      // const newDate = new Date(this.date)
+      let timeStamp = Date.now()
+      let formattedString = date.formatDate(this.date, 'YYYY-MM-DD')
+      let work = await createworkplace(
         this.workplace_name,
         this.position,
-        this.student[0].student_id
+        this.student[0].student_id,
+        date.formatDate(this.date, 'YYYY-MM-DD')
       );
+      console.log(this.formattedString);
+      console.log(this.workplace_name);
       this.$router.push({ name: "toavatar" });
     },
   },

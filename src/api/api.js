@@ -8,7 +8,7 @@ import axios from 'axios'
 // for each client)
 var qs = require('qs');
 import { devapi, herokuapi,projectapi } from './currentapi'
-const api = axios.create({ baseURL: projectapi }, {
+const api = axios.create({ baseURL: devapi }, {
     headers: {
         'Content-Type': 'application/json'
     },
@@ -42,10 +42,15 @@ export function put_workplace_history(data) {
             console.log(error);
         });
 }
-export async function getTimelineById(student_id) {
+export async function getTimelineById(student_id,major_id,faculty_id,campus_id,graduate_year) {
     console.log(student_id);
     console.log("timelineById")
-    let res = await api.get(`/timeline/${student_id}`);
+    let res = await api.get(`/student/timeline/${student_id}/${major_id}/${faculty_id}/${campus_id}/${graduate_year}`);
+    return res.data.results
+}
+
+export async function getDetailById(email) {
+    let res = await api.get(`/student/detail/${email}`);
     return res.data.results
 }
 
@@ -98,9 +103,10 @@ export async function confirmEmaill(email, student_id) {
     }
 }
 
-export async function createinformation(student_id, contact_url) {
+export async function createinformation(student_id, contact_type,contact_url) {
     var data = {
         student_id: student_id,
+        contact_type:contact_type,
         contact_url: contact_url
     };
     try {
@@ -126,14 +132,15 @@ export async function updateinformation(epigram, status, student_id) {
     }
 }
 
-export async function createcompany(workplace_name, position, student_id) {
+export async function createworkplace(workplace_name, position, student_id,start_work) {
     var data = {
         name: workplace_name,
         position: position,
-        student_id: student_id
+        student_id: student_id,
+        start_work:start_work
     }
     try {
-        let res = await api.post(`/student/company`, data);
+        let res = await api.post(`/student/workplace`, data);
         return res
     }
     catch (err) {
@@ -142,9 +149,9 @@ export async function createcompany(workplace_name, position, student_id) {
 
 }
 
-export async function updateprofile(image,student_id) {
+export async function updateprofile(image_profile,student_id) {
     var data = {
-        image_profile:image
+        image_profile:image_profile
     }
     try {
         const res = await api.put(`/student/image_profile/${student_id}`, data)
