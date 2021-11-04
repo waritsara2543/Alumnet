@@ -106,7 +106,7 @@ export default {
     // },
     async workingInform() {
       
-        let test = await createinformation(this.student[0].student_id,this.phone);
+        let test = await createinformation(this.student[0].student_id,this.model,this.contact);
         let information = await updateinformation(this.epigram,this.status,this.student[0].student_id)
         this.$router.push({ name: "workingInform" });
      

@@ -7,18 +7,19 @@
     <!-- {{ timeline }} -->
     <div class="q-pa-md">
       <div class="q-gutter-y-md column" style="max-width: 100%">
-        <q-toolbar
+        <q-toolbar  v-for="(col, index) in student" :key="index" 
           class="text-white rounded-borders"
           style="background: #032030"
         >
           <q-avatar class="q-mr-xs q-ml-md" id="image_profile">
-            <img src="../assets/man.png" />
+            <img :src="this.profile" >
           </q-avatar>
-          <p style="padding: 15px 0px 0px 20px; font-size: 15px" id="user_name">
-            Waritsara Wichiansrang
+          <p  style="padding: 15px 0px 0px 20px; font-size: 15px" id="user_name">
+            {{ this.student[0].firstname }} {{ this.student[0].lastname }}
           </p>
 
           <q-space />
+
 
           <q-icon name="search" @click="searchPage()" style="font-size: 25px" />
         </q-toolbar>
@@ -73,13 +74,14 @@ import { ref } from "vue";
 import { getTimelineById } from "../api/api";
 export default {
   methods: {
-    async timelinefeed() {
-      console.log(this.student[0].student_id);
-      this.timeline = await getTimelineById(this.student[0].student_id);
+    // async timelinefeed() {
+    //   console.log(this.student[0].student_id);
+    //   this.timeline = await getTimelineById(this.student[0].student_id,this.student[0].major_id,
+    //   this.student[0].faculty_id,this.student[0].campus_id,this.student[0].graduate_year);
 
-      console.log("timeline");
-      console.log(this.timeline);
-    },
+    //   console.log("timeline");
+    //   console.log(this.timeline);
+    // },
     searchPage() {
       this.$router.push({ name: "searchPage" });
       console.log("hhikk");
@@ -88,7 +90,14 @@ export default {
   async mounted() {
     const value = localStorage.getItem("student");
     this.student = JSON.parse(value);
-    await this.timelinefeed();
+
+    
+
+
+    console.log(this.student[0].image_profile);
+    console.log(this.student);
+    this.profile = this.student[0].image_profile
+    // await this.timelinefeed();
   },
 
   data() {
@@ -96,6 +105,7 @@ export default {
       search: ref(""),
       student: [],
       timeline: [],
+      profile:ref("")
     };
   },
 };

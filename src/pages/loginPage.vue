@@ -89,7 +89,7 @@ import {
   GoogleAuthProvider,
   signInWithEmailAndPassword,
 } from "firebase/auth";
-import { getStudentById } from "../api/api";
+import { getStudentById, getTimelineById , getDetailById } from "../api/api";
 export default {
   methods: {
    
@@ -100,6 +100,7 @@ export default {
     async tohome(email) {
       try {
         let value = await getStudentById(email);
+        let detail = await getDetailById(email);
         console.log(value);
         if (value.length == 0) {
           console.log("don't have database");
@@ -107,6 +108,7 @@ export default {
           this.$router.push({ name: "stdIdSignup" });
         } else {
           localStorage.setItem("student", JSON.stringify(value));
+          localStorage.setItem("detail", JSON.stringify(detail));
           this.$router.push({ name: "homepage" });
         }
       } catch (e) {
