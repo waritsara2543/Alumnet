@@ -16,8 +16,11 @@
               v-for="nav in navs"
               :key="nav.label"
               :to="nav.to"
-              :icon="nav.icon"
+                 :icon="nav.icon"
             />
+            
+        
+      
           </q-tabs>
       </q-toolbar>
     </div>
@@ -74,6 +77,7 @@ export default {
           label: "notifications",
           icon: "notifications",
           to: "/admin/Approve",
+          
         },
       ],
     };

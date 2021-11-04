@@ -2,7 +2,7 @@
   <link href="https://fonts.googleapis.com/css?family=Josefin+Sans" rel="stylesheet">
   <div class="q-pa-md">
     <div class="col">
-      <h3>Create an event</h3>
+      <h3 style="text-bold" >Create an event</h3>
       <q-card
         class="my-card text-white text-center"
         style="background: #d0dfe6; height: 500px; margin: 0 auto"
