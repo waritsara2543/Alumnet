@@ -28,15 +28,14 @@ export default {
     var canvasRenderer = L.canvas({ pane: "customPane" });
     customPane.style.zIndex = 399; // put just behind the standard overlay pane which is at 400
     
-    L.marker([50, 14]).addTo(this.map);
+    
 
     L.marker([7.894962, 98.352373]).addTo(this.map).bindPopup('You are here.')
-    .openPopup();
-    L.marker([49.5, 19.5]).addTo(this.map);
-    L.marker([49, 25]).addTo(this.map);
-    L.marker([-10, 25]).addTo(this.map);
-    L.marker([10, -25]).addTo(this.map);
-    L.marker([0, 0]).addTo(this.map);
+    .openPopup().bindTooltip("You");
+
+    L.marker([7.894962, 98]).addTo(this.map).bindTooltip("Arnont Photdoung");
+    
+    
     // var pathOne = L.curve(["M", [50, 14], "Q", [53, 20], [49, 25]], {
     //   renderer: canvasRenderer,
     // }).addTo(this.map);

@@ -1,6 +1,6 @@
 <template>
   <q-page>
-    <div class="row justify-center">
+    <!-- <div class="row justify-center">
       <div class="col-10 text-center">
         <p>Latitude: {{ latitude }}</p>
         <p>Longitude: {{ longitude }}</p>
@@ -15,7 +15,7 @@
         size="lg"
         @click="getGeolocation"
       />
-    </div>
+    </div> -->
     <div id="mapContainer"></div>
   </q-page>
 </template>
@@ -28,25 +28,35 @@ import "../../node_modules/leaflet/dist/leaflet.curve";
 import "leaflet-defaulticon-compatibility/dist/leaflet-defaulticon-compatibility.webpack.css";
 import "leaflet-defaulticon-compatibility";
 
+
 export default {
   data() {
     return {
       latitude: "",
       longitude: "",
+      lat:"",
+      lng:"",
       map: null,
     };
   },
-  methods: {
-    getGeolocation() {
-      if (navigator.geolocation) {
-        navigator.geolocation.getCurrentPosition(
-          this.setPosition,
-          this.errorPosition
-        );
-      } else {
-        this.errorPosition();
-      }
+  computed:{
+    // newlocation: function () {
+    //   this.setlocation()
+    // }        
+        setlocation :function() {
+          // addmarker(){
+      L.marker([this.lat,this.lng])
+      .addTo(this.map)
+      .bindPopup("You are here.")
+      .openPopup();
+    // },
+      
     },
+
+  },
+  methods: {
+    
+    
     setPosition(position) {
       const coords = position.coords;
       this.latitude = coords.latitude;
@@ -74,6 +84,7 @@ export default {
         message: "Position successfully retrieved!",
       });
     },
+   
   },
   mounted() {
     var latitude = 7.894962;
@@ -91,19 +102,25 @@ export default {
     var canvasRenderer = L.canvas({ pane: "customPane" });
     customPane.style.zIndex = 399; // put just behind the standard overlay pane which is at 400
     
-    L.marker([latitude, longtitude])
+     let mark=L.marker([this.lat, this.lng])
       .addTo(this.map)
       .bindPopup("You are here.")
       .openPopup();
+    
+
     this.map.on("click", function (e) {
       var coord = e.latlng;
-        var lat = coord.lat;
-       var lng = coord.lng;
-    
+       this.lat = coord.lat;
+       this.lng = coord.lng;
+      L.marker = new L.marker([this.lat,this.lng]);
       console.log(
-        "You clicked the map at latitude: " + lat + " and longitude: " + lng
+        "latitude: " + this.lat + "longitude: " + this.lng
       );
     });
+
+    
+    
+      
   },
   onBeforeUnmount() {
     if (this.map) {

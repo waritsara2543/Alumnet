@@ -18,16 +18,21 @@
 <!-- title & content -->
       <section class="header-content">
          <h1>Welcome</h1>
+         <img
+        src="../assets/Alumnet.png"
+        alt=""
+        style="width: 200px; padding: 5px"
+      />
          <p> Welcome to Alumnet System. We are a social media alumni platform,<br>
           making people who are alumni to meet again.</p>
          <div>
     <q-input standout="bg-white text-black"  bg-color="white" rounded outlined label="Search" style="max-width: 800px ; margin:0 auto; padding:10px" class="search" id="search" />
   </div>
-        <q-card class="my-card text-black text-center" style=" border-radius: 50px; padding:20px ;max-width: 800px ;margin:0 auto;">
+        <!-- <q-card class="my-card text-black text-center" style=" border-radius: 50px; padding:20px ;max-width: 800px ;margin:0 auto;">
           <q-card-section>
             <div class="text-h6" style=""></div>
           </q-card-section>
-        </q-card>
+        </q-card> -->
           <q-btn  label="GET STARTED" @click="toPageLogin" />
           <q-btn  label="FOR ADMIN" @click="toLoginAdmin" />
       </section>
@@ -70,7 +75,9 @@ export default {
 body {
   font-family: 'Josefin Sans', sans-serif;
   box-sizing: border-box;
+
 }
+
 .container-fluid{
   height: 100%;
   margin: 0;
@@ -80,7 +87,7 @@ body {
 }
 /* ============= Animation background ========= */
 .background {
-  background: linear-gradient(132deg, #FC415A, #591BC5, #212335);
+  background: linear-gradient(132deg, #032030, #1794a5, #212335);
   background-size: 500% 500%;
   animation: Gradient 15s ease infinite;
   position: relative;
