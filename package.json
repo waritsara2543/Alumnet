@@ -15,6 +15,7 @@
     "@tomtom-international/web-sdk-maps": "^6.15.0",
     "axios": "^0.21.4",
     "core-js": "^3.6.5",
+    "cors": "^2.8.5",
     "firebase": "^9.1.1",
     "firebase-app": "0.0.1",
     "leaflet": "^1.7.1",

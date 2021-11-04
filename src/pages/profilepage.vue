@@ -150,6 +150,7 @@
     </div>
 
     <q-btn
+      @click="logout"
       label="LOGOUT "
       class="full-width"
       style="
@@ -185,6 +186,7 @@
  <script>
 import { ref } from "vue";
 import { getProfileById } from "../api/api";
+import { getAuth, signOut } from "firebase/auth";
 export default {
   methods: {
     // backconfirmEmail() {
@@ -198,6 +200,17 @@ export default {
     },
     toavatar() {
       this.$router.push({ name: "toavatar" });
+    },
+    logout() {
+      const auth = getAuth();
+      signOut(auth)
+        .then(() => {
+          // Sign-out successful.
+          this.$router.push({ name: "loginPage" });
+        })
+        .catch((error) => {
+          // An error happened.
+        });
     },
     async detailstudent() {
       this.person = await getProfileById(this.student[0].student_id);
