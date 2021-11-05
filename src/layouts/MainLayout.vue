@@ -64,6 +64,7 @@ export default {
           icon: "pin_drop",
           to: "/locationpage",
         },
+        
       ],
     };
   },
