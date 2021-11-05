@@ -104,7 +104,7 @@
         >
           My Timeline
         </q-timeline-entry>
-        <q-scroll-area style="height: 300px; max-width: 300px;">
+        <q-scroll-area style="height: 300px; max-width: 320px;">
         <q-timeline-entry subtitle="February 22, 1986" v-for="index in 13" :key="index">
           <q-card class="text-white">
             <div style="text-align: center">
