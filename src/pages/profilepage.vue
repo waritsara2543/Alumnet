@@ -19,7 +19,7 @@
             background: white;
           "
         >
-          <img src="../assets/man.png" style="border-style: solid" />
+          <img :src="this.profile" style="border-style: solid" />
         </q-avatar>
         <q-icon
           @click="toavatar"
@@ -255,7 +255,8 @@ export default {
   async mounted() {
     const value = localStorage.getItem("student");
     this.student = JSON.parse(value);
-    await this.detailstudent();
+    await this.detailstudent(this.student[0].student_id);
+    this.profile = this.student[0].image_profile
   },
 
   data() {
@@ -264,6 +265,7 @@ export default {
       address: ref(""),
       person: [],
       student: [],
+      profile:ref("")
     };
   },
 };
