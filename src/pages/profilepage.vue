@@ -104,17 +104,17 @@
         >
           My Timeline
         </q-timeline-entry>
-        <q-scroll-area style="height: 300px; max-width: 320px;">
-        <q-timeline-entry subtitle="February 22, 1986" v-for="index in 13" :key="index">
+        <q-scroll-area style="height: 300px; max-width: 320px;"><div v-for="(col, index) in timeline" :key="index">
+        <q-timeline-entry :subtitle="this.timeline[index].start_work">
           <q-card class="text-white">
             <div style="text-align: center">
               <div>
                 <q-icon name="business_center" />
               </div>
-              Software engineer at Agoda
+              {{this.timeline[index].position}} at {{this.timeline[index].name}}
             </div>
           </q-card>
-        </q-timeline-entry>
+        </q-timeline-entry></div>
         </q-scroll-area>
       </q-timeline>
     </div>
@@ -190,7 +190,7 @@
 </template>
  <script>
 import { ref } from "vue";
-import { getProfileById } from "../api/api";
+import { getProfileById,getTimelineById } from "../api/api";
 import { getAuth, signOut } from "firebase/auth";
 import { debounce } from 'quasar';
 export default {
@@ -221,6 +221,8 @@ export default {
     },
     async detailstudent() {
       this.person = await getProfileById(this.student[0].student_id);
+      this.timeline = await getTimelineById(this.student[0].student_id);
+      console.log(this.timeline );
       console.log(this.person);
     },
   },
@@ -237,6 +239,7 @@ export default {
       prompt: ref(false),
       address: ref(""),
       person: [],
+      timeline: [],
       student: [],
       profile: ref(""),
      
