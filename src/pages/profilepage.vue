@@ -35,11 +35,9 @@
           style="border-top: 3px solid #ffffff; margin-top: 20px"
         ></div>
       </q-card-section>
-      <q-card-section class="text-left" >
-        <div class="row" >
-          <div class="col-1">
-            <q-icon name="school" style="margin-right: 10px" />
-          </div>
+      <q-card-section class="text-left">
+        <div class="row">
+          <q-icon name="school" style="margin-right: 10px" />
 
           <div id="graduate" class="col">
             Graduation {{ this.person[0].major }}
@@ -49,9 +47,7 @@
         </div>
 
         <div class="row">
-          <div class="col-1">
-            <q-icon name="business_center" style="margin-right: 10px" />
-          </div>
+          <q-icon name="business_center" style="margin-right: 10px" />
 
           <div id="workplace" class="col">
             {{ this.person[0].position }} at {{ this.person[0].workplace }}
@@ -60,9 +56,7 @@
         </div>
 
         <div class="row">
-          <div class="col-1">
-            <q-icon name="location_on" style="margin-right: 10px" />
-          </div>
+          <q-icon name="location_on" style="margin-right: 10px" />
 
           <div id="province" class="col">
             Lives in {{ this.person[0].province }},
@@ -71,55 +65,53 @@
         </div>
 
         <div class="row">
-          <div class="col-1">
-            <q-icon name="favorite" style="margin-right: 10px" />
-          </div>
+          <q-icon name="favorite" style="margin-right: 10px" />
+
           <div id="status" class="col">
             {{ this.person[0].status }} <q-icon name="edit" />
           </div>
         </div>
 
         <div class="row">
-          <div class="col-1">
-            <q-icon name="description" style="margin-right: 10px" />
-          </div>
+          <q-icon name="description" style="margin-right: 10px" />
+
           <div class="col" id="epigram">
             {{ this.person[0].epigram }} <q-icon name="edit" />
           </div>
         </div>
 
-        <div class="text-center" style="margin-top:50px">
+        <div class="text-center" style="margin-top: 50px">
           <q-icon style="font-size: 40px" name="add_circle" />
         </div>
       </q-card-section>
     </q-card>
 
     <!-- timeline -->
-     
-    <div style="margin-left: 15px;">
-      <q-timeline color="secondary" >
-        <q-timeline-entry
-          :avatar="this.profile"
-          class="text-h6"
-        >
+
+    <div style="margin-left: 15px; margin-right: 15px">
+      <q-timeline color="secondary">
+        <q-timeline-entry :avatar="this.profile" class="text-h6">
           My Timeline
         </q-timeline-entry>
-        <q-scroll-area style="height: 300px; max-width: 320px;">
-        <q-timeline-entry subtitle="February 22, 1986" v-for="index in 13" :key="index">
-          <q-card class="text-white">
-            <div style="text-align: center">
-              <div>
-                <q-icon name="business_center" />
+        <q-scroll-area style="height: 300px">
+          <q-timeline-entry
+            subtitle="February 22, 1986"
+            v-for="index in 13"
+            :key="index"
+          >
+            <q-card class="text-white">
+              <div style="text-align: center">
+                <div>
+                  <q-icon name="business_center" />
+                </div>
+                Software engineer at Agoda
               </div>
-              Software engineer at Agoda
-            </div>
-          </q-card>
-        </q-timeline-entry>
+            </q-card>
+          </q-timeline-entry>
         </q-scroll-area>
       </q-timeline>
     </div>
 
-    
     <div class="row">
       <div class="col" style="padding: 5px 5px 10px 0px">
         <q-card
@@ -192,7 +184,7 @@
 import { ref } from "vue";
 import { getProfileById } from "../api/api";
 import { getAuth, signOut } from "firebase/auth";
-import { debounce } from 'quasar';
+import { debounce } from "quasar";
 export default {
   methods: {
     // backconfirmEmail() {
@@ -232,14 +224,12 @@ export default {
   },
 
   data() {
-    
     return {
       prompt: ref(false),
       address: ref(""),
       person: [],
       student: [],
       profile: ref(""),
-     
     };
   },
 };
