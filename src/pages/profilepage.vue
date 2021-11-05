@@ -32,14 +32,16 @@
         </div>
         <div
           class="text-h6"
-          style="border-top: 3px solid #ffffff; padding: 20px; margin-top: 20px"
+          style="border-top: 3px solid #ffffff; margin-top: 20px"
         ></div>
       </q-card-section>
-      <q-card-section class="text-left">
-        <div class="row">
-          <q-icon name="school" style="margin-right: 10px" />
+      <q-card-section class="text-left" >
+        <div class="row" >
+          <div class="col-1">
+            <q-icon name="school" style="margin-right: 10px" />
+          </div>
 
-          <div id="graduate">
+          <div id="graduate" class="col">
             Graduation {{ this.person[0].major }}
             {{ this.person[0].graduate_year }} at {{ this.person[0].campus }}
             <q-icon @click="prompt = true" name="edit" />
@@ -47,74 +49,77 @@
         </div>
 
         <div class="row">
-          <q-icon name="business_center" style="margin-right: 10px" />
+          <div class="col-1">
+            <q-icon name="business_center" style="margin-right: 10px" />
+          </div>
 
-          <div id="workplace">
+          <div id="workplace" class="col">
             {{ this.person[0].position }} at {{ this.person[0].workplace }}
             <q-icon name="edit" />
           </div>
         </div>
 
         <div class="row">
-          <q-icon name="location_on" style="margin-right: 10px" />
+          <div class="col-1">
+            <q-icon name="location_on" style="margin-right: 10px" />
+          </div>
 
-          <div id="province">
+          <div id="province" class="col">
             Lives in {{ this.person[0].province }},
             {{ this.person[0].country }} <q-icon name="edit" />
           </div>
         </div>
 
         <div class="row">
-          <q-icon name="favorite" style="margin-right: 10px" />
-
-          <div id="status">
+          <div class="col-1">
+            <q-icon name="favorite" style="margin-right: 10px" />
+          </div>
+          <div id="status" class="col">
             {{ this.person[0].status }} <q-icon name="edit" />
           </div>
         </div>
 
         <div class="row">
-          <q-icon name="description" style="margin-right: 10px" />
-
+          <div class="col-1">
+            <q-icon name="description" style="margin-right: 10px" />
+          </div>
           <div class="col" id="epigram">
             {{ this.person[0].epigram }} <q-icon name="edit" />
           </div>
         </div>
 
-        <div class="text-center">
+        <div class="text-center" style="margin-top:50px">
           <q-icon style="font-size: 40px" name="add_circle" />
         </div>
       </q-card-section>
     </q-card>
 
-    <div class="row">
-      <div class="col" style="padding: 10px 5px 5px 0px">
-        <q-card
-          class="my-card text-white text-center"
-          style="
-            background: linear-gradient(#032030 0%, #1794a5 100%);
-            height: 100px;
-            margin: 0 auto;
-          "
+    <!-- timeline -->
+     
+    <div style="margin-left: 15px;">
+      <q-timeline color="secondary" >
+        <q-timeline-entry
+          :avatar="this.profile"
+          class="text-h6"
         >
-          <div class="text-h4" id="" style="padding-top: 20px">69</div>
-          <div class="text-caption" id="" style="">Following</div>
-        </q-card>
-      </div>
-      <div class="col" style="padding: 10px 0px 5px 5px">
-        <q-card
-          class="my-card text-white text-center"
-          style="
-            background: linear-gradient(#032030 0%, #1794a5 100%);
-            height: 100px;
-            margin: 0 auto;
-          "
-        >
-          <div class="text-h4" id="" style="padding-top: 20px">54</div>
-          <div class="text-caption" id="" style="">Follower</div>
-        </q-card>
-      </div>
+          My Timeline
+        </q-timeline-entry>
+        <q-scroll-area style="height: 300px; max-width: 320px;">
+        <q-timeline-entry subtitle="February 22, 1986" v-for="index in 13" :key="index">
+          <q-card class="text-white">
+            <div style="text-align: center">
+              <div>
+                <q-icon name="business_center" />
+              </div>
+              Software engineer at Agoda
+            </div>
+          </q-card>
+        </q-timeline-entry>
+        </q-scroll-area>
+      </q-timeline>
     </div>
 
+    
     <div class="row">
       <div class="col" style="padding: 5px 5px 10px 0px">
         <q-card
@@ -187,6 +192,7 @@
 import { ref } from "vue";
 import { getProfileById } from "../api/api";
 import { getAuth, signOut } from "firebase/auth";
+import { debounce } from 'quasar';
 export default {
   methods: {
     // backconfirmEmail() {
@@ -206,6 +212,7 @@ export default {
       signOut(auth)
         .then(() => {
           // Sign-out successful.
+          localStorage.clear();
           this.$router.push({ name: "loginPage" });
         })
         .catch((error) => {
@@ -221,16 +228,18 @@ export default {
     const value = localStorage.getItem("student");
     this.student = JSON.parse(value);
     await this.detailstudent(this.student[0].student_id);
-    this.profile = this.student[0].image_profile
+    this.profile = this.student[0].image_profile;
   },
 
   data() {
+    
     return {
       prompt: ref(false),
       address: ref(""),
       person: [],
       student: [],
-      profile:ref("")
+      profile: ref(""),
+     
     };
   },
 };

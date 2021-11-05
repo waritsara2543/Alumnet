@@ -59,8 +59,9 @@ export default {
     // },
     async tohomepage(url) {
       let profile = await updateprofile(url, this.student[0].student_id);
-      // this.$router.push({ name: "homepage" });
-      console.log("Hello I am"+url);
+       this.$router.push({ name: "homepage" });
+      console.log("Hello I am "+url);
+
     },
     async getImage() {
       const files = this.files;
