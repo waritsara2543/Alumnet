@@ -1,5 +1,5 @@
 <template>
-  <q-page padding>
+  <q-page padding style="margin-left: 15px; margin-right: 15px">
     <q-card
       v-for="(col, index) in person"
       :key="index"
@@ -85,6 +85,40 @@
         </div>
       </q-card-section>
     </q-card>
+
+    <!-- timeline -->
+    <div>
+      <q-timeline color="secondary">
+        <q-timeline-entry
+          avatar="https://cdn.quasar.dev/img/avatar2.jpg"
+          class="text-h6"
+        >
+          My Timeline
+        </q-timeline-entry>
+
+        <q-timeline-entry subtitle="February 22, 1986">
+          <q-card class="text-white">
+            <div style="text-align: center">
+              <div>
+                <q-icon name="business_center" />
+              </div>
+              Software engineer at Agoda
+            </div>
+          </q-card>
+        </q-timeline-entry>
+
+        <q-timeline-entry subtitle="February 22, 1986">
+          <q-card class="text-white">
+            <div style="text-align: center">
+              <div>
+                <q-icon name="business_center" />
+              </div>
+              Software engineer at Agoda
+            </div>
+          </q-card>
+        </q-timeline-entry>
+      </q-timeline>
+    </div>
 
     <div class="row">
       <div class="col" style="padding: 10px 5px 5px 0px">
@@ -206,6 +240,7 @@ export default {
       signOut(auth)
         .then(() => {
           // Sign-out successful.
+          localStorage.clear();
           this.$router.push({ name: "loginPage" });
         })
         .catch((error) => {
