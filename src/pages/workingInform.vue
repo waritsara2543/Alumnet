@@ -8,21 +8,63 @@
       <h5 class="text-bold" style="color: #014a88">Working Information</h5>
 
       <div class="q-pa-md">
-        <q-input
-          v-model="workplace_name"
-          id="workplace_name"
-          label="Company name"
-          :dense="dense"
-          style="padding: 15px; margin-top: -50px"
-        />
+        <div class="q-gutter-sm row justify-start">
+          <div class="col">
+            <q-radio
+              dense
+              v-model="employed"
+              val="unemployed"
+              label="unemployed"
+            />
+          </div>
+          <div class="col">
+            <q-radio dense v-model="employed" val="employed" label="employed" />
+          </div>
+        </div>
 
-        <q-input
-          v-model="position"
-          id="position"
-          label="Position"
-          :dense="dense"
-          style="padding: 15px"
-        />
+        <div v-if="employed === 'employed'">
+          <q-input
+            v-model="workplace_name"
+            id="workplace_name"
+            label="Company name"
+            :dense="dense"
+            style="padding: 15px; margin-top: 50px"
+            :rules="[(val) => !!val || 'Company name is required']"
+          />
+
+          <q-input
+            v-model="position"
+            id="position"
+            label="Position"
+            :dense="dense"
+            style="padding: 15px"
+            :rules="[(val) => !!val || 'Position is required']"
+          />
+
+          <q-input
+            label="start date"
+            v-model="date"
+            mask="date"
+            :rules="['date']"
+            style="padding: 15px"
+          >
+            <template v-slot:append>
+              <q-icon name="event" class="cursor-pointer">
+                <q-popup-proxy
+                  ref="qDateProxy"
+                  transition-show="scale"
+                  transition-hide="scale"
+                >
+                  <q-date v-model="date">
+                    <div class="row items-center justify-end">
+                      <q-btn v-close-popup label="Close" color="primary" flat />
+                    </div>
+                  </q-date>
+                </q-popup-proxy>
+              </q-icon>
+            </template>
+          </q-input>
+        </div>
 
         <div style="padding: 15px">
           <q-btn
@@ -42,21 +84,42 @@
 </template>
  <script>
 import { ref } from "vue";
+import { date } from "quasar";
+import { createworkplace } from "../api/api";
 export default {
   methods: {
     // backconfirmEmail() {
     //   this.$router.push({ name: "confirmEmail" });
     // },
-    toavatar() {
+    async toavatar() {
+      // const newDate = new Date(this.date)
+      let timeStamp = Date.now();
+      let formattedString = date.formatDate(this.date, "YYYY-MM-DD");
+      let work = await createworkplace(
+        this.workplace_name,
+        this.position,
+        this.student[0].student_id,
+        date.formatDate(this.date, "YYYY-MM-DD")
+      );
+      console.log(this.formattedString);
+      console.log(this.workplace_name);
       this.$router.push({ name: "toavatar" });
     },
   },
+  async mounted() {
+    const value = localStorage.getItem("student");
+    this.student = JSON.parse(value);
+    console.log(this.student[0].student_id);
+  },
 
-  setup() {
+  data() {
     return {
       workplace_name: ref(""),
       position: ref(""),
       dense: ref(false),
+      student: [],
+      date: ref(""),
+      employed: ref("unemployed"),
     };
   },
 };

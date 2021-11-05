@@ -1,10 +1,6 @@
 <template>
   <q-page padding>
-    <q-icon
-      name="arrow_back"
-      style="font-size: 32px"
-      @click="backconfirmEmail"
-    />
+    
     <div
       class="q-pa-md q-gutter-sm text-center"
       style="max-width: 800px; margin: 0 auto"
@@ -46,9 +42,7 @@ export default {
     //   let test = await getStudentById(email);
     //   console.log(test);
     // },
-    backconfirmEmail() {
-      this.$router.push({ name: "confirmEmail" });
-    },
+    
     async topersonalInform() {
       
       const email = localStorage.getItem("email");

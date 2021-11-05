@@ -1,6 +1,5 @@
 <template>
   <q-page padding>
-
     <div
       class="q-pa-md q-gutter-sm text-center"
       style="max-width: 800px; margin: 0 auto"
@@ -35,7 +34,7 @@
         outlined
         v-model="username"
         type="email"
-        label="Username"
+        label="Email"
         class="full-width"
         style=""
         :rules="[(val) => !!val || 'email is required']"
@@ -66,6 +65,7 @@
           background: linear-gradient(#b42425 0%, #b42425 100%);
         "
       />
+     
       <div class="row">
         <div class="col">
           <p style="color: #014a88">no account?</p>
@@ -89,24 +89,28 @@ import {
   GoogleAuthProvider,
   signInWithEmailAndPassword,
 } from "firebase/auth";
-import { getStudentById } from "../api/api";
+import { getStudentById, getTimelineById , getDetailById } from "../api/api";
 export default {
   methods: {
+   
+
     toRegist() {
       this.$router.push({ name: "regist1" });
     },
     async tohome(email) {
       try {
         let value = await getStudentById(email);
+        let detail = await getDetailById(email);
         console.log(value);
         if (value.length == 0) {
           console.log("don't have database");
           localStorage.setItem("email", email);
           this.$router.push({ name: "stdIdSignup" });
         } else {
-  
           localStorage.setItem("student", JSON.stringify(value));
           this.$router.push({ name: "/admin/homeadmin" });
+          localStorage.setItem("detail", JSON.stringify(detail));
+          this.$router.push({ name: "homepage" });
         }
       } catch (e) {
         console.log(e);
@@ -121,6 +125,7 @@ export default {
       const provider = new GoogleAuthProvider();
       signInWithPopup(auth, provider)
         .then((result) => {
+          this.$router.push({ name: "homepage" });
           // This gives you a Google Access Token. You can use it to access the Google API.
           const credential = GoogleAuthProvider.credentialFromResult(result);
           const token = credential.accessToken;
@@ -155,6 +160,7 @@ export default {
 
           console.log("login");
           console.log(auth.currentUser.emailVerified);
+          console.log(auth.currentUser.email);
           if (auth.currentUser.emailVerified) {
             this.tohome(email);
           } else {
@@ -164,7 +170,8 @@ export default {
         .catch((error) => {
           const errorCode = error.code;
           const errorMessage = error.message;
-           console.log(errorMessage);
+          console.log(errorMessage);
+          alert("Email or Password is wrong")
         });
     },
   },

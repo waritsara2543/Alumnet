@@ -1,12 +1,5 @@
 <template>
-    <div>
-      <apexchart width="380" type="donut" :options="options" :series="series"></apexchart>
-    </div>
-  </template>
-<script>
-    
-
-
-
-</script>
-
+<div>
+  <apexchart width="500" type="bar" :options="options" :series="series"></apexchart>
+</div>
+</template>

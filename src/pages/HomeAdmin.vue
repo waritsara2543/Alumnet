@@ -64,8 +64,9 @@
               @update:model-value="updateFiles"
               outlined
               multiple
-              :clearable="!isUploading"
-              style="max-width: 400px; background: #b42425"
+              :clearable="!isUploading" 
+              bg-color="deep-orange-9"
+              rounded standout bottom-slots
               label="IMPORT ALUMNI LIST"
             ></q-file>
           </div>

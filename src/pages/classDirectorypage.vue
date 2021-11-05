@@ -1,28 +1,32 @@
 <template>
   <q-page>
-    <div class="row items-start q-gutter-md">
-      <q-responsive :ratio="1" class="col"  style="width: 500px; max-width: 100%;">
-        <q-card
-          class="my-card text-white col"
-          style="height: 150px; width: 150px; margin: 0 auto; margin-top: 20px"
+    <div class="row justify-center q-gutter-md " style="margin:0 auto;">
+
+      
+        <q-card  v-for="index in 13" :key="index"
+          class="my-card text-white text-center"
+          style="margin-left:90px ;margin-right:90px ;margin-top:20px ;"
+         
         >
-          <q-card-section class="text-center">
-            <div class="text-subtitle2" id="title_content">
-              title :มอบเงินทุนการศึกษาให้กับผู้สนใจศึกษาต่อในระดับ ปริญญาโท
+          <q-card-section class="text-center" >
+
+            <q-avatar class="q-mr-xs" id="image_profile" style=" width:80px; height:80px; ">
+                  <img src="../assets/man.png" style=""  />
+            </q-avatar>
+            <div class="text-subtitle2" id="student_name">
+              Arnont Photdoung
+            </div>
+            <div class="text-caption" id="location">
+              <q-icon name="location_on"></q-icon> Lives in Bangkok, Thailand
             </div>
           </q-card-section>
         </q-card>
-        <q-card
-          class="my-card text-white"
-          style="height: 150px; width: 150px; margin: 0 auto; margin-top: 20px"
-        >
-          <q-card-section class="text-center">
-            <div class="text-subtitle2" id="title_content">
-              title :มอบเงินทุนการศึกษาให้กับผู้สนใจศึกษาต่อในระดับ ปริญญาโท
-            </div>
-          </q-card-section>
-        </q-card>
-      </q-responsive>
+
+        
+        
+        
+
+      
     </div>
   </q-page>
 </template>
@@ -33,6 +37,7 @@ export default {
 
   setup() {
     return {};
+    i
   },
 };
 </script>

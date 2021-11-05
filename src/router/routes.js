@@ -24,15 +24,9 @@ const routes = [
 
       },
       {
-        name: "confirmEmail",
-        path: '/confirmEmail',
-        component: () => import('pages/confirmEmail.vue')
-
-      },
-      {
-        name: "stdIdSignup",
-        path: '/stdIdSignup',
-        component: () => import('pages/stdIdSignup.vue')
+        name : "stdIdSignup",
+        path: '/stdIdSignup', 
+        component: () => import('pages/stdIdSignup.vue') 
 
       },
       {
@@ -61,12 +55,60 @@ const routes = [
     path: '/admin',
     component: () => import('layouts/firstLayout.vue'),
     children: [
-      {
-        path: '', component: () => import('pages/Index.vue')
-      }, 
+      { path: '',
+       component: () => import('pages/Index.vue') },
+      {name : "searchPage",
+       path: 'searchPage', 
+      component: () => import('pages/searchPage.vue') },
+      {name : "accountSetting",
+       path: 'accountSetting', 
+      component: () => import('pages/accountSetting.vue') },
+      {name : "contactChannel",
+       path: 'contactChannel', 
+      component: () => import('pages/contactChannel.vue') },
+      {name : "detailContent",
+      path: 'detailContent', 
+     component: () => import('pages/detailContent.vue') },
+     {name : "pinLocation",
+      path: 'pinLocation', 
+     component: () => import('pages/pinLocation.vue') },
+  ],
+  },
 
-    ],
-  },{
+
+
+  {
+    path: '/',
+    component: () => import('layouts/MainLayout.vue'),
+    children: [
+    { name : "homepage",
+      path: 'homepage', 
+    component: () => import('pages/home.vue')
+   },
+   { name : "profilepage",
+      path: 'profilepage', 
+    component: () => import('pages/profilepage.vue')
+   },
+   { name : "notificationpage",
+      path: 'notificationpage', 
+    component: () => import('pages/notificationpage.vue')
+   },
+   { name : "classDirectorypage",
+      path: 'classDirectorypage', 
+    component: () => import('pages/classDirectorypage.vue')
+   },
+   { name : "locationpage",
+      path: 'locationpage', 
+    component: () => import('pages/locationpage.vue')
+   },
+   
+   { name : "test",
+      path: 'test', 
+    component: () => import('pages/test.vue')
+   },
+  ],
+  },
+  {
     path: '/admin',
     component: () => import('layouts/AdminLayout.vue'),
     children: [
@@ -86,40 +128,6 @@ const routes = [
         path: 'Approve', component: () => import('pages/Approve.vue')
       },
         {path: 'test' , component:() => import('pages/testchart.vue')
-      },
-    ],
-  },
-
-
-
-  {
-    path: '/',
-    component: () => import('layouts/MainLayout.vue'),
-    children: [
-      {
-        name: "homepage",
-        path: 'homepage',
-        component: () => import('pages/home.vue')
-      },
-      {
-        name: "profilepage",
-        path: 'profilepage',
-        component: () => import('pages/profilepage.vue')
-      },
-      {
-        name: "notificationpage",
-        path: 'notificationpage',
-        component: () => import('pages/notificationpage.vue')
-      },
-      {
-        name: "classDirectorypage",
-        path: 'classDirectorypage',
-        component: () => import('pages/classDirectorypage.vue')
-      },
-      {
-        name: "locationpage",
-        path: 'locationpage',
-        component: () => import('pages/locationpage.vue')
       },
     ],
   },
