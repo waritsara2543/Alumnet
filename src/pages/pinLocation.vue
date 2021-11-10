@@ -1,5 +1,7 @@
 <template>
   <q-page>
+
+    
     <!-- <div class="row justify-center">
       <div class="col-10 text-center">
         <p>Latitude: {{ latitude }}</p>
@@ -16,17 +18,26 @@
         @click="getGeolocation"
       />
     </div> -->
-    <div id="mapContainer"></div>
+    <div id="map"></div>
+    <div>
+      
+    </div>
+    
   </q-page>
 </template>
 
 <script>
 import "leaflet/dist/leaflet.css";
 import L from "leaflet";
-import "../../node_modules/leaflet/dist/Tween";
-import "../../node_modules/leaflet/dist/leaflet.curve";
 import "leaflet-defaulticon-compatibility/dist/leaflet-defaulticon-compatibility.webpack.css";
 import "leaflet-defaulticon-compatibility";
+import "esri-leaflet/dist/esri-leaflet";
+import "esri-leaflet-geocoder/dist/esri-leaflet-geocoder";
+import "esri-leaflet-vector/dist/esri-leaflet-vector";
+
+
+
+
 
 
 export default {
@@ -36,95 +47,71 @@ export default {
       longitude: "",
       lat:"",
       lng:"",
-      map: null,
+      pinmap: null,
     };
   },
   computed:{
-    // newlocation: function () {
-    //   this.setlocation()
-    // }        
-        setlocation :function() {
-          // addmarker(){
-      L.marker([this.lat,this.lng])
-      .addTo(this.map)
-      .bindPopup("You are here.")
-      .openPopup();
-    // },
+    // // newlocation: function () {
+    // //   this.setlocation()
+    // // }        
+    //     setlocation :function() {
+    //       // addmarker(){
+    //   L.marker([this.lat,this.lng])
+    //   .addTo(this.pinmap)
+    //   .bindPopup("You are here.")
+    //   .openPopup();
+    // // },
       
-    },
+    // },
 
   },
   methods: {
-    
-    
-    setPosition(position) {
-      const coords = position.coords;
-      this.latitude = coords.latitude;
-      this.longitude = coords.longitude;
 
-      this.successNotify();
-    },
-    errorPosition() {
-      this.$q.notify({
-        position: "bottom",
-        timeout: 3000,
-        color: "negative",
-        textColor: "white",
-        actions: [{ icon: "close", color: "white" }],
-        message: "Unable to retrieve your position!",
-      });
-    },
-    successNotify() {
-      this.$q.notify({
-        position: "bottom",
-        timeout: 3000,
-        color: "positive",
-        textColor: "white",
-        actions: [{ icon: "check", color: "white" }],
-        message: "Position successfully retrieved!",
-      });
-    },
    
   },
   mounted() {
-    var latitude = 7.894962;
-    var longtitude = 98.352373;
-    this.map = L.map("mapContainer").setView(
-      [13.7087384, 100.1625354, 9.75],
-      5
-    );
-    L.tileLayer("http://{s}.tile.osm.org/{z}/{x}/{y}.png", {
-      attribution:
-        '&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors',
-    }).addTo(this.map);
-    //use a mix of renderers
-    var customPane = this.map.createPane("customPane");
-    var canvasRenderer = L.canvas({ pane: "customPane" });
-    customPane.style.zIndex = 399; // put just behind the standard overlay pane which is at 400
-    
-     let mark=L.marker([this.lat, this.lng])
-      .addTo(this.map)
-      .bindPopup("You are here.")
-      .openPopup();
-    
 
-    this.map.on("click", function (e) {
-      var coord = e.latlng;
-       this.lat = coord.lat;
-       this.lng = coord.lng;
-      L.marker = new L.marker([this.lat,this.lng]);
-      console.log(
-        "latitude: " + this.lat + "longitude: " + this.lng
-      );
+    const apiKey = "AAPK0dd1d65fb2a34b41ad58703e8f37d40fkEzxdoz7TacwizBI0Jciscgve5tcC4fx8UwzuiHTHou9xp5t7iIesioyFtHM6mw8";
+
+    const basemapEnum = "ArcGIS:Navigation";
+
+    const map = L.map("map", {
+      minZoom: 2
+
+    }).setView([48.8566,2.3522], 13);  // Paris
+
+    L.esri.Vector.vectorBasemapLayer(basemapEnum, {
+      apiKey: apiKey
+    }).addTo(map);
+
+
+    const geocoder = L.esri.Geocoding.geocodeService({
+      apikey: apiKey
     });
 
-    
-    
-      
+    const layerGroup = L.layerGroup().addTo(map);
+
+    map.on("click", function (e) {
+      geocoder.reverse().latlng(e.latlng).run(function (error, result) {
+        if (error) {
+          return;
+        }
+
+        const lngLatString = `${Math.round(result.latlng.lng * 100000)/100000}, ${Math.round(result.latlng.lat * 100000)/100000}`;
+
+        layerGroup.clearLayers();
+        marker = L.marker(result.latlng)
+          .addTo(layerGroup)
+          .bindPopup(`<b>${lngLatString}</b><p>${result.address.Match_addr}</p>`)
+          .openPopup();
+      });
+    });
+ 
   },
+  
   onBeforeUnmount() {
-    if (this.map) {
-      this.map.remove();
+    if (this.pinmap) {
+      this.pinmap.remove();
     }
   },
 };

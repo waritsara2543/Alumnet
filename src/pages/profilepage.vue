@@ -42,7 +42,7 @@
           <div id="graduate" class="col">
             Graduation {{ this.person[0].major }}
             {{ this.person[0].graduate_year }} at {{ this.person[0].campus }}
-            <q-icon @click="prompt = true" name="edit" />
+            
           </div>
         </div>
 
@@ -51,7 +51,7 @@
 
           <div id="workplace" class="col">
             {{ this.person[0].position }} at {{ this.person[0].workplace }}
-            <q-icon name="edit" />
+           
           </div>
         </div>
 
@@ -79,10 +79,6 @@
             {{ this.person[0].epigram }} <q-icon name="edit" />
           </div>
         </div>
-
-        <div class="text-center" style="margin-top: 50px">
-          <q-icon style="font-size: 40px" name="add_circle" />
-        </div>
       </q-card-section>
     </q-card>
 
@@ -91,19 +87,31 @@
     <div style="margin-left: 15px; margin-right: 15px">
       <q-timeline color="secondary">
         <q-timeline-entry :avatar="this.profile" class="text-h6">
-          My Timeline
+          <div class="row justify-start">My Timeline</div>
+          <div class="row justify-end">
+            <q-icon
+              style="font-size: 40px; margin-top: -35px; color: #032030"
+              name="add_circle"
+              @click="icon = true"
+            />
+          </div>
         </q-timeline-entry>
-        <q-scroll-area style="height: 300px;"><div v-for="(col, index) in timeline" :key="index">
-        <q-timeline-entry :subtitle="this.timeline[index].start_work">
-          <q-card class="text-white">
-            <div style="text-align: center">
-              <div>
-                <q-icon name="business_center" />
-              </div>
-              {{this.timeline[index].position}} at {{this.timeline[index].name}}
-            </div>
-          </q-card>
-        </q-timeline-entry></div>
+        <q-scroll-area style="height: 300px"
+          ><div v-for="(col, index) in timeline" :key="index">
+            <q-timeline-entry
+              :subtitle="getDate(this.timeline[index].start_work)"
+            >
+              <q-card class="text-white">
+                <div style="text-align: center">
+                  <div>
+                    <q-icon name="business_center" />
+                  </div>
+                  {{ this.timeline[index].position }} at
+                  {{ this.timeline[index].name }}
+                </div>
+              </q-card>
+            </q-timeline-entry>
+          </div>
         </q-scroll-area>
       </q-timeline>
     </div>
@@ -174,18 +182,116 @@
         </q-card-actions>
       </q-card>
     </q-dialog>
+
+    <!-- alert add timeline -->
+    <q-dialog
+      v-model="icon"
+      persistent
+      :maximized="maximizedToggle"
+      transition-show="slide-up"
+      transition-hide="slide-down"
+    >
+      <q-card style="background: white">
+        <q-card-section class="row items-center q-pb-none">
+          <div class="text-h6">Add Timeline</div>
+          <q-space />
+          <q-btn icon="close" flat round dense v-close-popup />
+        </q-card-section>
+
+        <q-card-section>
+          <q-input
+            v-model="workplace_name"
+            id="workplace_name"
+            label="Company name"
+            :dense="dense"
+            style="padding: 15px; margin-top: 50px"
+            :rules="[(val) => !!val || 'Company name is required']"
+          />
+
+          <q-input
+            v-model="position"
+            id="position"
+            label="Position"
+            :dense="dense"
+            style="padding: 15px"
+            :rules="[(val) => !!val || 'Position is required']"
+          />
+
+          <q-input
+            label="start date"
+            v-model="startdate"
+            mask="date"
+            :rules="['date']"
+            style="padding: 15px"
+          >
+            <template v-slot:append>
+              <q-icon name="event" class="cursor-pointer">
+                <q-popup-proxy
+                  ref="qDateProxy"
+                  transition-show="scale"
+                  transition-hide="scale"
+                >
+                  <q-date v-model="startdate">
+                    <div class="row items-center justify-end">
+                      <q-btn v-close-popup label="Close" color="primary" flat />
+                    </div>
+                  </q-date>
+                </q-popup-proxy>
+              </q-icon>
+            </template>
+          </q-input>
+          <q-checkbox right-label v-model="oldJob" label="Old Job" />
+
+          <div v-if="oldJob === true">
+            <q-input
+              label="end date"
+              v-model="enddate"
+              mask="date"
+              :rules="['date']"
+              style="padding: 15px"
+              ><template v-slot:append>
+                <q-icon name="event" class="cursor-pointer">
+                  <q-popup-proxy
+                    ref="qDateProxy"
+                    transition-show="scale"
+                    transition-hide="scale"
+                  >
+                    <q-date v-model="enddate">
+                      <div class="row items-center justify-end">
+                        <q-btn
+                          v-close-popup
+                          label="Close"
+                          color="primary"
+                          flat
+                        />
+                      </div>
+                    </q-date>
+                  </q-popup-proxy>
+                </q-icon>
+              </template>
+            </q-input>
+          </div>
+        </q-card-section>
+        <q-card-actions align="right">
+          <q-btn flat label="SAVE" color="primary" v-close-popup />
+        </q-card-actions>
+      </q-card>
+    </q-dialog>
   </q-page>
 </template>
  <script>
 import { ref } from "vue";
-import { getProfileById,getTimelineById } from "../api/api";
+import { getProfileById, getTimelineById } from "../api/api";
 import { getAuth, signOut } from "firebase/auth";
-import { debounce } from "quasar";
+import moment from "moment";
 export default {
   methods: {
     // backconfirmEmail() {
     //   this.$router.push({ name: "confirmEmail" });
     // },
+    getDate: function (date) {
+      return moment(date, "YYYY-MM-DD").format("DD MMMM YYYY");
+    },
     contactChannel() {
       this.$router.push({ name: "contactChannel" });
     },
@@ -210,7 +316,7 @@ export default {
     async detailstudent() {
       this.person = await getProfileById(this.student[0].student_id);
       this.timeline = await getTimelineById(this.student[0].student_id);
-      console.log(this.timeline );
+      console.log(this.timeline);
       console.log(this.person);
     },
   },
@@ -229,6 +335,15 @@ export default {
       timeline: [],
       student: [],
       profile: ref(""),
+      showdate: "",
+      icon: ref(false),
+      oldJob: ref(false),
+      workplace_name: "",
+      position: ref(""),
+      dense: ref(false),
+      startdate: ref(""),
+      enddate: ref(""),
+      maximizedToggle: ref(true),
     };
   },
 };

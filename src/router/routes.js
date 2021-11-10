@@ -70,6 +70,9 @@ const routes = [
      {name : "pinLocation",
       path: 'pinLocation', 
      component: () => import('pages/pinLocation.vue') },
+     {name : "resultSearch",
+      path: 'resultSearch', 
+     component: () => import('pages/resultSearch.vue') },
   ],
   },
   {
