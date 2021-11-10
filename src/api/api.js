@@ -8,7 +8,7 @@ import axios from 'axios'
 // for each client)
 var qs = require('qs');
 import { devapi, herokuapi,projectapi } from './currentapi'
-const api = axios.create({ baseURL: projectapi }, {
+const api = axios.create({ baseURL: devapi }, {
     headers: {
         'Content-Type': 'application/json'
     },
@@ -42,10 +42,10 @@ export function put_workplace_history(data) {
             console.log(error);
         });
 }
-export async function getTimelineById(student_id,major_id,faculty_id,campus_id,graduate_year) {
+export async function getTimelineById(student_id) {
     console.log(student_id);
     console.log("timelineById")
-    let res = await api.get(`/student/timeline/${student_id}/${major_id}/${faculty_id}/${campus_id}/${graduate_year}`);
+    let res = await api.get(`/student/timeline/${student_id}`);
     return res.data.results
 }
 
