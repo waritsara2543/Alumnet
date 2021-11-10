@@ -166,3 +166,9 @@ export async function getProfileById(student_id) {
     let res = await api.get(`/student/profile/${student_id}`);
     return res.data.results
 }
+
+export async function getadminbyemail(email) {
+    // console.log(email);
+    let res = await api.get(`/admin/${email}`);
+    return res.data.results
+}

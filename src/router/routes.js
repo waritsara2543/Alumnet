@@ -127,7 +127,7 @@ const routes = [
       {
         path: 'Approve', component: () => import('pages/Approve.vue')
       },
-        {path: 'test' , component:() => import('pages/testchart.vue')
+        {path: 'testchart' , component:() => import('pages/testchart.vue')
       },
     ],
   },
