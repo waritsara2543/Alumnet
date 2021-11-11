@@ -6,12 +6,25 @@
     >
       <h5 class="text-bold" style="color: #014a88">Avatar</h5>
 
-      <img
+      <div v-if="imageProfile === null ">
+        <img
         src="../assets/man.png"
         alt=""
         style="width: 200px; padding: 5px"
         id="imageurl"
       />
+      </div>
+
+      <div v-if=" imageProfile === this.imageProfile ">
+        <img
+        :src="this.imageProfile"
+        alt=""
+        style="width: 200px; padding: 5px"
+        id="imageurl"
+      />
+      </div>
+
+      
 
       <div class="q-pa-md text-center">
         <q-file
@@ -67,6 +80,7 @@ export default {
       const user = auth.currentUser;
 
       if (user) {
+        console.log("sign in");
         // Create the file metadata
         /** @type {any} */
         const metadata = {
@@ -99,6 +113,8 @@ export default {
   async mounted() {
     const value = localStorage.getItem("student");
     this.student = JSON.parse(value);
+    this.imageProfile = this.student[0].image_profile;
+
   },
 
   data() {
@@ -106,6 +122,7 @@ export default {
       files: null,
       url: [],
       student: [],
+      imageProfile:"",
     };
   },
 };
