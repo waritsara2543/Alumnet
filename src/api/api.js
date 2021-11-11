@@ -48,6 +48,14 @@ export async function getTimelineById(student_id) {
     let res = await api.get(`/student/timeline/${student_id}`);
     return res.data.results
 }
+export async function getFeedById(major_id,faculty_id,campus_id,graduate_year) {
+    let res = await api.get(`/student/feed/${major_id}/${faculty_id}/${campus_id}/${graduate_year}`);
+    return res.data.results
+}
+export async function getClassdirectoryById(major_id,faculty_id,campus_id,graduate_year) {
+    let res = await api.get(`/student/classdirectory/${major_id}/${faculty_id}/${campus_id}/${graduate_year}`);
+    return res.data.results
+}
 
 export async function getDetailById(email) {
     let res = await api.get(`/student/detail/${email}`);

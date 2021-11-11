@@ -25,7 +25,7 @@
         </q-toolbar>
 
         <q-card
-          v-for="(col, index) in timeline"
+          v-for="(col, index) in details"
           :key="index"
           class="my-card text-white"
           style="
@@ -40,26 +40,26 @@
             <div class="row">
               <div class="col-3">
                 <q-avatar class="q-mr-xs" id="image_profile">
-                  <img src="../assets/man.png" />
+                  <img :src="this.details[index].image_profile" />
                 </q-avatar>
               </div>
               <div class="col">
                 <div class="text-subtitle2" id="student_name">
-                  {{ this.student[0].firstname }} {{ this.student[0].lastname }}
+                  {{ this.details[index].firstname }} {{ this.details[index].lastname }}
                 </div>
                 <div class="" style="font-size: 10px" id="date">18 May</div>
                 <div style="text-align: center">
                   <q-icon name="business_center" />
                 </div>
                 <div class="" style="text-align: center" id="update_working">
-                  {{ col.position }} {{ col.name }}
+                  {{ this.details[index].position }} {{ this.details[index].workplace }}
                 </div>
                 <div
                   class=""
                   style="font-size: 12px; text-align: center"
                   id="update_date"
                 >
-                  {{ col.start_work }}
+                  {{ this.details[index].start_work }}
                 </div>
               </div>
             </div>
@@ -71,7 +71,7 @@
 </template>
  <script>
 import { ref } from "vue";
-import { getTimelineById } from "../api/api";
+import { getFeedById } from "../api/api";
 export default {
   methods: {
     // async timelinefeed() {
@@ -87,15 +87,21 @@ export default {
       console.log("hhikk");
     },
   },
+
+// async getFeed(major_id,faculty_id,campus_id,graduate_year){
+
+//   await getFeedById(major_id,faculty_id,campus_id,graduate_year)
+// },
+
   async mounted() {
-    const value = localStorage.getItem("student");
-    this.student = JSON.parse(value);
-
-    
-
-
+    const studentvalue = localStorage.getItem("student");
+    const detailvalue = localStorage.getItem("detail");
+    this.student = JSON.parse(studentvalue);
+    this.detail = JSON.parse(detailvalue);
+    this.details = await getFeedById(this.detail[0].major_id,this.detail[0].faculty_id,this.detail[0].campus_id,this.detail[0].graduate_year);
     console.log(this.student[0].image_profile);
     console.log(this.student);
+    console.log(this.detail);
     this.profile = this.student[0].image_profile
     // await this.timelinefeed();
   },
@@ -103,7 +109,9 @@ export default {
   data() {
     return {
       search: ref(""),
+      test:[],
       student: [],
+      details: [],
       timeline: [],
       profile:ref("")
     };
