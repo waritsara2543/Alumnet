@@ -1,7 +1,7 @@
 <template>
   <q-page>
     <inputsearchComponent></inputsearchComponent>
-    <resultsearchComponent></resultsearchComponent>
+    <resultsearchComponent @click="result"></resultsearchComponent>
   </q-page>
 </template>
  <script>
@@ -13,7 +13,12 @@ export default {
     inputsearchComponent,
     resultsearchComponent,
   },
-  methods: {},
+  methods: {
+    result(){
+      this.$router.push({ name: "resultSearch" });
+    }
+    ,
+  },
 
   setup() {
     return {

@@ -1,5 +1,7 @@
 <template>
   <q-page padding>
+    <!-- card profile -->
+
     <q-card
       v-for="(col, index) in person"
       :key="index"
@@ -7,6 +9,8 @@
       style="height: 385px; margin-top: 90px"
     >
       <q-card-section class="text-center">
+        <!-- profile image -->
+
         <q-avatar
           class="q-mr-xs"
           id="image_profile"
@@ -27,99 +31,93 @@
           style="position: relative; bottom: 20px; right: 20px; font-size: 30px"
         />
 
+        <!-- show name -->
+
         <div class="text-h6" id="user_name" style="margin-top: -40px">
           {{ this.person[0].firstname }} {{ this.person[0].lastname }}
         </div>
-        <div
-          class="text-h6"
-          style="border-top: 3px solid #ffffff; margin-top: 20px"
-        ></div>
       </q-card-section>
-      <q-card-section class="text-left" >
-        <div class="row" >
-          <div class="col-1">
-            <q-icon name="school" style="margin-right: 10px" />
-          </div>
 
+      <!-- profile data -->
+
+      <q-card-section class="text-left">
+        <div class="row">
+          <q-icon name="school" style="margin-right: 10px" />
           <div id="graduate" class="col">
             Graduation {{ this.person[0].major }}
             {{ this.person[0].graduate_year }} at {{ this.person[0].campus }}
-            <q-icon @click="prompt = true" name="edit" />
           </div>
         </div>
 
         <div class="row">
-          <div class="col-1">
-            <q-icon name="business_center" style="margin-right: 10px" />
-          </div>
-
+          <q-icon name="business_center" style="margin-right: 10px" />
           <div id="workplace" class="col">
             {{ this.person[0].position }} at {{ this.person[0].workplace }}
-            <q-icon name="edit" />
           </div>
         </div>
 
         <div class="row">
-          <div class="col-1">
-            <q-icon name="location_on" style="margin-right: 10px" />
-          </div>
-
+          <q-icon name="location_on" style="margin-right: 10px" />
           <div id="province" class="col">
             Lives in {{ this.person[0].province }},
-            {{ this.person[0].country }} <q-icon name="edit" />
+            {{ this.person[0].country }}
+            <q-icon name="edit" @click="editLocation" />
           </div>
         </div>
 
         <div class="row">
-          <div class="col-1">
-            <q-icon name="favorite" style="margin-right: 10px" />
-          </div>
+          <q-icon name="favorite" style="margin-right: 10px" />
           <div id="status" class="col">
-            {{ this.person[0].status }} <q-icon name="edit" />
+            {{ this.person[0].status }}
+            <q-icon name="edit" @click="editStatus = true" />
           </div>
         </div>
 
         <div class="row">
-          <div class="col-1">
-            <q-icon name="description" style="margin-right: 10px" />
-          </div>
+          <q-icon name="description" style="margin-right: 10px" />
           <div class="col" id="epigram">
-            {{ this.person[0].epigram }} <q-icon name="edit" />
+            {{ this.person[0].epigram }}
+            <q-icon name="edit" @click="editEpigram = true" />
           </div>
-        </div>
-
-        <div class="text-center" style="margin-top:50px">
-          <q-icon style="font-size: 40px" name="add_circle" />
         </div>
       </q-card-section>
     </q-card>
 
     <!-- timeline -->
-     
-    <div style="margin-left: 15px;">
-      <q-timeline color="secondary" >
-        <q-timeline-entry
-          :avatar="this.profile"
-          class="text-h6"
-        >
-          My Timeline
+
+    <div style="margin-left: 15px; margin-right: 15px">
+      <q-timeline color="secondary">
+        <q-timeline-entry :avatar="this.profile" class="text-h6">
+          <div class="row justify-start">My Timeline</div>
+          <div class="row justify-end">
+            <q-icon
+              style="font-size: 40px; margin-top: -35px; color: #032030"
+              name="add_circle"
+              @click="icon = true"
+            />
+          </div>
         </q-timeline-entry>
-        <q-scroll-area style="height: 300px; max-width: 320px;"><div v-for="(col, index) in timeline" :key="index">
-        <q-timeline-entry :subtitle="this.timeline[index].start_work">
-          <q-card class="text-white">
-            <div style="text-align: center">
-              <div>
-                <q-icon name="business_center" />
-              </div>
-              {{this.timeline[index].position}} at {{this.timeline[index].name}}
-            </div>
-          </q-card>
-        </q-timeline-entry></div>
+
+        <q-scroll-area style="height: 300px"
+          ><div v-for="(col, index) in timeline" :key="index">
+            <q-timeline-entry
+              :subtitle="getDate(this.timeline[index].start_work)"
+            >
+              <q-card class="text-white">
+                <div style="text-align: center">
+                  <div>
+                    <q-icon name="business_center" />
+                  </div>
+                  {{ this.timeline[index].position }} at
+                  {{ this.timeline[index].name }}
+                </div>
+              </q-card>
+            </q-timeline-entry>
+          </div>
         </q-scroll-area>
       </q-timeline>
     </div>
 
-    
     <div class="row">
       <div class="col" style="padding: 5px 5px 10px 0px">
         <q-card
@@ -186,18 +184,173 @@
         </q-card-actions>
       </q-card>
     </q-dialog>
+
+    <!-- alert add timeline -->
+    <q-dialog
+      v-model="icon"
+      persistent
+      :maximized="maximizedToggle"
+      transition-show="slide-up"
+      transition-hide="slide-down"
+    >
+      <q-card style="background: white">
+        <q-card-section class="row items-center q-pb-none">
+          <div class="text-h6">Add Timeline</div>
+          <q-space />
+          <q-btn icon="close" flat round dense v-close-popup />
+        </q-card-section>
+
+        <q-card-section>
+          <q-input
+            v-model="workplace_name"
+            id="workplace_name"
+            label="Company name"
+            :dense="dense"
+            style="padding: 15px; margin-top: 50px"
+            :rules="[(val) => !!val || 'Company name is required']"
+          />
+
+          <q-input
+            v-model="position"
+            id="position"
+            label="Position"
+            :dense="dense"
+            style="padding: 15px"
+            :rules="[(val) => !!val || 'Position is required']"
+          />
+
+          <q-input
+            label="start date"
+            v-model="startdate"
+            mask="date"
+            :rules="['date']"
+            style="padding: 15px"
+          >
+            <template v-slot:append>
+              <q-icon name="event" class="cursor-pointer">
+                <q-popup-proxy
+                  ref="qDateProxy"
+                  transition-show="scale"
+                  transition-hide="scale"
+                >
+                  <q-date v-model="startdate">
+                    <div class="row items-center justify-end">
+                      <q-btn v-close-popup label="Close" color="primary" flat />
+                    </div>
+                  </q-date>
+                </q-popup-proxy>
+              </q-icon>
+            </template>
+          </q-input>
+          <q-checkbox right-label v-model="oldJob" label="Old Job" />
+
+          <div v-if="oldJob === true">
+            <q-input
+              label="end date"
+              v-model="enddate"
+              mask="date"
+              :rules="['date']"
+              style="padding: 15px"
+              ><template v-slot:append>
+                <q-icon name="event" class="cursor-pointer">
+                  <q-popup-proxy
+                    ref="qDateProxy"
+                    transition-show="scale"
+                    transition-hide="scale"
+                  >
+                    <q-date v-model="enddate">
+                      <div class="row items-center justify-end">
+                        <q-btn
+                          v-close-popup
+                          label="Close"
+                          color="primary"
+                          flat
+                        />
+                      </div>
+                    </q-date>
+                  </q-popup-proxy>
+                </q-icon>
+              </template>
+            </q-input>
+          </div>
+        </q-card-section>
+        <q-card-actions align="right">
+          <q-btn flat label="SAVE" color="primary" v-close-popup />
+        </q-card-actions>
+      </q-card>
+    </q-dialog>
+
+    <!--Alert Edit Satatus -->
+
+    <q-dialog v-model="editStatus" persistent>
+      <q-card style="min-width: 350px; background: white">
+        <q-card-section>
+          <div class="text-h6">Edit Status</div>
+        </q-card-section>
+
+        <q-card-section class="q-pt-none">
+          <q-input
+            dense
+            v-model="newStatus"
+            autofocus
+            @keyup.enter="prompt = false"
+          ></q-input>
+        </q-card-section>
+
+        <q-card-actions align="right" class="text-primary">
+          <q-btn flat label="Cancel" v-close-popup />
+          <q-btn flat label="Save" v-close-popup @click="updateStatus" />
+        </q-card-actions>
+      </q-card>
+    </q-dialog>
+
+    <!--Alert Edit Epigram -->
+
+    <q-dialog v-model="editEpigram" persistent>
+      <q-card style="min-width: 350px; background: white">
+        <q-card-section>
+          <div class="text-h6">Edit Epigram</div>
+        </q-card-section>
+
+        <q-card-section class="q-pt-none">
+          <q-input
+            dense
+            v-model="newEpigram"
+            autofocus
+            @keyup.enter="prompt = false"
+          ></q-input>
+        </q-card-section>
+
+        <q-card-actions align="right" class="text-primary">
+          <q-btn flat label="Cancel" v-close-popup />
+          <q-btn flat label="Save" v-close-popup @click="updateEpigram" />
+        </q-card-actions>
+      </q-card>
+    </q-dialog>
   </q-page>
 </template>
  <script>
 import { ref } from "vue";
-import { getProfileById,getTimelineById } from "../api/api";
+import { getProfileById, getTimelineById } from "../api/api";
 import { getAuth, signOut } from "firebase/auth";
-import { debounce } from 'quasar';
+import moment from "moment";
 export default {
   methods: {
     // backconfirmEmail() {
     //   this.$router.push({ name: "confirmEmail" });
     // },
+    editLocation(){
+      this.$router.push({ name: "pinLocation" });
+    },
+    updateStatus() {
+      console.log(this.newStatus);
+    },
+    updateEpigram() {
+      console.log(this.newEpigram);
+    },
+    getDate: function (date) {
+      return moment(date, "YYYY-MM-DD").format("DD MMMM YYYY");
+    },
     contactChannel() {
       this.$router.push({ name: "contactChannel" });
     },
@@ -222,7 +375,7 @@ export default {
     async detailstudent() {
       this.person = await getProfileById(this.student[0].student_id);
       this.timeline = await getTimelineById(this.student[0].student_id);
-      console.log(this.timeline );
+      console.log(this.timeline);
       console.log(this.person);
     },
   },
@@ -231,10 +384,11 @@ export default {
     this.student = JSON.parse(value);
     await this.detailstudent(this.student[0].student_id);
     this.profile = this.student[0].image_profile;
+    this.newEpigram = this.person[0].epigram;
+    this.newStatus = this.person[0].status;
   },
 
   data() {
-    
     return {
       prompt: ref(false),
       address: ref(""),
@@ -242,7 +396,19 @@ export default {
       timeline: [],
       student: [],
       profile: ref(""),
-     
+      showdate: "",
+      icon: ref(false),
+      oldJob: ref(false),
+      workplace_name: "",
+      position: ref(""),
+      dense: ref(false),
+      startdate: ref(""),
+      enddate: ref(""),
+      maximizedToggle: ref(true),
+      editStatus: ref(false),
+      editEpigram: ref(false),
+      newStatus: "",
+      newEpigram: "",
     };
   },
 };
