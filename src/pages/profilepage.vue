@@ -1,5 +1,7 @@
 <template>
   <q-page padding>
+    <!-- card profile -->
+
     <q-card
       v-for="(col, index) in person"
       :key="index"
@@ -7,6 +9,8 @@
       style="height: 385px; margin-top: 90px"
     >
       <q-card-section class="text-center">
+        <!-- profile image -->
+
         <q-avatar
           class="q-mr-xs"
           id="image_profile"
@@ -27,56 +31,53 @@
           style="position: relative; bottom: 20px; right: 20px; font-size: 30px"
         />
 
+        <!-- show name -->
+
         <div class="text-h6" id="user_name" style="margin-top: -40px">
           {{ this.person[0].firstname }} {{ this.person[0].lastname }}
         </div>
-        <div
-          class="text-h6"
-          style="border-top: 3px solid #ffffff; margin-top: 20px"
-        ></div>
       </q-card-section>
+
+      <!-- profile data -->
+
       <q-card-section class="text-left">
         <div class="row">
           <q-icon name="school" style="margin-right: 10px" />
-
           <div id="graduate" class="col">
             Graduation {{ this.person[0].major }}
             {{ this.person[0].graduate_year }} at {{ this.person[0].campus }}
-            
           </div>
         </div>
 
         <div class="row">
           <q-icon name="business_center" style="margin-right: 10px" />
-
           <div id="workplace" class="col">
             {{ this.person[0].position }} at {{ this.person[0].workplace }}
-           
           </div>
         </div>
 
         <div class="row">
           <q-icon name="location_on" style="margin-right: 10px" />
-
           <div id="province" class="col">
             Lives in {{ this.person[0].province }},
-            {{ this.person[0].country }} <q-icon name="edit" />
+            {{ this.person[0].country }}
+            <q-icon name="edit" @click="editLocation" />
           </div>
         </div>
 
         <div class="row">
           <q-icon name="favorite" style="margin-right: 10px" />
-
           <div id="status" class="col">
-            {{ this.person[0].status }} <q-icon name="edit" />
+            {{ this.person[0].status }}
+            <q-icon name="edit" @click="editStatus = true" />
           </div>
         </div>
 
         <div class="row">
           <q-icon name="description" style="margin-right: 10px" />
-
           <div class="col" id="epigram">
-            {{ this.person[0].epigram }} <q-icon name="edit" />
+            {{ this.person[0].epigram }}
+            <q-icon name="edit" @click="editEpigram = true" />
           </div>
         </div>
       </q-card-section>
@@ -96,6 +97,7 @@
             />
           </div>
         </q-timeline-entry>
+
         <q-scroll-area style="height: 300px"
           ><div v-for="(col, index) in timeline" :key="index">
             <q-timeline-entry
@@ -277,6 +279,54 @@
         </q-card-actions>
       </q-card>
     </q-dialog>
+
+    <!--Alert Edit Satatus -->
+
+    <q-dialog v-model="editStatus" persistent>
+      <q-card style="min-width: 350px; background: white">
+        <q-card-section>
+          <div class="text-h6">Edit Status</div>
+        </q-card-section>
+
+        <q-card-section class="q-pt-none">
+          <q-input
+            dense
+            v-model="newStatus"
+            autofocus
+            @keyup.enter="prompt = false"
+          ></q-input>
+        </q-card-section>
+
+        <q-card-actions align="right" class="text-primary">
+          <q-btn flat label="Cancel" v-close-popup />
+          <q-btn flat label="Save" v-close-popup @click="updateStatus" />
+        </q-card-actions>
+      </q-card>
+    </q-dialog>
+
+    <!--Alert Edit Epigram -->
+
+    <q-dialog v-model="editEpigram" persistent>
+      <q-card style="min-width: 350px; background: white">
+        <q-card-section>
+          <div class="text-h6">Edit Epigram</div>
+        </q-card-section>
+
+        <q-card-section class="q-pt-none">
+          <q-input
+            dense
+            v-model="newEpigram"
+            autofocus
+            @keyup.enter="prompt = false"
+          ></q-input>
+        </q-card-section>
+
+        <q-card-actions align="right" class="text-primary">
+          <q-btn flat label="Cancel" v-close-popup />
+          <q-btn flat label="Save" v-close-popup @click="updateEpigram" />
+        </q-card-actions>
+      </q-card>
+    </q-dialog>
   </q-page>
 </template>
  <script>
@@ -289,6 +339,15 @@ export default {
     // backconfirmEmail() {
     //   this.$router.push({ name: "confirmEmail" });
     // },
+    editLocation(){
+      this.$router.push({ name: "pinLocation" });
+    },
+    updateStatus() {
+      console.log(this.newStatus);
+    },
+    updateEpigram() {
+      console.log(this.newEpigram);
+    },
     getDate: function (date) {
       return moment(date, "YYYY-MM-DD").format("DD MMMM YYYY");
     },
@@ -325,6 +384,8 @@ export default {
     this.student = JSON.parse(value);
     await this.detailstudent(this.student[0].student_id);
     this.profile = this.student[0].image_profile;
+    this.newEpigram = this.person[0].epigram;
+    this.newStatus = this.person[0].status;
   },
 
   data() {
@@ -344,6 +405,10 @@ export default {
       startdate: ref(""),
       enddate: ref(""),
       maximizedToggle: ref(true),
+      editStatus: ref(false),
+      editEpigram: ref(false),
+      newStatus: "",
+      newEpigram: "",
     };
   },
 };

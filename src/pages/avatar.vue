@@ -6,13 +6,12 @@
     >
       <h5 class="text-bold" style="color: #014a88">Avatar</h5>
 
-      
-     <img src="../assets/man.png"  alt="" style="width: 200px; padding: 5px" id="imageurl">
-    
-    
-
-    
-
+      <img
+        src="../assets/man.png"
+        alt=""
+        style="width: 200px; padding: 5px"
+        id="imageurl"
+      />
 
       <div class="q-pa-md text-center">
         <q-file
@@ -49,64 +48,63 @@ import {
   uploadBytesResumable,
   getDownloadURL,
 } from "firebase/storage";
+import { getAuth } from "firebase/auth";
 
-import { updateprofile } from "../api/api"
+import { updateprofile } from "../api/api";
 export default {
   methods: {
-    
     // backconfirmEmail() {
     //   this.$router.push({ name: "confirmEmail" });
     // },
     async tohomepage(url) {
       let profile = await updateprofile(url, this.student[0].student_id);
-       this.$router.push({ name: "homepage" });
-      console.log("Hello I am "+url);
-
+      this.$router.push({ name: "homepage" });
+      console.log("Hello I am " + url);
     },
     async getImage() {
+      const auth = getAuth();
       const files = this.files;
-      
+      const user = auth.currentUser;
 
-      // Create the file metadata
-      /** @type {any} */
-      const metadata = {
-        contentType: "image/png",
-      };
+      if (user) {
+        // Create the file metadata
+        /** @type {any} */
+        const metadata = {
+          contentType: "image/png",
+        };
 
-      const storage = getStorage();
-      const imageRef = ref(storage, "images/" + files[0].name);
-      uploadBytesResumable(imageRef, files[0], metadata)
-        .then((snapshot) => {
-          // console.log(files[0]);
-          // console.log("Uploaded", snapshot.totalBytes, "bytes.");
-          // console.log("File metadata:", snapshot.metadata);
-          // Let's get a download URL for the file.
-          getDownloadURL(snapshot.ref).then((url) => {
-            console.log("File available at", url);
-            // var img = document.getElementById("imageurl");
-            //   console.log(img.getAttribute("src"));
-            this.tohomepage(url);
-            
-          
+        const storage = getStorage();
+        const imageRef = ref(storage, "images/" + files[0].name);
+        uploadBytesResumable(imageRef, files[0], metadata)
+          .then((snapshot) => {
+            // console.log(files[0]);
+            // console.log("Uploaded", snapshot.totalBytes, "bytes.");
+            // console.log("File metadata:", snapshot.metadata);
+            // Let's get a download URL for the file.
+            getDownloadURL(snapshot.ref).then((url) => {
+              console.log("File available at", url);
+              // var img = document.getElementById("imageurl");
+              //   console.log(img.getAttribute("src"));
+              this.tohomepage(url);
+            });
+          })
+          .catch((error) => {
+            console.error("Upload failed", error);
           });
-        })
-        .catch((error) => {
-          console.error("Upload failed", error);
-          
-        });
-      
+      } else {
+        
+      }
     },
   },
-    async mounted() {
+  async mounted() {
     const value = localStorage.getItem("student");
     this.student = JSON.parse(value);
   },
 
-
   data() {
     return {
       files: null,
-      url:[],
+      url: [],
       student: [],
     };
   },
