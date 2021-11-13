@@ -3,7 +3,7 @@
     <div class="row justify-center q-gutter-md " style="margin:0 auto;">
 
       
-        <q-card  v-for="index in 13" :key="index"
+        <q-card  v-for="(col,index) in friend" :key="index"
           class="my-card text-white text-center"
           style="margin-left:90px ;margin-right:90px ;margin-top:20px ;"
          
@@ -11,13 +11,13 @@
           <q-card-section class="text-center" >
 
             <q-avatar class="q-mr-xs" id="image_profile" style=" width:80px; height:80px; ">
-                  <img src="../assets/man.png" style=""  />
+                  <img :src=" this.friend[index].image_profile " style=""  />
             </q-avatar>
             <div class="text-subtitle2" id="student_name">
-              Arnont Photdoung
+              {{ this.friend[index].firstname }} {{ this.friend[index].lastname }}
             </div>
             <div class="text-caption" id="location">
-              <q-icon name="location_on"></q-icon> Lives in Bangkok, Thailand
+              <q-icon name="location_on"></q-icon> Lives in {{ this.friend[index].province }}, {{ this.friend[index].country}}
             </div>
           </q-card-section>
         </q-card>
@@ -32,11 +32,30 @@
 </template>
  <script>
 import { ref } from "vue";
+import { getClassdirectoryById } from  "../api/api"
 export default {
-  methods: {},
+  methods: {
+    async classdirectory(){
+      this.friend = await getClassdirectoryById(this.person[0].major_id,this.person[0].faculty_id,this.person[0].campus_id,this.person[0].graduate_year);
+      console.log(this.friend);
+    }
+  },
+  async mounted() {
 
-  setup() {
-    return {};
+    const value = localStorage.getItem("detail");
+    this.person = JSON.parse(value);
+    console.log(this.person);
+    this.friend = await getClassdirectoryById(this.person[0].major_id,this.person[0].faculty_id,this.person[0].campus_id,this.person[0].graduate_year);
+    // await this.classdirectory();
+console.log(this.friend);
+  },
+
+  data() {
+    return {
+      person: [],
+      friend:[],
+      profile:ref("")
+    };
     i
   },
 };
