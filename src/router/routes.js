@@ -4,23 +4,23 @@ const routes = [
     path: '/regist',
     component: () => import('layouts/regisLayout.vue'),
     children: [
-      
+
       {
-        name : "loginPage",
-        path: '/loginPage', 
-        component: () => import('pages/loginPage.vue') 
+        name: "loginPage",
+        path: '/loginPage',
+        component: () => import('pages/loginPage.vue')
 
       },
       {
-        name : "regist1",
-        path: '/regist', 
-        component: () => import('pages/regisPage1.vue') 
+        name: "regist1",
+        path: '/regist',
+        component: () => import('pages/regisPage1.vue')
 
       },
       {
-        name : "loginAdmin",
-        path: '/loginAdmin', 
-        component: () => import('pages/loginAdmin.vue') 
+        name: "loginAdmin",
+        path: '/loginAdmin',
+        component: () => import('pages/loginAdmin.vue')
 
       },
       {
@@ -30,27 +30,29 @@ const routes = [
 
       },
       {
-        name : "persenalInform",
-        path: '/persenalInform', 
-        component: () => import('pages/persenalInform.vue') 
+        name: "persenalInform",
+        path: '/persenalInform',
+        component: () => import('pages/persenalInform.vue')
 
       },
       {
-        name : "workingInform",
-        path: '/workingInform', 
-        component: () => import('pages/workingInform.vue') 
+        name: "workingInform",
+        path: '/workingInform',
+        component: () => import('pages/workingInform.vue')
 
       },
       {
-        name : "toavatar",
-        path: '/toavatar', 
-        component: () => import('pages/avatar.vue') 
+        name: "toavatar",
+        path: '/toavatar',
+        component: () => import('pages/avatar.vue')
 
       },
+
     ]
   },
+
   {
-    path: '/',
+    path: '/admin',
     component: () => import('layouts/firstLayout.vue'),
     children: [
       { path: '',
@@ -75,6 +77,9 @@ const routes = [
      component: () => import('pages/resultSearch.vue') },
   ],
   },
+
+
+
   {
     path: '/',
     component: () => import('layouts/MainLayout.vue'),
@@ -105,6 +110,29 @@ const routes = [
     component: () => import('pages/test.vue')
    },
   ],
+  },
+  {
+    path: '/admin',
+    component: () => import('layouts/AdminLayout.vue'),
+    children: [
+       {name:'homeadmin',
+        path: 'homeadmin', component: () => import('pages/HomeAdmin.vue')
+      },
+      {
+        path: 'mapadmin', component: () => import('pages/MapAdmin.vue')
+      },
+      {
+        path: 'reportadmin', component: () => import('pages/ReportAdmin.vue')
+      },
+      {name:'createevent',
+        path: 'createevent', component: () => import('pages/Createevent.vue')
+      },
+      {
+        path: 'Approve', component: () => import('pages/Approve.vue')
+      },
+        {path: 'testchart' , component:() => import('pages/testchart.vue')
+      },
+    ],
   },
 
   // Always leave this as last one,

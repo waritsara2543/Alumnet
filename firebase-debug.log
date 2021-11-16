@@ -1,0 +1,21 @@
+[debug] [2021-09-23T10:01:23.515Z] ----------------------------------------------------------------------
+[debug] [2021-09-23T10:01:23.523Z] Command:       C:\Program Files\nodejs\node.exe C:\Users\KOOKU\AppData\Roaming\npm\node_modules\firebase-tools\lib\bin\firebase.js init
+[debug] [2021-09-23T10:01:23.525Z] CLI Version:   9.18.0
+[debug] [2021-09-23T10:01:23.525Z] Platform:      win32
+[debug] [2021-09-23T10:01:23.526Z] Node Version:  v14.17.5
+[debug] [2021-09-23T10:01:23.529Z] Time:          Thu Sep 23 2021 17:01:23 GMT+0700 (เวลาอินโดจีน)
+[debug] [2021-09-23T10:01:23.530Z] ----------------------------------------------------------------------
+[debug] 
+[debug] [2021-09-23T10:01:23.556Z] > command requires scopes: ["email","openid","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","https://www.googleapis.com/auth/cloud-platform"]
+[debug] [2021-09-23T10:01:23.557Z] > authorizing via signed-in user (alumnet.project@gmail.com)
+[info] 
+     ######## #### ########  ######## ########     ###     ######  ########
+     ##        ##  ##     ## ##       ##     ##  ##   ##  ##       ##
+     ######    ##  ########  ######   ########  #########  ######  ######
+     ##        ##  ##    ##  ##       ##     ## ##     ##       ## ##
+     ##       #### ##     ## ######## ########  ##     ##  ######  ########
+
+You're about to initialize a Firebase project in this directory:
+
+  D:\Project จบ\code\Alumnet-project
+

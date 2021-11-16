@@ -129,6 +129,7 @@ export default {
       
       status: ref(""),
       epigram: ref(""),
+      contact:ref(""),
       dense: ref(false),
       person: [],
       student: [],
