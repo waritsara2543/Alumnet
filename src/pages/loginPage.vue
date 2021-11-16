@@ -108,7 +108,7 @@ export default {
           this.$router.push({ name: "stdIdSignup" });
         } else {
           localStorage.setItem("student", JSON.stringify(value));
-          this.$router.push({ name: "/admin/homeadmin" });
+          // this.$router.push({ name: "/admin/homeadmin" });
           localStorage.setItem("detail", JSON.stringify(detail));
           this.$router.push({ name: "homepage" });
         }

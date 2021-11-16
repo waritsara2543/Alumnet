@@ -52,7 +52,7 @@ const routes = [
   },
 
   {
-    path: '/admin',
+    path: '/',
     component: () => import('layouts/firstLayout.vue'),
     children: [
       { path: '',
