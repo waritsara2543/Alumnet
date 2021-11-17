@@ -1,15 +1,25 @@
 <template>
-  <link href="https://fonts.googleapis.com/css?family=Josefin+Sans" rel="stylesheet">
+  <link
+    href="https://fonts.googleapis.com/css?family=Josefin+Sans"
+    rel="stylesheet"
+  />
 
   <div class="q-pa-md">
     <div class="col">
-      <h3 style="text-bold" >Create an event</h3>
+      <h3 style="text-bold">Create an event</h3>
       <q-card
         class="my-card text-white text-center"
-        style="background: #1794A5; height: 500px; margin: 0 auto"
+        style="background: #1794a5; height: 500px; margin: 0 auto"
       >
         <div style="padding: 50px 100px 100px 100px">
-          <q-input color="cyan-8" outlined v-model="Title" label="Title" bg-color="white"> </q-input>
+          <q-input
+            color="cyan-8"
+            outlined
+            v-model="Title"
+            label="Title"
+            bg-color="white"
+          >
+          </q-input>
 
           <div style="padding: 20px 0px 0px 0px">
             <div class="row">
@@ -17,10 +27,15 @@
                 class="my-card bg-white text-grey-7 max-width"
                 style="height: 60px; margin: 0 auto; width: 1500px"
               >
-                <q-card-section >
-                  <div class="row" style="margin-top: -7px" >
-                    <div class="text-subtitle1 text-left" style="margin-right:20px">Start</div>
-                    <q-btn icon="event" round color="black" >
+                <q-card-section>
+                  <div class="row" style="margin-top: -7px">
+                    <div
+                      class="text-subtitle1 text-left"
+                      style="margin-right: 20px"
+                    >
+                      Start
+                    </div>
+                    <q-btn icon="event" round color="black">
                       <q-popup-proxy
                         color="cyan-8"
                         @before-show="updateProxy"
@@ -46,7 +61,9 @@
                         </q-date>
                       </q-popup-proxy>
                     </q-btn>
-                    <q-badge color="white" class="text-black"> {{ date }} </q-badge>
+                    <q-badge color="white" class="text-black">
+                      {{ date }}
+                    </q-badge>
                     <q-btn
                       icon="access_time"
                       round
@@ -74,7 +91,12 @@
                       </q-popup-proxy>
                     </q-btn>
                     <q-space />
-                    <div class="text-subtitle1 text-left" style="margin-right:20px">End</div>
+                    <div
+                      class="text-subtitle1 text-left"
+                      style="margin-right: 20px"
+                    >
+                      End
+                    </div>
                     <q-btn icon="event" round color="black">
                       <q-popup-proxy
                         color="cyan-8"
@@ -101,7 +123,9 @@
                         </q-date>
                       </q-popup-proxy>
                     </q-btn>
-                    <q-badge color="white" class="text-black"> {{ date_end }} </q-badge>
+                    <q-badge color="white" class="text-black">
+                      {{ date_end }}
+                    </q-badge>
                     <q-btn
                       icon="access_time"
                       round
@@ -133,27 +157,27 @@
               </q-card>
             </div>
           </div>
-           <div style="padding: 20px 0px 0px 0px">
-          <q-input
-        filled
-        type="file"
-        bg-color="white"
-        accept=".jpg, image/*"
-      />
-      </div>
+          <div style="padding: 20px 0px 0px 0px">
+            <q-input
+              color="cyan-8"
+              outlined
+              type="file"
+              bg-color="white"
+              accept=".jpg, image/*"
+            />
+          </div>
 
-
-      <div class="q-pa-md" style="padding: 20px 0px 0px 0px">
-      <q-input
-      v-model="text"
-      filled
-      type="textarea"
-      bg-color="white"
-      label="Detail"
-    />
-  </div>
+          <div class="q-pa-md" style="padding: 20px 0px 0px 0px">
+            <q-input
+              v-model="text"
+              color="cyan-8"
+              outlined
+              type="textarea"
+              bg-color="white"
+              label="Detail"
+            />
+          </div>
         </div>
-        
       </q-card>
     </div>
   </div>
@@ -163,9 +187,7 @@
 import { ref } from "vue";
 
 export default {
-  methods :{
-
-  },
+  methods: {},
   setup() {
     const date = ref("2019/03/01 12:44");
     const date_end = ref("2019/03/01 12:44");
@@ -180,8 +202,8 @@ export default {
       date_end,
       proxyDate,
       proxyDate_end,
-      Title:'',
-      file:'',
+      Title: "",
+      file: "",
 
       updateProxy() {
         proxyDate.value = date.value;
@@ -197,7 +219,7 @@ export default {
 </script>
 <style>
 body {
-  font-family: 'Josefin Sans', sans-serif;
+  font-family: "Josefin Sans", sans-serif;
   box-sizing: border-box;
 }
 </style>

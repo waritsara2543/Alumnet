@@ -49,6 +49,7 @@
                   bottom: 0px; ;
                 "
                 label="LOGOUT"
+                @click="logout"
               />
             </div>
           </q-card>
@@ -91,6 +92,7 @@
                 height: 200px;
                 width: 100%;
                 margin: 0 auto;
+                margin: 0px 0px 20px 0px;
               "
             >
               <div class="text-caption" id="" style="">
@@ -171,8 +173,7 @@
     transition-show="slide-up"
     transition-hide="slide-down"
   >
-
-  <!-- bar -->
+    <!-- bar -->
     <q-card class="bg-white text-black">
       <q-bar>
         <q-space />
@@ -181,13 +182,11 @@
         </q-btn>
       </q-bar>
 
-
       <q-card-section>
         <div class="text-h6">Edit event</div>
       </q-card-section>
 
       <q-card-section class="">
-
         <!-- edit title -->
 
         <q-input
@@ -275,7 +274,7 @@
                     End
                   </div>
 
-                   <!-- edit date time start -->
+                  <!-- edit date time start -->
 
                   <q-btn icon="event" round color="black">
                     <q-popup-proxy
@@ -338,7 +337,6 @@
           </div>
         </div>
         <div style="padding: 20px 0px 0px 0px">
-
           <!-- edit file -->
 
           <q-input
@@ -363,7 +361,32 @@
         </div>
       </q-card-section>
       <q-card-actions align="right">
-        <q-btn flat label="SAVE" color="primary" v-close-popup />
+        <q-btn
+          flat
+          label="SAVE"
+          color="primary"
+          v-close-popup
+          @click="updateEvent"
+        />
+      </q-card-actions>
+    </q-card>
+  </q-dialog>
+
+  <q-dialog v-model="deleteEvent" persistent>
+    <q-card style="background: white">
+      <q-card-section class="row items-center">
+        <span class="q-ml-sm">Are you sure to delete this event?</span>
+      </q-card-section>
+
+      <q-card-actions align="right">
+        <q-btn flat label="Cancel" color="primary" v-close-popup />
+        <q-btn
+          flat
+          label="Sure"
+          color="primary"
+          v-close-popup
+          @click="deleteThisEvent"
+        />
       </q-card-actions>
     </q-card>
   </q-dialog>
@@ -371,11 +394,29 @@
 
 <script>
 import { ref } from "vue";
-
+import { getAuth, signOut } from "firebase/auth";
 export default {
   methods: {
     createEvent() {
       this.$router.push({ name: "createevent" });
+    },
+    updateEvent() {
+      console.log("Update Event");
+    },
+    deleteThisEvent() {
+      console.log("Delete Event");
+    },
+    logout() {
+      const auth = getAuth();
+      signOut(auth)
+        .then(() => {
+          // Sign-out successful.
+          localStorage.clear();
+          this.$router.push({ name: "loginAdmin" });
+        })
+        .catch((error) => {
+          // An error happened.
+        });
     },
   },
   setup() {
