@@ -275,7 +275,13 @@
           </div>
         </q-card-section>
         <q-card-actions align="right">
-          <q-btn flat label="SAVE" color="primary" v-close-popup />
+          <q-btn
+            flat
+            label="SAVE"
+            color="primary"
+            v-close-popup
+            @click="addWorkplace"
+          />
         </q-card-actions>
       </q-card>
     </q-dialog>
@@ -331,7 +337,12 @@
 </template>
  <script>
 import { ref } from "vue";
-import { getProfileById, getTimelineById } from "../api/api";
+import {
+  getProfileById,
+  getTimelineById,
+  updateinformation,
+  createworkplace,
+} from "../api/api";
 import { getAuth, signOut } from "firebase/auth";
 import moment from "moment";
 export default {
@@ -339,14 +350,35 @@ export default {
     // backconfirmEmail() {
     //   this.$router.push({ name: "confirmEmail" });
     // },
-    editLocation(){
+    async addWorkplace() {
+      
+      if (this.oldJob == false) {
+        // ไม่มี finish_work
+        console.log("current job");
+      } else {
+        // มี finish_work
+        console.log("old job");
+      }
+    },
+    editLocation() {
       this.$router.push({ name: "pinLocation" });
     },
-    updateStatus() {
+    async updateStatus() {
+      console.log(this.person[0].status);
       console.log(this.newStatus);
+      let updateStatus = await updateinformation(
+        this.newEpigram,
+        this.newStatus,
+        this.student[0].student_id
+      );
     },
-    updateEpigram() {
+    async updateEpigram() {
       console.log(this.newEpigram);
+      let updateEpigram = await updateinformation(
+        this.newEpigram,
+        this.newStatus,
+        this.student[0].student_id
+      );
     },
     getDate: function (date) {
       return moment(date, "YYYY-MM-DD").format("DD MMMM YYYY");

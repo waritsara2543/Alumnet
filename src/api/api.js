@@ -140,12 +140,12 @@ export async function updateinformation(epigram, status, student_id) {
     }
 }
 
-export async function createworkplace(workplace_name, position, student_id,start_work) {
+export async function createworkplace(workplace_name, position, student_id,start_work ) {
     var data = {
         name: workplace_name,
         position: position,
         student_id: student_id,
-        start_work:start_work
+        start_work:start_work,
     }
     try {
         let res = await api.post(`/student/workplace`, data);
