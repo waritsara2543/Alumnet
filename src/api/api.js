@@ -140,12 +140,12 @@ export async function updateinformation(epigram, status, student_id) {
     }
 }
 
-export async function createworkplace(workplace_name, position, student_id,start_work) {
+export async function createworkplace(workplace_name, position, student_id,start_work ) {
     var data = {
         name: workplace_name,
         position: position,
         student_id: student_id,
-        start_work:start_work
+        start_work:start_work,
     }
     try {
         let res = await api.post(`/student/workplace`, data);
@@ -172,5 +172,11 @@ export async function updateprofile(image_profile,student_id) {
 export async function getProfileById(student_id) {
     // console.log(email);
     let res = await api.get(`/student/profile/${student_id}`);
+    return res.data.results
+}
+
+export async function getadminbyemail(email) {
+    // console.log(email);
+    let res = await api.get(`/admin/${email}`);
     return res.data.results
 }

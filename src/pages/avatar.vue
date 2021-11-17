@@ -6,25 +6,23 @@
     >
       <h5 class="text-bold" style="color: #014a88">Avatar</h5>
 
-      <div v-if="imageProfile === null ">
+      <div v-if="imageProfile === ''">
         <img
-        src="../assets/man.png"
-        alt=""
-        style="width: 200px; padding: 5px"
-        id="imageurl"
-      />
+          src="../assets/man.png"
+          alt=""
+          style="width: 200px; padding: 5px"
+          id="imageurl"
+        />
       </div>
 
-      <div v-if=" imageProfile === this.imageProfile ">
+      <div v-if="imageProfile === this.imageProfile">
         <img
-        :src="this.imageProfile"
-        alt=""
-        style="width: 200px; padding: 5px"
-        id="imageurl"
-      />
+          :src="this.imageProfile"
+          alt=""
+          style="width: 200px; padding: 5px"
+          id="imageurl"
+        />
       </div>
-
-      
 
       <div class="q-pa-md text-center">
         <q-file
@@ -106,7 +104,6 @@ export default {
             console.error("Upload failed", error);
           });
       } else {
-        
       }
     },
   },
@@ -114,7 +111,6 @@ export default {
     const value = localStorage.getItem("student");
     this.student = JSON.parse(value);
     this.imageProfile = this.student[0].image_profile;
-
   },
 
   data() {
@@ -122,7 +118,7 @@ export default {
       files: null,
       url: [],
       student: [],
-      imageProfile:"",
+      imageProfile: "",
     };
   },
 };

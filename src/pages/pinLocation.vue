@@ -18,6 +18,7 @@
         @click="getGeolocation"
       />
     </div> -->
+  
     <div id="map"></div>
     <div>
       
@@ -27,10 +28,10 @@
 </template>
 
 <script>
-import "leaflet/dist/leaflet.css";
-import L from "leaflet";
-import "leaflet-defaulticon-compatibility/dist/leaflet-defaulticon-compatibility.webpack.css";
-import "leaflet-defaulticon-compatibility";
+// import "leaflet/dist/leaflet.css";
+// import L from "leaflet";
+// import "leaflet-defaulticon-compatibility/dist/leaflet-defaulticon-compatibility.webpack.css";
+// import "leaflet-defaulticon-compatibility";
 // import "esri-leaflet/dist/esri-leaflet";
 // import "esri-leaflet-geocoder/dist/esri-leaflet-geocoder";
 // import "esri-leaflet-vector/dist/esri-leaflet-vector";
@@ -66,7 +67,7 @@ export default {
 
   },
   methods: {
-
+    
    
   },
   mounted() {

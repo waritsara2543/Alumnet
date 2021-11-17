@@ -47,7 +47,6 @@
                 <div class="text-subtitle2" id="student_name">
                   {{ this.details[index].firstname }} {{ this.details[index].lastname }}
                 </div>
-                <div class="" style="font-size: 10px" id="date">18 May</div>
                 <div style="text-align: center">
                   <q-icon name="business_center" />
                 </div>
@@ -58,8 +57,8 @@
                   class=""
                   style="font-size: 12px; text-align: center"
                   id="update_date"
-                >
-                  {{ this.details[index].start_work }}
+                > {{getDate(this.details[index].start_work)}}
+                  
                 </div>
               </div>
             </div>
@@ -72,6 +71,7 @@
  <script>
 import { ref } from "vue";
 import { getFeedById } from "../api/api";
+import moment from "moment";
 export default {
   methods: {
     // async timelinefeed() {
@@ -85,6 +85,9 @@ export default {
     searchPage() {
       this.$router.push({ name: "searchPage" });
       console.log("hhikk");
+    },
+    getDate: function (date) {
+      return moment(date, "YYYY-MM-DD").format("DD MMMM YYYY");
     },
   },
 
