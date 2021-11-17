@@ -180,3 +180,50 @@ export async function getadminbyemail(email) {
     let res = await api.get(`/admin/${email}`);
     return res.data.results
 }
+
+// ADMIN //
+export async function createEvent(title,details,image,start_activity,finish_activity,faculty_id) {
+    var data = {
+        title: title,
+        content: details,
+        image:image,
+        start_activity: start_activity,
+        finish_activity: finish_activity,
+        faculty_id: faculty_id,
+    }
+    try {
+        const res = await api.post(`/admin/createevent/`, data)
+        return res
+    }
+    catch (err) {
+        console.log(err);
+    }
+}
+
+export async function updateEvent(title,details,image,start_activity,finish_activity,faculty_id) {
+    var data = {
+        title: title,
+        content: details,
+        image:image,
+        start_activity: start_activity,
+        finish_activity: finish_activity,
+        faculty_id: faculty_id,
+    }
+    try {
+        const res = await api.post(`/admin/updateevent/`, data)
+        return res
+    }
+    catch (err) {
+        console.log(err);
+    }
+}
+
+export async function deleteEvent(public_relation_id) {public_relation_id
+    try {
+        const res = await api.delete(`/admin/deleteevent/${public_relation_id}`)
+        return res
+    }
+    catch (err) {
+        console.log(err);
+    }
+}
