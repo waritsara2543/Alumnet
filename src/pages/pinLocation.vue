@@ -20,21 +20,18 @@
     </div> -->
   
     <div id="map"></div>
-    <div>
-      
-    </div>
     
   </q-page>
 </template>
 
 <script>
-// import "leaflet/dist/leaflet.css";
-// import L from "leaflet";
-// import "leaflet-defaulticon-compatibility/dist/leaflet-defaulticon-compatibility.webpack.css";
-// import "leaflet-defaulticon-compatibility";
-// import "esri-leaflet/dist/esri-leaflet";
-// import "esri-leaflet-geocoder/dist/esri-leaflet-geocoder";
-// import "esri-leaflet-vector/dist/esri-leaflet-vector";
+import "leaflet/dist/leaflet.css";
+import L from "leaflet";
+import "leaflet-defaulticon-compatibility/dist/leaflet-defaulticon-compatibility.webpack.css";
+import "leaflet-defaulticon-compatibility";
+import "esri-leaflet/dist/esri-leaflet";
+import "esri-leaflet-geocoder/dist/esri-leaflet-geocoder";
+import "esri-leaflet-vector/dist/esri-leaflet-vector";
 
 
 
@@ -71,6 +68,7 @@ export default {
    
   },
   mounted() {
+    console.log(L);
 
     const apiKey = "AAPK0dd1d65fb2a34b41ad58703e8f37d40fkEzxdoz7TacwizBI0Jciscgve5tcC4fx8UwzuiHTHou9xp5t7iIesioyFtHM6mw8";
 
@@ -81,14 +79,14 @@ export default {
 
     }).setView([48.8566,2.3522], 13);  // Paris
 
-    L.esri.Vector.vectorBasemapLayer(basemapEnum, {
-      apiKey: apiKey
-    }).addTo(map);
+    // L.esri.Vector.vectorBasemapLayer(basemapEnum, {
+    //   apiKey: apiKey
+    // }).addTo(map);
 
 
-    const geocoder = L.esri.Geocoding.geocodeService({
-      apikey: apiKey
-    });
+    // const geocoder = L.esri.Geocoding.geocodeService({
+    //   apikey: apiKey
+    // });
 
     const layerGroup = L.layerGroup().addTo(map);
 
