@@ -86,16 +86,15 @@
               </q-icon>
             </q-card>
             <q-card
-              class="my-card text-white text-right"
+              class="my-card text-white"
               style="
                 background: linear-gradient(#032030 0%, #1794a5 100%);
-                height: 200px;
                 width: 100%;
                 margin: 0 auto;
                 margin: 0px 0px 20px 0px;
               "
             >
-              <div class="text-caption" id="" style="">
+              <div class="text-caption text-right" id="" style="">
                 <q-icon
                   name="edit"
                   class="text-white"
@@ -107,6 +106,45 @@
                   class="text-white"
                   style="font-size: 32px"
                   @click="deleteEvent = true"
+                />
+              </div>
+              <div style="margin-left: 10px; padding: 5px">
+                <div
+                  class="text-h6"
+                  style="margin-top: -20px; margin-bottom: 10px"
+                >
+                  Title
+                </div>
+
+                <div class="row" style="margin-bottom: 10px">
+                  <div class="col text-subtitle2">
+                    start : 18 September 2021 18:24
+                  </div>
+                  <div class="col text-subtitle2">
+                    end : 19 September 2021 18:24
+                  </div>
+                </div>
+                <div style="margin-bottom: 10px">
+                  Detail : Lorem Ipsum is simply dummy text of the printing and
+                  typesetting industry. Lorem Ipsum has been the industry's
+                  standard dummy text ever since the 1500s, when an unknown
+                  printer took a galley of type and scrambled it to make a type
+                  specimen book. It has survived not only five centuries, but
+                  also the leap into electronic typesetting, remaining
+                  essentially unchanged. It was popularised in the 1960s with
+                  the release of Letraset sheets containing Lorem Ipsum
+                  passages, and more recently with desktop publishing software
+                  like Aldus PageMaker including versions of Lorem Ipsum.
+                </div>
+
+                <q-btn
+                  label="File"
+                  class="full-width"
+                  style="
+                    font-size: 15px;
+                    background: linear-gradient(#b42425 0%, #b42425 100%);
+                    max-width: 50px;
+                  "
                 />
               </div>
             </q-card>
@@ -199,141 +237,119 @@
         </q-input>
 
         <div style="padding: 20px 0px 0px 0px">
-          <div class="row">
-            <q-card
-              class="my-card bg-white text-grey-7 max-width"
-              style="height: 60px; margin: 0 auto; width: 1500px"
+          <div class="row" style="margin-top: -7px">
+            <q-input
+              color="cyan-8"
+              bg-color="white"
+              outlined
+              v-model="date_start"
+              label="Select start Datetime"
+              class="full-width"
+              style="max-width: 800px"
             >
-              <q-card-section>
-                <div class="row" style="margin-top: -7px">
-                  <div
-                    class="text-subtitle1 text-left"
-                    style="margin-right: 20px"
+              <template v-slot:prepend>
+                <q-icon name="event" class="cursor-pointer">
+                  <q-popup-proxy
+                    cover
+                    transition-show="scale"
+                    transition-hide="scale"
                   >
-                    Start
-                  </div>
+                    <q-date v-model="date_start" mask="YYYY-MM-DD HH:mm">
+                      <div class="row items-center justify-end">
+                        <q-btn
+                          v-close-popup
+                          label="Close"
+                          color="primary"
+                          flat
+                        />
+                      </div>
+                    </q-date>
+                  </q-popup-proxy>
+                </q-icon>
+              </template>
 
-                  <!-- edit date time start -->
-
-                  <q-btn icon="event" round color="black">
-                    <q-popup-proxy
-                      color="cyan-8"
-                      @before-show="updateProxy"
-                      transition-show="scale"
-                      transition-hide="scale"
-                    >
-                      <q-date v-model="proxyDate">
-                        <div class="row items-center justify-end q-gutter-sm">
-                          <q-btn
-                            label="Cancel"
-                            color="cyan-8"
-                            flat
-                            v-close-popup
-                          />
-                          <q-btn
-                            label="OK"
-                            color="cyan-8"
-                            flat
-                            @click="save"
-                            v-close-popup
-                          />
-                        </div>
-                      </q-date>
-                    </q-popup-proxy>
-                  </q-btn>
-                  <q-badge color="white" class="text-black">
-                    {{ date }}
-                  </q-badge>
-                  <q-btn
-                    icon="access_time"
-                    round
-                    color="black"
-                    class="cursor-pointer"
+              <template v-slot:append>
+                <q-icon name="access_time" class="cursor-pointer">
+                  <q-popup-proxy
+                    cover
+                    transition-show="scale"
+                    transition-hide="scale"
                   >
-                    <q-popup-proxy
-                      transition-show="scale"
-                      transition-hide="scale"
+                    <q-time
+                      v-model="date_start"
+                      mask="YYYY-MM-DD HH:mm"
+                      format24h
                     >
-                      <q-time v-model="date" mask="YYYY-MM-DD HH:mm" format24h>
-                        <div class="row items-center justify-end">
-                          <q-btn
-                            v-close-popup
-                            label="Close"
-                            color="cyan-8"
-                            flat
-                          />
-                        </div>
-                      </q-time>
-                    </q-popup-proxy>
-                  </q-btn>
-                  <q-space />
-                  <div
-                    class="text-subtitle1 text-left"
-                    style="margin-right: 20px"
-                  >
-                    End
-                  </div>
+                      <div class="row items-center justify-end">
+                        <q-btn
+                          v-close-popup
+                          label="Close"
+                          color="primary"
+                          flat
+                        />
+                      </div>
+                    </q-time>
+                  </q-popup-proxy>
+                </q-icon>
+              </template>
+            </q-input>
+            <q-space />
 
-                  <!-- edit date time start -->
-
-                  <q-btn icon="event" round color="black">
-                    <q-popup-proxy
-                      color="cyan-8"
-                      @before-show="updateProxy"
-                      transition-show="scale"
-                      transition-hide="scale"
-                    >
-                      <q-date v-model="proxyDate_end">
-                        <div class="row items-center justify-end q-gutter-sm">
-                          <q-btn
-                            label="Cancel"
-                            color="cyan-8"
-                            flat
-                            v-close-popup
-                          />
-                          <q-btn
-                            label="OK"
-                            color="cyan-8"
-                            flat
-                            @click="save"
-                            v-close-popup
-                          />
-                        </div>
-                      </q-date>
-                    </q-popup-proxy>
-                  </q-btn>
-                  <q-badge color="white" class="text-black">
-                    {{ date_end }}
-                  </q-badge>
-                  <q-btn
-                    icon="access_time"
-                    round
-                    color="black"
-                    class="cursor-pointer"
+            <q-input
+              color="cyan-8"
+              outlined
+              bg-color="white"
+              v-model="date_end"
+              label="Select end Datetime"
+              class="full-width"
+              style="max-width: 800px"
+            >
+              <template v-slot:prepend>
+                <q-icon name="event" class="cursor-pointer">
+                  <q-popup-proxy
+                    cover
+                    transition-show="scale"
+                    transition-hide="scale"
                   >
-                    <q-popup-proxy
-                      transition-show="scale"
-                      transition-hide="scale"
+                    <q-date v-model="date_end" mask="YYYY-MM-DD HH:mm">
+                      <div class="row items-center justify-end">
+                        <q-btn
+                          v-close-popup
+                          label="Close"
+                          color="primary"
+                          flat
+                        />
+                      </div>
+                    </q-date>
+                  </q-popup-proxy>
+                </q-icon>
+              </template>
+
+              <template v-slot:append>
+                <q-icon name="access_time" class="cursor-pointer">
+                  <q-popup-proxy
+                    cover
+                    transition-show="scale"
+                    transition-hide="scale"
+                  >
+                    <q-time
+                      v-model="date_end"
+                      mask="YYYY-MM-DD HH:mm"
+                      format24h
                     >
-                      <q-time
-                        v-model="date_end"
-                        mask="YYYY-MM-DD HH:mm"
-                        format24h
-                      >
-                        <div class="row items-center justify-end">
-                          <q-btn
-                            v-close-popup
-                            label="Close"
-                            color="cyan-8"
-                            flat
-                          />
-                        </div>
-                      </q-time>
-                    </q-popup-proxy>
-                  </q-btn>
-                </div>
-              </q-card-section>
-            </q-card>
+                      <div class="row items-center justify-end">
+                        <q-btn
+                          v-close-popup
+                          label="Close"
+                          color="primary"
+                          flat
+                        />
+                      </div>
+                    </q-time>
+                  </q-popup-proxy>
+                </q-icon>
+              </template>
+            </q-input>
           </div>
         </div>
         <div style="padding: 20px 0px 0px 0px">
@@ -420,10 +436,6 @@ export default {
     },
   },
   setup() {
-    const date = ref("2019/03/01 12:44");
-    const date_end = ref("2019/03/01 12:44");
-    const proxyDate = ref("2019/03/01 12:44");
-    const proxyDate_end = ref("2019/03/01 12:44");
     return {
       search: ref(""),
       files: ref(null),
@@ -438,12 +450,8 @@ export default {
       newTitle: "",
       newtext: "",
       time: ref(""),
-      date: ref(""),
-      date_end: ref(""),
-      date,
-      date_end,
-      proxyDate,
-      proxyDate_end,
+      date_end: "",
+      date_start: "",
 
       updateProxy() {
         proxyDate.value = date.value;

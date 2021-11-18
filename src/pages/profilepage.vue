@@ -201,12 +201,13 @@
         </q-card-section>
 
         <q-card-section>
+           <q-checkbox right-label v-model="currentJob" label="Current Job" style=" margin-top: 50px"/>
           <q-input
             v-model="workplace_name"
             id="workplace_name"
             label="Company name"
             :dense="dense"
-            style="padding: 15px; margin-top: 50px"
+            style="padding: 15px;"
             :rules="[(val) => !!val || 'Company name is required']"
           />
 
@@ -242,9 +243,9 @@
               </q-icon>
             </template>
           </q-input>
-          <q-checkbox right-label v-model="oldJob" label="Old Job" />
+         
 
-          <div v-if="oldJob === true">
+          <div v-if="currentJob === false">
             <q-input
               label="end date"
               v-model="enddate"
@@ -352,7 +353,7 @@ export default {
     // },
     async addWorkplace() {
       
-      if (this.oldJob == false) {
+      if (this.currentJob == true) {
         // ไม่มี finish_work
         console.log("current job");
       } else {
@@ -430,7 +431,7 @@ export default {
       profile: ref(""),
       showdate: "",
       icon: ref(false),
-      oldJob: ref(false),
+      currentJob: ref(true),
       workplace_name: "",
       position: ref(""),
       dense: ref(false),

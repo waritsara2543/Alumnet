@@ -118,7 +118,7 @@ export default {
       position: ref(""),
       dense: ref(false),
       student: [],
-      date: ref(""),
+      date: null,
       employed: ref("unemployed"),
     };
   },
