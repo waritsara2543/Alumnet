@@ -343,7 +343,7 @@ import {
   getTimelineById,
   updateinformation,
   createworkplace,
-  createworkplacebefore,
+  createworkplacebefore
 } from "../api/api";
 import { getAuth, signOut } from "firebase/auth";
 import moment from "moment";
@@ -363,7 +363,6 @@ export default {
           this.position,
           this.student[0].student_id,
           date.formatDate(this.startdate, "YYYY-MM-DD")
-          // console.log(this.startdate)
         );
         console.log("current job");
       } else {
