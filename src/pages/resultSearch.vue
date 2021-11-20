@@ -12,7 +12,7 @@
       v-for="(col, index) in person"
       :key="index"
       class="my-card text-white"
-      style="height: 385px; margin-top: 30px"
+      style="height: 385px; margin-top: 30px;background: linear-gradient(#032030 0%, #1794a5 100%);"
     >
       <q-card-section class="text-center">
         <q-avatar
@@ -95,7 +95,7 @@
         <q-scroll-area style="height: 200px"
           ><div v-for="(col, index) in timeline" :key="index">
             <q-timeline-entry :subtitle="getDate (this.timeline[index].start_work)">
-              <q-card class="text-white">
+              <q-card class="text-white" style="background: linear-gradient(#032030 0%, #1794a5 100%);">
                 <div style="text-align: center">
                   <div>
                     <q-icon name="business_center" />

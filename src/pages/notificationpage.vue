@@ -20,7 +20,7 @@
 
         <q-card
           class="my-card text-white full-width "
-          style="margin-top: 10px; "
+          style="margin-top: 10px;background: linear-gradient(#032030 0%, #1794a5 100%); "
         >
 
 
@@ -37,6 +37,7 @@
 </template>
  <script>
 import { ref } from "vue";
+
 export default {
   methods: {
     toDetailContent(){

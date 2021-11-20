@@ -6,7 +6,7 @@
       :key="index"
       rounded
       class="my-card text-white"
-      style="margin: 0 auto; margin-top: 10px; "
+      style="margin: 0 auto; margin-top: 10px; background: linear-gradient(#032030 0%, #1794a5 100%);"
     >
 
       <q-card-section class="row" >

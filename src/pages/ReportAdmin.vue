@@ -61,10 +61,17 @@
           </q-card>
         </div>
       </div>
-      <div class="col-md-6 col-sm-12 col-xs-12">
-        <card-base>
-          <barchart></barchart>
-        </card-base>
+      <div class="col-md-6 col-sm-12 col-xs-12" >
+        <div class="row " >
+          <div class="col" style="margin-left:20px"><BarChart style="width:500px" /></div>
+          <div class="col"><DonutChart style="width:500px" /></div>
+          <div class="col"><PieChart style="width:500px" /></div>
+          
+        
+        
+        </div>
+        
+        
       </div>
        
     </q-card>
@@ -77,14 +84,20 @@ body {
   box-sizing: border-box;
 }
 </style>
+
 <script>
-import barchart from "../components/barchart.vue";
+import { defineComponent } from 'vue'
 
-export default {
+import DonutChart from '../components/DonutChart.vue'
+import PieChart from '../components/PieChart.vue'
+import BarChart from '../components/BarChart.vue'
+
+export default defineComponent({
+  name: 'App',
   components: {
-    barchart,
-  },
-  setup() {},
-};
+    BarChart,
+    DonutChart,
+    PieChart
+  }
+})
 </script>
-

@@ -86,6 +86,8 @@
               </q-icon>
             </q-card>
             <q-card
+              v-for="index in 5"
+              :key="index"
               class="my-card text-white"
               style="
                 background: linear-gradient(#032030 0%, #1794a5 100%);
@@ -99,13 +101,13 @@
                   name="edit"
                   class="text-white"
                   style="font-size: 32px"
-                  @click="editEvent = true"
+                  @click="showDialogEdit(index)"
                 />
                 <q-icon
                   name="delete"
                   class="text-white"
                   style="font-size: 32px"
-                  @click="deleteEvent = true"
+                  @click="showDialogDelete(index)"
                 />
               </div>
               <div style="margin-left: 10px; padding: 5px">
@@ -245,7 +247,7 @@
               v-model="date_start"
               label="Select start Datetime"
               class="full-width"
-              style="max-width: 800px"
+              style="max-width: 500px"
             >
               <template v-slot:prepend>
                 <q-icon name="event" class="cursor-pointer">
@@ -302,7 +304,7 @@
               v-model="date_end"
               label="Select end Datetime"
               class="full-width"
-              style="max-width: 800px"
+              style="max-width: 500px"
             >
               <template v-slot:prepend>
                 <q-icon name="event" class="cursor-pointer">
@@ -382,26 +384,7 @@
           label="SAVE"
           color="primary"
           v-close-popup
-          @click="updateEvent"
-        />
-      </q-card-actions>
-    </q-card>
-  </q-dialog>
-
-  <q-dialog v-model="deleteEvent" persistent>
-    <q-card style="background: white">
-      <q-card-section class="row items-center">
-        <span class="q-ml-sm">Are you sure to delete this event?</span>
-      </q-card-section>
-
-      <q-card-actions align="right">
-        <q-btn flat label="Cancel" color="primary" v-close-popup />
-        <q-btn
-          flat
-          label="Sure"
-          color="primary"
-          v-close-popup
-          @click="deleteThisEvent"
+          @click="updateEvent()"
         />
       </q-card-actions>
     </q-card>
@@ -411,12 +394,13 @@
 <script>
 import { ref } from "vue";
 import { getAuth, signOut } from "firebase/auth";
+import { useQuasar } from "quasar";
 export default {
   methods: {
     createEvent() {
       this.$router.push({ name: "createevent" });
     },
-    updateEvent() {
+    updateEvent(index) {
       console.log("Update Event");
     },
     deleteThisEvent() {
@@ -434,8 +418,15 @@ export default {
           // An error happened.
         });
     },
+
+    showDialogEdit(index) {
+      this.editEvent = true;
+      console.log(index);
+    },
   },
-  setup() {
+  data() {
+    const $q = useQuasar();
+
     return {
       search: ref(""),
       files: ref(null),
@@ -443,7 +434,6 @@ export default {
       uploading: ref(null),
       dialog: ref(false),
       editEvent: ref(false),
-      deleteEvent: ref(false),
       maximizedToggle: ref(true),
       year: ref(""),
       dense: ref(false),
@@ -452,7 +442,6 @@ export default {
       time: ref(""),
       date_end: "",
       date_start: "",
-
       updateProxy() {
         proxyDate.value = date.value;
       },
@@ -460,6 +449,22 @@ export default {
       save() {
         date.value = proxyDate.value;
         date_end.value = proxyDate_end.value;
+      },
+
+      showDialogDelete(index) {
+        $q.dialog({
+          title: "Delete",
+          message: "Are you sure to delete this event ?",
+        })
+          .onOk(() => {
+            console.log(index);
+          })
+          .onCancel(() => {
+            console.log("Cancel");
+          })
+          .onDismiss(() => {
+            // console.log('I am triggered on both OK and Cancel')
+          });
       },
     };
   },

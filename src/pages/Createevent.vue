@@ -167,7 +167,10 @@
                 "
                 class="full-width"
                 label="Submit"
-                @click="getFile() ;showLoading()"
+                @click="
+                  getFile();
+                  
+                "
               />
             </div>
           </div>
@@ -186,23 +189,56 @@ import {
   getDownloadURL,
 } from "firebase/storage";
 import { getAuth } from "firebase/auth";
-import { useQuasar, QSpinnerGears } from 'quasar'
-import { onBeforeUnmount } from 'vue'
+import { useQuasar, QSpinnerGears } from "quasar";
+import { onBeforeUnmount } from "vue";
+import { getMessaging, getToken, onMessage } from "firebase/messaging";
+import { onBackgroundMessage } from "firebase/messaging/sw";
+
 
 export default {
   methods: {
     async create(url) {
-      let create = await createEvent(this.Title,this.text,url,this.date_start,this.date_end,1);
+      let create = await createEvent(
+        this.Title,
+        this.text,
+        url,
+        this.date_start,
+        this.date_end,
+        1
+      );
       this.$router.push({ name: "homeadmin" });
     },
 
+    sendNoti() {
+      // const topic = "highScores";
+
+      // const message = {
+      //   data: {
+      //     score: "850",
+      //     time: "2:45",
+      //   },
+      //   topic: topic,
+      // };
+      // // Send a message to devices subscribed to the provided topic.
+      // onBackgroundMessage(messaging, (payload) => {});
+      // getMessaging()
+      //   .send(message)
+      //   .then((response) => {
+      //     // Response is a message ID string.
+      //     console.log("Successfully sent message:", response);
+      //   })
+      //   .catch((error) => {
+      //     console.log("Error sending message:", error);
+      //   });
+    },
+
     async getFile() {
+      this.showLoading();
       const auth = getAuth();
       const files = this.file;
       const user = auth.currentUser;
 
       if (user) {
-        
         console.log("sign in");
         // Create the file metadata
         /** @type {any} */
@@ -223,6 +259,7 @@ export default {
               // var img = document.getElementById("imageurl");
               //   console.log(img.getAttribute("src"));
               this.create(url);
+              this.sendNoti();
             });
           })
           .catch((error) => {
@@ -232,21 +269,21 @@ export default {
       }
     },
   },
-  mounted(){
+  mounted() {
     const adminvalue = localStorage.getItem("admin");
     console.log(adminvalue);
   },
 
   data() {
-    const $q = useQuasar()
-    let timer
+    const $q = useQuasar();
+    let timer;
 
     onBeforeUnmount(() => {
       if (timer !== void 0) {
-        clearTimeout(timer)
-        $q.loading.hide()
+        clearTimeout(timer);
+        $q.loading.hide();
       }
-    })
+    });
     return {
       text: "",
       time: "",
@@ -254,24 +291,21 @@ export default {
       date_end: "",
       date_start: "",
       Title: "",
-      
+
       file: "",
-      showLoading () {
+      showLoading() {
         $q.loading.show({
-          message: 'Creating event. Please wait...',
-          boxClass: 'bg-grey-2 text-grey-9',
-          spinnerColor: 'primary'
-        })
+          message: "Creating event. Please wait...",
+          boxClass: "bg-grey-2 text-grey-9",
+          spinnerColor: "primary",
+        });
 
         // hiding in 3s
         timer = setTimeout(() => {
-          $q.loading.hide()
-          timer = void 0
-        }, 20000)
-      }
-    
-  
-     
+          $q.loading.hide();
+          timer = void 0;
+        }, 20000);
+      },
     };
   },
 };

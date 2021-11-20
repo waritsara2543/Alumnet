@@ -1,10 +1,10 @@
 <script>
 import { defineComponent } from 'vue'
-import { Bar } from 'vue3-chart-v2'
+import { Doughnut } from 'vue3-chart-v2'
 
 export default defineComponent({
   name: 'MonthlyChart',
-  extends: Bar,
+  extends: Doughnut,
   mounted () {
     // Overwriting base render method with actual data.
     this.renderChart({
@@ -12,7 +12,7 @@ export default defineComponent({
       datasets: [
         {
           label: 'GitHub Commits',
-          backgroundColor: '#f87979',
+          backgroundColor: ['#f87979', 'green', 'red', 'yellow', 'green', 'black','white','purple','#f87979','yellow','white'],
           data: [40, 20, 12, 39, 10, 40, 39, 80, 40, 20, 12, 11]
         }
       ]

@@ -1,7 +1,5 @@
 <template>
   <q-layout view="lHh Lpr lFf">
-
-    
     <q-page-container>
       <router-view></router-view>
     </q-page-container>
@@ -10,14 +8,18 @@
       <q-tabs
         v-model="tab"
         class="text-white shadow-2"
-        style="background:#032030 "
+        style="background: #032030"
       >
         <q-route-tab
           v-for="nav in navs"
           :key="nav.label"
           :to="nav.to"
           :icon="nav.icon"
-        />
+        >
+          <q-badge v-if="nav.label == 'Notifications'" color="red" floating
+            ></q-badge
+          >
+        </q-route-tab>
       </q-tabs>
     </q-footer>
   </q-layout>
@@ -53,6 +55,7 @@ export default {
           label: "Notifications",
           icon: "notifications",
           to: "/notificationpage",
+          badge: "1",
         },
         {
           label: "classDirectory",
@@ -64,7 +67,6 @@ export default {
           icon: "pin_drop",
           to: "/locationpage",
         },
-        
       ],
     };
   },

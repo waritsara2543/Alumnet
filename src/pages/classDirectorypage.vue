@@ -5,7 +5,7 @@
       
         <q-card  v-for="(col,index) in friend" :key="index"
           class="my-card text-white text-center"
-          style="margin-left:90px ;margin-right:90px ;margin-top:20px ;"
+          style="margin-left:90px ;margin-right:90px ;margin-top:20px ;background: linear-gradient(#032030 0%, #1794a5 100%);"
          
         >
           <q-card-section class="text-center" >
