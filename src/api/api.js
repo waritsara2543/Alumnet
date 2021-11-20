@@ -157,6 +157,26 @@ export async function createworkplace(workplace_name, position, student_id,start
 
 }
 
+export async function createworkplacebefore(workplace_name, position, student_id,start_work,finish_work ) {
+    var data = {
+        name: workplace_name,
+        position: position,
+        student_id: student_id,
+        start_work:start_work,
+        finish_work:finish_work
+    }
+    try {
+        let res = await api.post(`/student/workplacebefore`, data);
+        return res
+    }
+    catch (err) {
+        console.log(err);
+    }
+
+}
+
+
+
 export async function updateprofile(image_profile,student_id) {
     var data = {
         image_profile:image_profile
