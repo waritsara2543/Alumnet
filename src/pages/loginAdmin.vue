@@ -78,11 +78,11 @@ export default {
     },
     async tohome(email) {
       try {
+        
         let value = await getadminbyemail(email);
-        console.log(value);
         // if (value.length == 0) {
         //   console.log("don't have database");
-          localStorage.setItem("admin", email);
+          localStorage.setItem("admin", JSON.stringify(value));
           this.$router.push({ name: "homeadmin" });
         // } else {
 

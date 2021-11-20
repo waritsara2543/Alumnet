@@ -218,7 +218,7 @@ export async function updateEvent(title,details,image,start_activity,finish_acti
     }
 }
 
-export async function deleteEvent(public_relation_id) {public_relation_id
+export async function deleteEvent(public_relation_id) {
     try {
         const res = await api.delete(`/admin/deleteevent/${public_relation_id}`)
         return res
@@ -227,3 +227,14 @@ export async function deleteEvent(public_relation_id) {public_relation_id
         console.log(err);
     }
 }
+
+export async function getEvent(faculty_id) {
+    try {
+        const res = await api.delete(`/admin/getevent/${faculty_id}`)
+        return res
+    }
+    catch (err) {
+        console.log(err);
+    }
+}
+
