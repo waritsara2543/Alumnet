@@ -88,9 +88,9 @@
             <q-card
               v-for="index in 5"
               :key="index"
-              class="my-card text-white"
+              class="my-card text-black"
               style="
-                background: linear-gradient(#032030 0%, #1794a5 100%);
+                background: white;
                 width: 100%;
                 margin: 0 auto;
                 margin: 0px 0px 20px 0px;
@@ -99,13 +99,13 @@
               <div class="text-caption text-right" id="" style="">
                 <q-icon
                   name="edit"
-                  class="text-white"
+                  class="text-black"
                   style="font-size: 32px"
                   @click="showDialogEdit(index)"
                 />
                 <q-icon
                   name="delete"
-                  class="text-white"
+                  class="text-black"
                   style="font-size: 32px"
                   @click="showDialogDelete(index)"
                 />
@@ -141,12 +141,8 @@
 
                 <q-btn
                   label="File"
-                  class="full-width"
-                  style="
-                    font-size: 15px;
-                    background: linear-gradient(#b42425 0%, #b42425 100%);
-                    max-width: 50px;
-                  "
+                  class="full-width bg-secondary text-white"
+                  style="font-size: 15px; max-width: 50px"
                 />
               </div>
             </q-card>
@@ -247,7 +243,7 @@
               v-model="date_start"
               label="Select start Datetime"
               class="full-width"
-              style="max-width: 500px"
+              style="max-width: 800px"
             >
               <template v-slot:prepend>
                 <q-icon name="event" class="cursor-pointer">
@@ -304,7 +300,7 @@
               v-model="date_end"
               label="Select end Datetime"
               class="full-width"
-              style="max-width: 500px"
+              style="max-width: 800px"
             >
               <template v-slot:prepend>
                 <q-icon name="event" class="cursor-pointer">

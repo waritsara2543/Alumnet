@@ -5,7 +5,7 @@
       {{ col.student_id }}
     </div> -->
     <!-- {{ timeline }} -->
-    <div class="q-pa-md">
+    <div class="q-pa-md" style="background: #d0dfe6">
       <div class="q-gutter-y-md column" style="max-width: 100%">
         <q-toolbar
           v-for="(col, index) in student"
@@ -28,39 +28,38 @@
         <q-card
           v-for="(col, index) in details"
           :key="index"
-          class="my-card text-white"
+          class="my-card text-black full-width"
           style="
-            background: linear-gradient(#032030 0%, #1794a5 100%);
-            height: 120px;
-            width: 345px;
+            background: white;
             margin: 0 auto;
             margin-top: 20px;
           "
         >
           <q-card-section>
-            <div class="row">
-              <div class="col-3">
-                <q-avatar class="q-mr-xs" id="image_profile">
-                  <img :src="this.details[index].image_profile" />
-                </q-avatar>
-              </div>
+            <div class="row" style="text-align: center">
+              <q-avatar
+                class="q-mr-xs"
+                id="image_profile"
+                style="margin-right: 20px"
+              >
+                <img :src="this.details[index].image_profile" />
+              </q-avatar>
+
               <div class="col">
+                <img src="../assets/confetti.png" style="width: 30px" />
                 <div class="text-subtitle2" id="student_name">
+                  Congratulate
                   {{ this.details[index].firstname }}
                   {{ this.details[index].lastname }}
                 </div>
-                <div style="text-align: center">
-                  <q-icon name="business_center" />
-                </div>
-                <div class="" style="text-align: center" id="update_working">
-                  {{ this.details[index].position }}
-                  {{ this.details[index].workplace }}
-                </div>
-                <div
-                  class=""
-                  style="font-size: 12px; text-align: center"
-                  id="update_date"
-                >
+
+                <!-- <q-icon name="business_center" /> -->
+
+                for starting a new position as
+                {{ this.details[index].position }} at
+                {{ this.details[index].workplace }}
+
+                <div class="" style="font-size: 12px" id="update_date">
                   {{ getDate(this.details[index].start_work) }}
                 </div>
               </div>
@@ -119,7 +118,10 @@ export default {
     // await this.timelinefeed();
 
     const messaging = getMessaging();
-    getToken(messaging, { vapidKey: "BOhHaLekJ-yRU8irFFqEfMubAczwPG8kF5xixND5nmvWYYHy0BY5HVM9IOnlCEEtkRCnCqXq4FqG04kpSwheRa8" })
+    getToken(messaging, {
+      vapidKey:
+        "BOhHaLekJ-yRU8irFFqEfMubAczwPG8kF5xixND5nmvWYYHy0BY5HVM9IOnlCEEtkRCnCqXq4FqG04kpSwheRa8",
+    })
       .then((currentToken) => {
         if (currentToken) {
           // Send the token to your server and update the UI if necessary
