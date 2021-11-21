@@ -204,7 +204,7 @@ export default {
         url,
         this.date_start,
         this.date_end,
-        1
+        this.admin[0].faculty_id
       );
       this.$router.push({ name: "homeadmin" });
     },
@@ -271,7 +271,8 @@ export default {
   },
   mounted() {
     const adminvalue = localStorage.getItem("admin");
-    console.log(adminvalue);
+    this.admin = JSON.parse(adminvalue);
+   
   },
 
   data() {

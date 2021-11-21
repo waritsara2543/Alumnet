@@ -250,8 +250,8 @@ export async function deleteEvent(public_relation_id) {
 
 export async function getEvent(faculty_id) {
     try {
-        const res = await api.delete(`/admin/getevent/${faculty_id}`)
-        return res
+        const res = await api.get(`/admin/getevent/${faculty_id}`)
+        return res.data.results
     }
     catch (err) {
         console.log(err);

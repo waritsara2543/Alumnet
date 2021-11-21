@@ -86,7 +86,7 @@
               </q-icon>
             </q-card>
             <q-card
-              v-for="index in 5"
+              v-for="(col, index) in events"
               :key="index"
               class="my-card text-black"
               style="
@@ -101,13 +101,13 @@
                   name="edit"
                   class="text-black"
                   style="font-size: 32px"
-                  @click="showDialogEdit(index)"
+                  @click="showDialogEdit(this.events[index].public_relation_id)"
                 />
                 <q-icon
                   name="delete"
                   class="text-black"
                   style="font-size: 32px"
-                  @click="showDialogDelete(index)"
+                  @click="showDialogDelete(this.events[index].public_relation_id)"
                 />
               </div>
               <div style="margin-left: 10px; padding: 5px">
@@ -115,28 +115,20 @@
                   class="text-h6"
                   style="margin-top: -20px; margin-bottom: 10px"
                 >
-                  Title
+                  {{ this.events[index].title }}{{this.events[index].public_relation_id}}
+                
                 </div>
 
                 <div class="row" style="margin-bottom: 10px">
                   <div class="col text-subtitle2">
-                    start : 18 September 2021 18:24
+                    start : {{this.events[index].start_activity}}
                   </div>
                   <div class="col text-subtitle2">
-                    end : 19 September 2021 18:24
+                    end : {{this.events[index].finish_activity}}
                   </div>
                 </div>
                 <div style="margin-bottom: 10px">
-                  Detail : Lorem Ipsum is simply dummy text of the printing and
-                  typesetting industry. Lorem Ipsum has been the industry's
-                  standard dummy text ever since the 1500s, when an unknown
-                  printer took a galley of type and scrambled it to make a type
-                  specimen book. It has survived not only five centuries, but
-                  also the leap into electronic typesetting, remaining
-                  essentially unchanged. It was popularised in the 1960s with
-                  the release of Letraset sheets containing Lorem Ipsum
-                  passages, and more recently with desktop publishing software
-                  like Aldus PageMaker including versions of Lorem Ipsum.
+                  Detail : {{this.events[index].content}}
                 </div>
 
                 <q-btn
@@ -391,6 +383,7 @@
 import { ref } from "vue";
 import { getAuth, signOut } from "firebase/auth";
 import { useQuasar } from "quasar";
+import { getEvent } from "../api/api";
 export default {
   methods: {
     createEvent() {
@@ -420,10 +413,19 @@ export default {
       console.log(index);
     },
   },
+  async mounted() {
+    const adminvalue = localStorage.getItem("admin");
+    this.admin = JSON.parse(adminvalue);
+    this.events = await getEvent(this.admin[0].faculty_id);
+    console.log(this.admin[0].faculty_id);
+    console.log(this.events);
+  },
   data() {
     const $q = useQuasar();
 
     return {
+      admin:[],
+      events: [],
       search: ref(""),
       files: ref(null),
       uploadProgress: ref([]),

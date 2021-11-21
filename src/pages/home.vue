@@ -51,6 +51,8 @@
                   Congratulate
                   {{ this.details[index].firstname }}
                   {{ this.details[index].lastname }}
+                  {{index}}
+                  
                 </div>
 
                 <!-- <q-icon name="business_center" /> -->
@@ -114,7 +116,9 @@ export default {
     console.log(this.student[0].image_profile);
     console.log(this.student);
     console.log(this.detail);
+    console.log(this.details);
     this.profile = this.student[0].image_profile;
+    
     // await this.timelinefeed();
 
     const messaging = getMessaging();
