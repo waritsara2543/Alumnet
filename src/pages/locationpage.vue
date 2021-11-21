@@ -5,8 +5,8 @@
 <script>
 import "leaflet/dist/leaflet.css";
 import L from "leaflet";
-import "../../node_modules/leaflet/dist/Tween";
-import "../../node_modules/leaflet/dist/leaflet.curve";
+// import "../../node_modules/leaflet/dist/Tween";
+// import "../../node_modules/leaflet/dist/leaflet.curve";
 import 'leaflet-defaulticon-compatibility/dist/leaflet-defaulticon-compatibility.webpack.css'; 
 import 'leaflet-defaulticon-compatibility';
 
