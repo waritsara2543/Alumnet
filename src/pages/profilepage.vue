@@ -343,20 +343,36 @@ import {
   getTimelineById,
   updateinformation,
   createworkplace,
+  createworkplacebefore
 } from "../api/api";
 import { getAuth, signOut } from "firebase/auth";
 import moment from "moment";
+import { date } from "quasar";
 export default {
   methods: {
     // backconfirmEmail() {
     //   this.$router.push({ name: "confirmEmail" });
     // },
     async addWorkplace() {
+     
       
       if (this.currentJob == true) {
         // ไม่มี finish_work
+        let work = await createworkplace(
+          this.workplace_name,
+          this.position,
+          this.student[0].student_id,
+          date.formatDate(this.startdate, "YYYY-MM-DD")
+        );
         console.log("current job");
       } else {
+        let workbefore = await createworkplacebefore(
+          this.workplace_name,
+          this.position,
+          this.student[0].student_id,
+          date.formatDate(this.startdate, "YYYY-MM-DD"),
+          date.formatDate(this.enddate, "YYYY-MM-DD")
+        );
         // มี finish_work
         console.log("old job");
       }

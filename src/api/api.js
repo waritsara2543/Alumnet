@@ -8,7 +8,7 @@ import axios from 'axios'
 // for each client)
 var qs = require('qs');
 import { devapi, herokuapi,projectapi } from './currentapi'
-const api = axios.create({ baseURL: projectapi}, {
+const api = axios.create({ baseURL: devapi}, {
     headers: {
         'Content-Type': 'application/json'
     },
@@ -157,6 +157,26 @@ export async function createworkplace(workplace_name, position, student_id,start
 
 }
 
+export async function createworkplacebefore(workplace_name, position, student_id,start_work,finish_work ) {
+    var data = {
+        name: workplace_name,
+        position: position,
+        student_id: student_id,
+        start_work:start_work,
+        finish_work:finish_work
+    }
+    try {
+        let res = await api.post(`/student/workplacebefore`, data);
+        return res
+    }
+    catch (err) {
+        console.log(err);
+    }
+
+}
+
+
+
 export async function updateprofile(image_profile,student_id) {
     var data = {
         image_profile:image_profile
@@ -218,7 +238,7 @@ export async function updateEvent(title,details,image,start_activity,finish_acti
     }
 }
 
-export async function deleteEvent(public_relation_id) {public_relation_id
+export async function deleteEvent(public_relation_id) {
     try {
         const res = await api.delete(`/admin/deleteevent/${public_relation_id}`)
         return res
@@ -227,3 +247,14 @@ export async function deleteEvent(public_relation_id) {public_relation_id
         console.log(err);
     }
 }
+
+export async function getEvent(faculty_id) {
+    try {
+        const res = await api.delete(`/admin/getevent/${faculty_id}`)
+        return res
+    }
+    catch (err) {
+        console.log(err);
+    }
+}
+
