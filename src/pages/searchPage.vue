@@ -1,17 +1,7 @@
 <template>
   <q-page>
     <inputsearchComponent></inputsearchComponent>
-    <q-btn
-            @click="result"
-            rounded
-            label="SEARCH"
-            class="full-width text-white"
-            style="
-              font-size: 15px;
-              background: linear-gradient(#b42425 0%, #b42425 100%);
-            "
-          />
-    <resultsearchComponent @click="result"></resultsearchComponent>
+    <!-- <resultsearchComponent @click="result"></resultsearchComponent> -->
   </q-page>
 </template>
  <script>
