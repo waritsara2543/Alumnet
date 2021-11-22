@@ -258,3 +258,8 @@ export async function getEvent(faculty_id) {
     }
 }
 
+
+export async function getSearch(firstname,lastname) {
+    let res = await api.get(`/student/search/${firstname}/${lastname}`);
+    return res.data.results
+}
