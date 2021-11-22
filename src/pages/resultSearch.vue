@@ -82,6 +82,19 @@
             {{ this.person[0].epigram }}
           </div>
         </div>
+        <div>
+          Facebook :
+        </div>
+        <div>
+          LINE :
+        </div>
+        <div>
+          Email :
+        </div>
+        <div>
+          Phone :
+        </div>
+
       </q-card-section>
     </q-card>
 

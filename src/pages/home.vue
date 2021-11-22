@@ -51,7 +51,6 @@
                   Congratulate
                   {{ this.details[index].firstname }}
                   {{ this.details[index].lastname }}
-                  {{index}}
                   
                 </div>
 
