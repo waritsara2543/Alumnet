@@ -12,13 +12,7 @@
           style="width: 1000px; max-width: 100%"
         >
           <template v-slot:append>
-            <q-icon v-if="search === ''" name="search" />
-            <q-icon
-              v-else
-              name="clear"
-              class="cursor-pointer"
-              @click="search = ''"
-            />
+            <q-icon  name="search" @click="clicksearch" />
           </template>
         </q-input>
 
@@ -44,6 +38,9 @@ export default {
     backtohome() {
       this.$router.push({ name: "homepage" });
     },
+    clicksearch(){
+      console.log(this.search);
+    }
   },
 
   setup() {

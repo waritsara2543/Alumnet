@@ -101,13 +101,13 @@
                   name="edit"
                   class="text-black"
                   style="font-size: 32px"
-                  @click="showDialogEdit(this.events[index].public_relation_id)"
+                  @click="showDialogEdit(index)"
                 />
                 <q-icon
                   name="delete"
                   class="text-black"
                   style="font-size: 32px"
-                  @click="showDialogDelete(this.events[index].public_relation_id)"
+                  @click="showDialogDelete(index)"
                 />
               </div>
               <div style="margin-left: 10px; padding: 5px">
@@ -115,23 +115,25 @@
                   class="text-h6"
                   style="margin-top: -20px; margin-bottom: 10px"
                 >
-                  {{ this.events[index].title }}{{this.events[index].public_relation_id}}
-                
+                  {{ this.events[index].title }}
                 </div>
 
                 <div class="row" style="margin-bottom: 10px">
                   <div class="col text-subtitle2">
-                    start : {{this.events[index].start_activity}}
+                    start : {{ getDateTime(this.events[index].start_activity) }}
                   </div>
                   <div class="col text-subtitle2">
-                    end : {{this.events[index].finish_activity}}
+                    end : {{ getDateTime(this.events[index].finish_activity) }}
                   </div>
                 </div>
                 <div style="margin-bottom: 10px">
-                  Detail : {{this.events[index].content}}
+                  Detail : {{ this.events[index].content }}
                 </div>
 
                 <q-btn
+                  v-if="this.events[index].image != ''"
+                  type="a"
+                  :href="this.events[index].image"
                   label="File"
                   class="full-width bg-secondary text-white"
                   style="font-size: 15px; max-width: 50px"
@@ -177,7 +179,7 @@
         />
 
         <q-file
-          v-model="files"
+          v-model="file"
           label="Pick Alumni List File"
           outlined
           multiple
@@ -346,6 +348,7 @@
           <!-- edit file -->
 
           <q-input
+            v-model="file"
             color="cyan-8"
             outlined
             type="file"
@@ -372,7 +375,7 @@
           label="SAVE"
           color="primary"
           v-close-popup
-          @click="updateEvent()"
+          @click="getNewFile()"
         />
       </q-card-actions>
     </q-card>
@@ -380,21 +383,44 @@
 </template>
 
 <script>
-import { ref } from "vue";
+// import { ref } from "vue";
+import moment from "moment";
 import { getAuth, signOut } from "firebase/auth";
 import { useQuasar } from "quasar";
-import { getEvent } from "../api/api";
+import { getEvent, updateEvent, deleteEvent } from "../api/api";
+import {
+  getStorage,
+  uploadBytesResumable,
+  ref,
+  getDownloadURL,
+} from "firebase/storage";
+
 export default {
   methods: {
+    getDateTime: function (date) {
+      return moment(date, "YYYY-MM-DD HH:mm").format("DD MMMM YYYY HH:mm");
+    },
+    getDate: function (date) {
+      return moment(date, "YYYY-MM-DD").format("YYYY-MM-DD");
+    },
     createEvent() {
       this.$router.push({ name: "createevent" });
     },
-    updateEvent(index) {
+    async updateEv(url) {
+      let update = await updateEvent(
+        this.newTitle,
+        this.newtext,
+        url,
+        this.date_start,
+        this.date_end,
+        this.admin[0].faculty_id,
+        this.public_relation_id
+      );
+      console.log(this.newTitle);
       console.log("Update Event");
+      location.reload();
     },
-    deleteThisEvent() {
-      console.log("Delete Event");
-    },
+
     logout() {
       const auth = getAuth();
       signOut(auth)
@@ -408,36 +434,84 @@ export default {
         });
     },
 
-    showDialogEdit(index) {
+    async showDialogEdit(index) {
       this.editEvent = true;
-      console.log(index);
+      this.newTitle = this.events[index].title;
+      this.date_start = moment(
+        this.events[index].start_activity,
+        "YYYY-MM-DD HH:mm "
+      ).format("YYYY-MM-DD HH:mm ");
+      this.date_end = moment(
+        this.events[index].finish_activity,
+        "YYYY-MM-DD HH:mm "
+      ).format("YYYY-MM-DD HH:mm ");
+      this.newtext = this.events[index].content;
+      this.oldfile = this.events[index].image;
+      this.public_relation_id = this.events[index].public_relation_id;
+    },
+
+    async getNewFile() {
+      const auth = getAuth();
+      const files = this.file;
+      const user = auth.currentUser;
+      console.log("click");
+
+      console.log("sign in");
+      // Create the file metadata
+      /** @type {any} */
+      const metadata = {
+        contentType: "",
+      };
+      if (this.file == "") {
+        this.updateEv(this.oldfile);
+      } else {
+        const storage = getStorage();
+        const imageRef = ref(storage, "eventFile/" + files[0].name);
+        uploadBytesResumable(imageRef, files[0], metadata)
+          .then((snapshot) => {
+            // console.log(files[0]);
+            // console.log("Uploaded", snapshot.totalBytes, "bytes.");
+            // console.log("File metadata:", snapshot.metadata);
+            // Let's get a download URL for the file.
+            getDownloadURL(snapshot.ref).then((url) => {
+              console.log("File available at", url);
+              // var img = document.getElementById("imageurl");
+              //   console.log(img.getAttribute("src"));
+              this.updateEv(url);
+            });
+          })
+          .catch((error) => {
+            console.error("Upload failed", error);
+          });
+      }
     },
   },
   async mounted() {
     const adminvalue = localStorage.getItem("admin");
     this.admin = JSON.parse(adminvalue);
     this.events = await getEvent(this.admin[0].faculty_id);
-    console.log(this.admin[0].faculty_id);
     console.log(this.events);
   },
   data() {
     const $q = useQuasar();
 
     return {
-      admin:[],
+      public_relation_id: [],
+      oldfile: "",
+      admin: [],
       events: [],
-      search: ref(""),
-      files: ref(null),
-      uploadProgress: ref([]),
-      uploading: ref(null),
-      dialog: ref(false),
-      editEvent: ref(false),
-      maximizedToggle: ref(true),
-      year: ref(""),
-      dense: ref(false),
+      search: "",
+      file: "",
+      uploadProgress: [],
+      uploading: null,
+      dialog: false,
+      editEvent: false,
+      maximizedToggle: true,
+      year: "",
+      dense: false,
       newTitle: "",
       newtext: "",
-      time: ref(""),
+      time: "",
       date_end: "",
       date_start: "",
       updateProxy() {
@@ -448,14 +522,21 @@ export default {
         date.value = proxyDate.value;
         date_end.value = proxyDate_end.value;
       },
+      async deleteThisEvent(index) {
+        let deleteEv = await deleteEvent(this.events[index].public_relation_id);
+        console.log("Delete Event");
+        location.reload();
+      },
 
-      showDialogDelete(index) {
+      async showDialogDelete(index) {
         $q.dialog({
           title: "Delete",
           message: "Are you sure to delete this event ?",
+          cancel: true,
         })
           .onOk(() => {
             console.log(index);
+            this.deleteThisEvent(index);
           })
           .onCancel(() => {
             console.log("Cancel");

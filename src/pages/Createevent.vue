@@ -238,7 +238,9 @@ export default {
       const files = this.file;
       const user = auth.currentUser;
 
-      if (user) {
+      if (this.file == "") {
+        this.create(this.nohaveUrl);
+      } else {
         console.log("sign in");
         // Create the file metadata
         /** @type {any} */
@@ -265,7 +267,6 @@ export default {
           .catch((error) => {
             console.error("Upload failed", error);
           });
-      } else {
       }
     },
   },
@@ -286,6 +287,7 @@ export default {
       }
     });
     return {
+      nohaveUrl:"",
       text: "",
       time: "",
       date: "",

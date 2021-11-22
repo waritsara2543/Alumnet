@@ -220,7 +220,7 @@ export async function createEvent(title,details,image,start_activity,finish_acti
     }
 }
 
-export async function updateEvent(title,details,image,start_activity,finish_activity,faculty_id) {
+export async function updateEvent(title,details,image,start_activity,finish_activity,faculty_id,public_relation_id) {
     var data = {
         title: title,
         content: details,
@@ -230,7 +230,7 @@ export async function updateEvent(title,details,image,start_activity,finish_acti
         faculty_id: faculty_id,
     }
     try {
-        const res = await api.post(`/admin/updateevent/`, data)
+        const res = await api.put(`/admin/updateevent/${public_relation_id}`, data)
         return res
     }
     catch (err) {
