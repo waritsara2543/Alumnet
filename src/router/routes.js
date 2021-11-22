@@ -109,6 +109,10 @@ const routes = [
       path: 'test', 
     component: () => import('pages/test.vue')
    },
+   { name : "testsearch",
+   path: 'testsearch', 
+ component: () => import('pages/testsearch.vue')
+},
   ],
   },
   {
