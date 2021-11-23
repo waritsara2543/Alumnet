@@ -103,9 +103,9 @@
     <div style="margin-left: 15px; margin-right: 15px">
       <q-timeline color="secondary">
         <q-timeline-entry :avatar="this.profile" class="text-h6">
-          My Timeline
+         Timeline
         </q-timeline-entry>
-        <q-scroll-area style="height: 200px"
+        <q-scroll-area style="height: 350px"
           ><div v-for="(col, index) in timeline" :key="index">
             <q-timeline-entry :subtitle="getDate (this.timeline[index].start_work)">
               <q-card class="text-white" style="background: linear-gradient(#032030 0%, #1794a5 100%);">
@@ -133,11 +133,12 @@ import { getAuth, signOut } from "firebase/auth";
 import moment from 'moment';
 export default {
   methods: {
+     
     // backconfirmEmail() {
     //   this.$router.push({ name: "confirmEmail" });
     // },
     backtosearch() {
-      this.$router.push({ name: "searchPage" });
+      this.$router.push({ name: "homepage" });
     },
     getDate : function (date) {
                 return moment(date, 'YYYY-MM-DD').format('DD MMMM YYYY');
@@ -146,8 +147,8 @@ export default {
    
     
     async detailstudent() {
-      this.person = await getProfileById(this.student[0].student_id);
-      this.timeline = await getTimelineById(this.student[0].student_id);
+      this.person = await getProfileById(this.student_id);
+      this.timeline = await getTimelineById(this.student_id);
       console.log(this.timeline);
       console.log(this.person);
     },
@@ -156,13 +157,15 @@ export default {
   async mounted() {
     const value = localStorage.getItem("student");
     this.student = JSON.parse(value);
-    await this.detailstudent(this.student[0].student_id);
-    this.profile = this.student[0].image_profile;
+    await this.detailstudent(this.student_id);
+    this.profile = this.person[0].image_profile;
+    console.log(this.student_id);
     
   },
 
   data() {
     return {
+      student_id: this.$route.params.index,
       prompt: ref(false),
       address: ref(""),
       person: [],

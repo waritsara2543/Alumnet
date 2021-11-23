@@ -1,89 +1,129 @@
 <template>
-  <q-page padding  >
-    
-    <link href="https://fonts.googleapis.com/css?family=Josefin+Sans" rel="stylesheet">
+  <q-page padding>
+    <link
+      href="https://fonts.googleapis.com/css?family=Josefin+Sans"
+      rel="stylesheet"
+    />
 
-<!-- Background & animion & navbar & title -->
-  <div class="container-fluid">
-<!-- Background animtion-->
-    <div class="background">
-       <div class="cube"></div>
-       <div class="cube"></div>
-       <div class="cube"></div>
-       <div class="cube"></div>
-      <div class="cube"></div>
+    <!-- Background & animion & navbar & title -->
+    <div class="container-fluid">
+      <!-- Background animtion-->
+      <div class="background">
+        <div class="cube"></div>
+        <div class="cube"></div>
+        <div class="cube"></div>
+        <div class="cube"></div>
+        <div class="cube"></div>
+      </div>
+      <!-- header -->
+      <div class="header">
+        <!-- title & content -->
+        <section class="header-content">
+          <h1>Welcome</h1>
+          <img
+            src="../assets/Alumnet.png"
+            alt=""
+            style="width: 200px; "
+          />
+          <p >
+            Welcome to Alumnet System. We are a social media alumni platform,<br />
+            making people who are alumni to meet again.
+          </p>
+          <div></div>
+
+          <q-btn label="GET STARTED" @click="toPageLogin" />
+          <q-btn label="FOR ADMIN" @click="toLoginAdmin" />
+          <div style="margin-top: 20px; font-size: 20px;">Find alumni information</div>
+          <q-input
+          v-model="search"
+            standout="bg-white text-black"
+            bg-color="white"
+            rounded
+            outlined
+            style="max-width: 800px; margin: 0 auto; padding: 10px"
+            class="search"
+            id="search"
+            label="Search by name or surname"
+          > <template v-slot:append>
+            <q-icon  name="search" @click="clicksearch" />
+          </template>
+        </q-input>
+        </section>
+        <q-card 
+      v-for="(col, index) in searchList"
+          :key="index"
+      rounded
+      class="my-card text-black"
+      style="margin: 30px; margin-top: 10px; background: white;"
+     
+    >
+
+      <q-card-section class="row"  >
+        <q-avatar class="q-mr-xs q-ml-md" id="image_profile">
+          <img v-if="this.searchList[index].image_profile !== null"  :src="this.searchList[index].image_profile" />
+          <img  src="../assets/man.png" />
+          
+        </q-avatar>
+
+        <div
+          class="text-subtitle2"
+          id="student_name"
+          style="margin-left: 20px; margin-top: 10px"
+        >
+          {{ this.searchList[index].firstname }}
+          {{ this.searchList[index].lastname }}
+         
+        </div>
+      </q-card-section>
+
+    </q-card>
+      </div>
     </div>
-<!-- header -->
-   <header>
-<!-- title & content -->
-      <section class="header-content">
-         <h1>Welcome</h1>
-         <img
-        src="../assets/Alumnet.png"
-        alt=""
-        style="width: 200px; padding: 5px"
-      />
-         <p> Welcome to Alumnet System. We are a social media alumni platform,<br>
-          making people who are alumni to meet again.</p>
-         <div>
-    <q-input standout="bg-white text-black"  bg-color="white" rounded outlined label="Search" style="max-width: 800px ; margin:0 auto; padding:10px" class="search" id="search" />
-  </div>
-        <!-- <q-card class="my-card text-black text-center" style=" border-radius: 50px; padding:20px ;max-width: 800px ;margin:0 auto;">
-          <q-card-section>
-            <div class="text-h6" style=""></div>
-          </q-card-section>
-        </q-card> -->
-          <q-btn  label="GET STARTED" @click="toPageLogin" />
-          <q-btn  label="FOR ADMIN" @click="toLoginAdmin" />
-      </section>
-  </header>
-  
-  </div>
-  
-    
-   
   </q-page>
 </template>
 <script>
-import { useQuasar } from 'quasar'
+import { useQuasar } from "quasar";
+import { getSearch } from '../api/api'
 export default {
-  methods :{
-    toPageLogin(){
-      this.$router.push({name:"loginPage"}
-      )
+  methods: {
+    async clicksearch(){
+     
+      this.search = this.search.charAt(0).toUpperCase() + this.search.slice(1)
+      this.searchList =  await getSearch(this.search,this.search)
     },
-     toLoginAdmin(){
-      this.$router.push({name:"loginAdmin"})
+    toPageLogin() {
+      this.$router.push({ name: "loginPage" });
     },
-    
+    toLoginAdmin() {
+      this.$router.push({ name: "loginAdmin" });
+    },
   },
-  setup() {
-    const $q = useQuasar()
+  data() {
+    const $q = useQuasar();
 
-     function login () {
-      $q.notify('Some other message')
+    function login() {
+      $q.notify("Some other message");
     }
     return {
-      login
+      login,
+      searchList:[],
+      search: "",
     };
   },
- 
 };
-
 </script>
 <style>
 body {
-  font-family: 'Josefin Sans', sans-serif;
+  font-family: "Josefin Sans", sans-serif;
   box-sizing: border-box;
-
 }
 
-.container-fluid{
+.container-fluid {
   height: 100%;
   margin: 0;
   padding: 0;
   width: 100%;
-  background: #FFF;
+  background: #fff;
 }
 /* ============= Animation background ========= */
 .background {
@@ -91,11 +131,11 @@ body {
   background-size: 500% 500%;
   animation: Gradient 15s ease infinite;
   position: relative;
-  height: 100vh;
+  height: 200vh;
   width: 100%;
   overflow: hidden;
-  padding:0;
-  margin:0px;
+  padding: 0;
+  margin: 0px;
 }
 .cube {
   position: absolute;
@@ -103,13 +143,13 @@ body {
   left: 45vw;
   width: 10px;
   height: 10px;
-  border: solid 1px #D7D4E4;
+  border: solid 1px #d7d4e4;
   transform-origin: top left;
   transform: scale(0) rotate(0deg) translate(-50%, -50%);
   animation: cube 12s ease-in forwards infinite;
 }
 .cube:nth-child(2n) {
-  border-color: #FFF ;
+  border-color: #fff;
 }
 .cube:nth-child(2) {
   animation-delay: 2s;
@@ -138,22 +178,23 @@ body {
 }
 
 /* ================= Header ============ */
-header{
+.header {
   position: absolute;
-  top:0%;
+  top: 0%;
   left: 0%;
-  width:100%;
+  width: 100%;
   margin: 0;
   padding: 0;
 }
 
 /* Header content & title & button*/
-.header-content{
-  
+.header-content {
   text-align: center;
-  color:  #EFEEF5;
+  color: #efeef5;
+  margin-right: 15px;
+  margin-left: 15px;
 }
-.header-content h1{
+.header-content h1 {
   text-transform: uppercase;
   font-size: 3em;
   letter-spacing: 1px;
@@ -161,22 +202,22 @@ header{
 .header-content p {
   font-size: 20px;
   line-height: 1.5;
-  margin: 20px auto;
+ 
 }
-.header-content button{
+.header-content button {
   width: 140px;
-  margin:20px 10px;
-  color: #591BC5;
+  margin: 20px 10px;
+  color: #591bc5;
   font-size: 17px;
-  border:1px solid #EFEEF5;
+  border: 1px solid #efeef5;
   font-weight: 500;
-  background: #EFEEF5;
+  background: #efeef5;
   border-radius: 20px;
   padding: 10px;
-  cursor:pointer;
-  transition: .3s;
+  cursor: pointer;
+  transition: 0.3s;
 }
-.header-content button:hover{
+.header-content button:hover {
   border-radius: 0;
 }
 /* Animate Background*/
@@ -201,6 +242,4 @@ header{
     opacity: 0;
   }
 }
-  
-
 </style>

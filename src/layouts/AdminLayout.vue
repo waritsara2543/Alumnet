@@ -64,6 +64,11 @@ export default {
           to: "/admin/homeadmin",
         },
         {
+          label: "Search",
+          icon: "search",
+          to: "/searchPage",
+        },
+        {
           label: "map",
           icon: "map",
           to: "/admin/MapAdmin",

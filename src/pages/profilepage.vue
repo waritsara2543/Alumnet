@@ -364,7 +364,10 @@ export default {
           this.student[0].student_id,
           date.formatDate(this.startdate, "YYYY-MM-DD")
         );
+
+        
         console.log("current job");
+
       } else {
         let workbefore = await createworkplacebefore(
           this.workplace_name,

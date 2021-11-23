@@ -10,6 +10,7 @@
           input-class="text-left"
           class="q-ml-md "
           style="width: 1000px; max-width: 100%"
+          label="Search by name or surname"
         >
           <template v-slot:append>
             <q-icon  name="search" @click="clicksearch" />
@@ -30,17 +31,21 @@
       </q-toolbar>
     </div>
 
-    <q-card
+    
+      <q-card 
       v-for="(col, index) in searchList"
           :key="index"
       rounded
       class="my-card text-white"
       style="margin: 0 auto; margin-top: 10px; background: linear-gradient(#032030 0%, #1794a5 100%);"
+      @click="result(this.searchList[index].student_id )"
     >
 
-      <q-card-section class="row" >
+      <q-card-section class="row"  >
         <q-avatar class="q-mr-xs q-ml-md" id="image_profile">
-          <img :src="this.searchList[index].image_profile" />
+          <img v-if="this.searchList[index].image_profile !== null"  :src="this.searchList[index].image_profile" />
+          <img  src="../assets/man.png" />
+          
         </q-avatar>
 
         <div
@@ -50,10 +55,14 @@
         >
           {{ this.searchList[index].firstname }}
           {{ this.searchList[index].lastname }}
+         
         </div>
       </q-card-section>
 
     </q-card>
+
+    
+    
 
   </div>
 </template>
@@ -63,17 +72,21 @@ import { getSearch } from '../api/api'
 export default {
   methods: {
     backtohome() {
-      this.$router.push({ name: "homepage" });
+      this.$router.go(-1) 
+      // this.$router.push({ name: "homepage" });
     },
     async clicksearch(){
+     
       this.search = this.search.charAt(0).toUpperCase() + this.search.slice(1)
       this.searchList =  await getSearch(this.search,this.search)
-      console.log(this.search);
-      console.log(this.searchList);
+    },
+    result(index){
+      console.log(index);
+      this.$router.push({ name: "resultSearch", params: { index }  });
     }
   },
 
-  setup() {
+  data() {
     return {
       search: ref(""),
       searchList:[],
