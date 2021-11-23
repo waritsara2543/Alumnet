@@ -82,21 +82,8 @@
   </q-page>
 </template>
 <script>
-<<<<<<< HEAD
-import { useQuasar } from "quasar";
-import { getSearch } from '../api/api'
-export default {
-  methods: {
-    async clicksearch(){
-     
-      this.search = this.search.charAt(0).toUpperCase() + this.search.slice(1)
-      this.searchList =  await getSearch(this.search,this.search)
-    },
-    toPageLogin() {
-      this.$router.push({ name: "loginPage" });
-=======
 import { useQuasar } from 'quasar'
-import { getDatainGoogleSheets } from "../api/api"
+import { getDatainGoogleSheets,getSearch } from "../api/api"
 export default {
   async mounted(){
     let test = await getDatainGoogleSheets()
@@ -106,11 +93,18 @@ export default {
     toPageLogin(){
       this.$router.push({name:"loginPage"}
       )
->>>>>>> origin/api-connect
     },
     toLoginAdmin() {
       this.$router.push({ name: "loginAdmin" });
     },
+    async clicksearch(){
+     
+      this.search = this.search.charAt(0).toUpperCase() + this.search.slice(1)
+      this.searchList =  await getSearch(this.search,this.search)
+    },
+    toPageLogin() {
+      this.$router.push({ name: "loginPage" });
+  },
   },
   data() {
     const $q = useQuasar();
