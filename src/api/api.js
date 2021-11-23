@@ -8,7 +8,7 @@ import axios from 'axios'
 // for each client)
 var qs = require('qs');
 import { devapi, herokuapi,projectapi } from './currentapi'
-const api = axios.create({ baseURL: projectapi}, {
+const api = axios.create({ baseURL: devapi}, {
     headers: {
         'Content-Type': 'application/json'
     },
@@ -258,8 +258,28 @@ export async function getEvent(faculty_id) {
     }
 }
 
+export async function getEventBypublicid(faculty_id,public_relation_id) {
+    try {
+        const res = await api.get(`/admin/geteventbyid/${faculty_id}/${public_relation_id}`)
+        return res.data.results
+    }
+    catch (err) {
+        console.log(err);
+    }
+}
+
 
 export async function getSearch(firstname,lastname) {
     let res = await api.get(`/student/search/${firstname}/${lastname}`);
     return res.data.results
 }
+
+
+
+
+export async function getDatainGoogleSheets() {
+    let res = await api.get(`https://sheets.googleapis.com/v4/spreadsheets/1L0p43e9RCRS_0sjcz7xz35Uoi5Ev2PxklGUGHeLPSlA/values/sheet1!A1:L300/?key=AIzaSyCXRNRo1tvekH4YLwrw2kKnqaHlpAwz7TA`);
+    return res.data.values
+}
+
+
