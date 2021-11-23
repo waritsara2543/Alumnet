@@ -367,6 +367,7 @@ export default {
 
         
         console.log("current job");
+        location.reload();
 
       } else {
         let workbefore = await createworkplacebefore(
@@ -375,9 +376,11 @@ export default {
           this.student[0].student_id,
           date.formatDate(this.startdate, "YYYY-MM-DD"),
           date.formatDate(this.enddate, "YYYY-MM-DD")
+          
         );
         // มี finish_work
         console.log("old job");
+        location.reload();
       }
     },
     editLocation() {
@@ -391,6 +394,7 @@ export default {
         this.newStatus,
         this.student[0].student_id
       );
+      location.reload();
     },
     async updateEpigram() {
       console.log(this.newEpigram);
@@ -399,6 +403,7 @@ export default {
         this.newStatus,
         this.student[0].student_id
       );
+      location.reload();
     },
     getDate: function (date) {
       return moment(date, "YYYY-MM-DD").format("DD MMMM YYYY");

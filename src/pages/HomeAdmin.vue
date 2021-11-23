@@ -2,7 +2,8 @@
   <div class="row">
     <div class="col-4">
       <div class="q-pa-md">
-        <div class="col" style="padding: 5px 100px 100px 100px">
+        <div class="col" style="padding: 5px 100px 100px 100px" v-for="(col, index) in admin"
+          :key="index">
           <q-card
             class="my-card text-white text-center"
             style="background: #d0dfe6; height: 100px; margin: 0 auto"
@@ -29,7 +30,7 @@
               <img src="../assets/man.png" style="" />
             </q-avatar>
             <div class="text-caption" id="" style="font-size: 20px">
-              Manee Mebun
+             {{this.admin[0].firstname}} {{this.admin[0].lastname}}
             </div>
             <div
               class="row justify-center"
@@ -39,7 +40,8 @@
                 margin-top: 20px;
                 width: 100%;
               "
-            ></div>
+            >
+            </div>
             <div class="q-pa-md q-gutter-sm">
               <q-btn
                 style="
@@ -490,7 +492,7 @@ export default {
     const adminvalue = localStorage.getItem("admin");
     this.admin = JSON.parse(adminvalue);
     this.events = await getEvent(this.admin[0].faculty_id);
-    console.log(this.events);
+    
   },
   data() {
     const $q = useQuasar();

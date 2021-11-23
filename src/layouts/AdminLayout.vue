@@ -78,12 +78,12 @@ export default {
           icon: "pie_chart",
           to: "/admin/reportadmin",
         },
-        {
-          label: "notifications",
-          icon: "notifications",
-          to: "/admin/Approve",
+        // {
+        //   label: "notifications",
+        //   icon: "notifications",
+        //   to: "/admin/Approve",
           
-        },
+        // },
       ],
     };
   },
