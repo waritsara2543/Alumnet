@@ -46,7 +46,12 @@
 </template>
 <script>
 import { useQuasar } from 'quasar'
+import { getDatainGoogleSheets } from "../api/api"
 export default {
+  async mounted(){
+    let test = await getDatainGoogleSheets()
+    console.log("test:", test);
+  },
   methods :{
     toPageLogin(){
       this.$router.push({name:"loginPage"}
