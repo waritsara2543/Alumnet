@@ -282,4 +282,16 @@ export async function getDatainGoogleSheets() {
     return res.data.values
 }
 
-
+export async function updateCurrentJob(student_id,finish_work) {
+    var data = {
+        student_id: student_id,
+        finish_work: finish_work
+    }
+    try {
+        const res = await api.put(`/student/currentjob/${student_id}/${finish_work}`, data)
+        return res
+    }
+    catch (err) {
+        console.log(err);
+    }
+}
