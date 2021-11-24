@@ -49,9 +49,9 @@
           </div>
         </div>
 
-        <div class="row">
+        <div class="row" v-if="this.person[0].position!=null">
           <q-icon name="business_center" style="margin-right: 10px" />
-          <div id="workplace" class="col">
+          <div  id="workplace" class="col">
             {{ this.person[0].position }} at {{ this.person[0].workplace }}
           </div>
         </div>
@@ -343,7 +343,8 @@ import {
   getTimelineById,
   updateinformation,
   createworkplace,
-  createworkplacebefore
+  createworkplacebefore,
+  updateCurrentJob
 } from "../api/api";
 import { getAuth, signOut } from "firebase/auth";
 import moment from "moment";
@@ -357,20 +358,33 @@ export default {
      
       
       if (this.currentJob == true) {
-        // ไม่มี finish_work
+         // ไม่มี finish_work 
+
+        if(this.workplace_name==="" || this.position==="" || this.startdate === ""){
+            alert("Please fill out the information completely.")
+        }else{
+          
+
+        let update = await updateCurrentJob(
+          this.student[0].student_id)
+        
         let work = await createworkplace(
           this.workplace_name,
           this.position,
           this.student[0].student_id,
           date.formatDate(this.startdate, "YYYY-MM-DD")
         );
+       location.reload();
 
-        
-        console.log("current job");
-        location.reload();
+        }
+       
 
       } else {
-        let workbefore = await createworkplacebefore(
+        // มี finish_work
+        if(this.workplace_name==="" || this.position==="" || this.startdate === "" || this.enddate === ""){
+            alert("Please fill out the information completely.")
+        }else{
+          let workbefore = await createworkplacebefore(
           this.workplace_name,
           this.position,
           this.student[0].student_id,
@@ -378,9 +392,10 @@ export default {
           date.formatDate(this.enddate, "YYYY-MM-DD")
           
         );
-        // มี finish_work
-        console.log("old job");
+        
         location.reload();
+        }
+        
       }
     },
     editLocation() {

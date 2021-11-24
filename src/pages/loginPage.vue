@@ -131,7 +131,9 @@ export default {
           const token = credential.accessToken;
           // The signed-in user info.
           const user = result.user;
-          this.tohome();
+          const email =user.email;
+          
+          this.tohome(email);
           // ...
           // console.log(token);
           // console.log(user);

@@ -93,7 +93,12 @@ export default {
     // },
     async toavatar() {
       // const newDate = new Date(this.date)
-      let timeStamp = Date.now();
+      if(this.employed === 'employed'){
+        if(this.workplace_name ==="" ||this.position === "" || this.date===null ){
+          alert("Please fill out the information completely.")
+        }else{
+          console.log("pass");
+          let timeStamp = Date.now();
       let formattedString = date.formatDate(this.date, "YYYY-MM-DD");
       let work = await createworkplace(
         this.workplace_name,
@@ -104,6 +109,25 @@ export default {
       console.log(this.formattedString);
       console.log(this.workplace_name);
       this.$router.push({ name: "toavatar" });
+
+        }
+
+      }else{
+         console.log("pass");
+        let timeStamp = Date.now();
+      let formattedString = date.formatDate(this.date, "YYYY-MM-DD");
+      let work = await createworkplace(
+        this.workplace_name,
+        this.position,
+        this.student[0].student_id,
+        date.formatDate(this.date, "YYYY-MM-DD")
+      );
+      console.log(this.formattedString);
+      console.log(this.workplace_name);
+      this.$router.push({ name: "toavatar" });
+
+      }
+      
     },
   },
   async mounted() {
