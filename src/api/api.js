@@ -295,3 +295,21 @@ export async function updateCurrentJob(student_id,finish_work) {
         console.log(err);
     }
 }
+
+export async function getStudentContactByid(student_id) {
+    let res = await api.get(`/student/studentcontact/${student_id}`);
+    return res.data.results
+}
+
+export async function getStudentlattlongByid(student_id) {
+    let res = await api.get(`/student/latlongbyid/${student_id}`);
+    return res.data.results
+}
+export async function getStudentlattlongAll(student_id) {
+    let res = await api.get(`/student/latlongall/${student_id}`);
+    return res.data.results
+}
+export async function getSearchGuess(firstname,lastname) {
+    let res = await api.get(`/search/${firstname}/${lastname}`);
+    return res.data.results
+}
