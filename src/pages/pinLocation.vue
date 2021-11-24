@@ -1,101 +1,75 @@
 <template>
-
-  <div style="height: 500px; width: 100%">
-    <div style="height: 200px; overflow: auto;">
-      <p>First marker is placed at {{ withPopup.lat }}, {{ withPopup.lng }}</p>
-      <p>Center is at {{ currentCenter }} and the zoom is: {{ currentZoom }}</p>
-      <button @click="showLongText">
-        Toggle long popup
-      </button>
-      <button @click="showMap = !showMap">
-        Toggle map
-      </button>
-    </div>
-    <l-map
-      v-if="showMap"
-      :zoom="zoom"
-      :center="center"
-      :options="mapOptions"
-      style="height: 80%"
-      @update:center="centerUpdate"
-      @update:zoom="zoomUpdate"
-    >
-      <l-tile-layer
-        :url="url"
-        :attribution="attribution"
-      />
-      <l-marker :lat-lng="withPopup">
-        <l-popup>
-          <div @click="innerClick">
-            I am a popup
-            <p v-show="showParagraph">
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque
-              sed pretium nisl, ut sagittis sapien. Sed vel sollicitudin nisi.
-              Donec finibus semper metus id malesuada.
-            </p>
-          </div>
-        </l-popup>
-      </l-marker>
-      <l-marker :lat-lng="withTooltip">
-        <l-tooltip :options="{ permanent: true, interactive: true }">
-          <div @click="innerClick">
-            I am a tooltip
-            <p v-show="showParagraph">
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque
-              sed pretium nisl, ut sagittis sapien. Sed vel sollicitudin nisi.
-              Donec finibus semper metus id malesuada.
-            </p>
-          </div>
-        </l-tooltip>
-      </l-marker>
-    </l-map>
-  </div>
+  <div id="map" ></div>
 </template>
 
 <script>
-import { latLng } from "leaflet";
-import { LMap, LTileLayer, LMarker, LPopup, LTooltip } from "vue2-leaflet";
-
+import "leaflet/dist/leaflet.css";
+import L from "leaflet";
+import "leaflet-defaulticon-compatibility/dist/leaflet-defaulticon-compatibility.webpack.css";
+import "leaflet-defaulticon-compatibility";
+import { getStudentlattlongAll, getStudentlattlongByid } from "../api/api";
 export default {
-  name: "Example",
-  components: {
-    LMap,
-    LTileLayer,
-    LMarker,
-    LPopup,
-    LTooltip
+  name: "LeafletMap",
+  methods: {
+    clickMap(){
+      
+    },
+    
+    async pinmap(){
+        const studentvalue = localStorage.getItem("student");
+    this.student = JSON.parse(studentvalue);
+    this.allLatLonng = await getStudentlattlongAll(this.student[0].student_id);
+    this.myLatLong = await getStudentlattlongByid(this.student[0].student_id);
+
+    this.map = L.map("map").setView(
+      [13.7087384, 100.1625354, 9.75],
+      5
+    );
+    L.tileLayer("http://{s}.tile.osm.org/{z}/{x}/{y}.png", {
+      attribution:
+        '&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors',
+    }).addTo(this.map);
+    //use a mix of renderers
+    var customPane = this.map.createPane("customPane");
+    var canvasRenderer = L.canvas({ pane: "customPane" });
+    customPane.style.zIndex = 399; // put just behind the standard overlay pane which is at 400
+    this.map.on("click", function (e) {
+      this.lat = e.latlng.lat;
+      this.lng = e.latlng.lng;     
+      console.log(this.lat,this.lng);
+      
+    });
+    
+
+     
+    }
+    
   },
   data() {
     return {
-      zoom: 13,
-      center: latLng(47.41322, -1.219482),
-      url: 'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',
-      attribution:
-        '&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors',
-      withPopup: latLng(47.41322, -1.219482),
-      withTooltip: latLng(47.41422, -1.250482),
-      currentZoom: 11.5,
-      currentCenter: latLng(47.41322, -1.219482),
-      showParagraph: false,
-      mapOptions: {
-        zoomSnap: 0.5
-      },
-      showMap: true
+      map: null,
+      allLatLonng: [],
+      myLatLong: [],
+      student: [],
+      lat: "",
+      lng: "",
     };
   },
-  methods: {
-    zoomUpdate(zoom) {
-      this.currentZoom = zoom;
-    },
-    centerUpdate(center) {
-      this.currentCenter = center;
-    },
-    showLongText() {
-      this.showParagraph = !this.showParagraph;
-    },
-    innerClick() {
-      alert("Click!");
+  async mounted() {
+    this.pinmap();
+    
+  },
+  onBeforeUnmount() {
+    if (this.map) {
+      this.map.remove();
     }
-  }
+  },
 };
 </script>
+
+<style scoped>
+#map {
+  width: 100vw;
+  height: 100vh;
+}
+</style>
