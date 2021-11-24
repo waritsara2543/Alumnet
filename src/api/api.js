@@ -126,6 +126,17 @@ export async function createinformation(student_id, contact_type,contact_url) {
     }
 }
 
+export async function createstudentgooglesheet(data) {
+    console.log(data);
+    try {
+        const res = await api.post(`/student`, data)
+        return res
+    }
+    catch (err) {
+        console.log(err);
+    }
+}
+
 export async function updateinformation(epigram, status, student_id) {
     var data = {
         epigram: epigram,
@@ -278,7 +289,7 @@ export async function getSearch(firstname,lastname) {
 
 
 export async function getDatainGoogleSheets() {
-    let res = await api.get(`https://sheets.googleapis.com/v4/spreadsheets/1L0p43e9RCRS_0sjcz7xz35Uoi5Ev2PxklGUGHeLPSlA/values/sheet1!A1:L300/?key=AIzaSyCXRNRo1tvekH4YLwrw2kKnqaHlpAwz7TA`);
+    let res = await api.get(`https://sheets.googleapis.com/v4/spreadsheets/1L0p43e9RCRS_0sjcz7xz35Uoi5Ev2PxklGUGHeLPSlA/values/sheet1!A2:L300/?key=AIzaSyCXRNRo1tvekH4YLwrw2kKnqaHlpAwz7TA`);
     return res.data.values
 }
 
@@ -312,4 +323,18 @@ export async function getStudentlattlongAll(student_id) {
 export async function getSearchGuess(firstname,lastname) {
     let res = await api.get(`/search/${firstname}/${lastname}`);
     return res.data.results
+}
+export async function getLatLongForAdmin(faculty_id) {
+    let res = await api.get(`/admin/latlong/${faculty_id}`);
+    return res.data.results
+}
+
+export async function deleteStudentContact (student_contact_id) {
+    try {
+        const res = await api.delete(`/student/studentcontact/${student_contact_id}`)
+        return res
+    }
+    catch (err) {
+        console.log(err);
+    }
 }
