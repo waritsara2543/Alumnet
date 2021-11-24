@@ -74,6 +74,14 @@
           {{ this.searchList[index].lastname }}
          
         </div>
+         <div
+          class="text-subtitle2"
+          style="margin-left: 20px; margin-top: 10px"
+        >
+          graduated year {{ this.searchList[index].graduate_year }} from
+          {{ this.searchList[index].major}},{{ this.searchList[index].faculty}},{{ this.searchList[index].campus}}
+         
+        </div>
       </q-card-section>
 
     </q-card>
@@ -83,7 +91,7 @@
 </template>
 <script>
 import { useQuasar } from 'quasar'
-import { getDatainGoogleSheets,getSearch } from "../api/api"
+import { getDatainGoogleSheets,getSearchGuess } from "../api/api"
 export default {
   async mounted(){
     let test = await getDatainGoogleSheets()
@@ -100,7 +108,8 @@ export default {
     async clicksearch(){
      
       this.search = this.search.charAt(0).toUpperCase() + this.search.slice(1)
-      this.searchList =  await getSearch(this.search,this.search)
+      this.searchList =  await getSearchGuess(this.search,this.search)
+      console.log(this.searchList);
     },
     toPageLogin() {
       this.$router.push({ name: "loginPage" });

@@ -92,6 +92,7 @@ export default {
       const password = this.password;
       const confirmpassword = this.confirmpassword;
       if (confirmpassword == "" || confirmpassword != password) {
+        alert("confirmpassword is not equal with password")
       } else {
         console.log(email);
         createUserWithEmailAndPassword(auth, email, password)

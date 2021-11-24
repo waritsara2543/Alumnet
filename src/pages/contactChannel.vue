@@ -20,33 +20,38 @@
         />
       </q-toolbar>
 
+      <div></div>
+
       <q-card
+        v-for="(col, index) in getcontact"
+        :key="index"
         class="my-card text-white full-width"
         style="background: #032030; margin-top: 10px"
       >
         <q-card-section class="">
           <div class="row">
             <div class="col-3">
-              <div class="text-subtitle2" id="contact">EMAIL :</div>
+              <div class="text-subtitle2" id="contact">
+                {{ this.getcontact[index].contact_type }} :
+              </div>
             </div>
             <div class="col">
               <div class="text-subtitle2" style="" id="contact_name">
-                warissara.0039@gmail.com
+                {{ this.getcontact[index].contact_url }}
               </div>
             </div>
             <div class="col-1">
-              <q-btn
-                round
-                dense
-                flat
-                style="margin-top: -5px"
-                @click="editcontact = true"
-              >
-                Edit</q-btn
-              >
+                  <q-icon
+                    name="delete"
+                    style="font-size: 20px"
+                    @click="showDialogDelete(this.getcontact[index].student_contact_id)"
+                  />
+                
             </div>
           </div>
         </q-card-section>
+
+       
       </q-card>
 
       <div class="text-center text-white">
@@ -71,11 +76,12 @@
           <q-select
             v-model="model"
             :options="contacts"
+            :rules="[(val) => !!val || 'contact type is required']"
             label="Contact"
             bottom-slots
             style="padding: 20px 20px 20px 15px"
           />
-          <q-input square outlined v-model="contactName" label="name" />
+          <q-input square outlined v-model="contactName" label="name" :rules="[(val) => !!val || 'contact name is required']" />
         </q-card-section>
 
         <q-card-actions align="right" class="text-primary">
@@ -84,59 +90,93 @@
         </q-card-actions>
       </q-card>
     </q-dialog>
-
-    <!-- dialog  Edit Contact-->
-
-    <q-dialog v-model="editcontact" persistent>
-      <q-card style="min-width: 350px; background: white">
-        <q-card-section>
-          <div class="text-h6">Update Contact</div>
-        </q-card-section>
-
-        <q-card-section class="q-pt-none">
-          <q-input
-            square
-            outlined
-            v-model="new_name_contact"
-            label="name of contact"
-            @keyup.enter="editcontact = false"
-          />
-        </q-card-section>
-
-        <q-card-actions align="right" class="text-primary">
-          <q-btn flat label="Cancel" v-close-popup />
-          <q-btn flat label="Update" v-close-popup @click="updateContact()" />
-        </q-card-actions>
-      </q-card>
-    </q-dialog>
   </q-page>
+
+   
+
+        <!-- dialog  Delete Contact-->
+
+        <q-dialog v-model="deletecontact" persistent>
+          <q-card style="min-width: 350px; background: white">
+            <q-card-section>
+              <div class="text-h6">Delete Contact</div>
+            </q-card-section>
+
+            <q-card-section class="q-pt-none">
+              <div>Are you sure to delete this contact?</div>
+            </q-card-section>
+
+            <q-card-actions align="right" class="text-primary">
+              <q-btn flat label="Cancel" v-close-popup />
+              <q-btn
+                flat
+                label="Delete"
+                v-close-popup
+                @click="
+                  deleteContact()
+                "
+              />
+            </q-card-actions>
+          </q-card>
+        </q-dialog>
+
 </template>
  <script>
 import { ref } from "vue";
+import { getStudentContactByid, createinformation } from "../api/api";
 export default {
   methods: {
+    
+    showDialogDelete(id) {
+      this.id=id;
+      console.log(id);
+      this.deletecontact = true;
+    },
+    async deleteContact() {
+     console.log(this.id);
+    },
+   
     back() {
       this.$router.push({ name: "profilepage" });
     },
-    contact() {
+    async contact() {
       const contact_type = this.model;
       const contact_name = this.contactName;
       console.log(contact_type + " : " + contact_name);
-    },
-    updateContact() {
-      const new_name_contact = this.new_name_contact;
-      console.log(new_name_contact);
+      if(this.contactName === ''||this.model==='' ){
+        alert("Please fill out the information completely.")
+
+      }else{
+        let add = await createinformation(
+        this.student[0].student_id,
+        contact_type,
+        contact_name
+      );
+      location.reload();
+
+      }
+      
     },
   },
+  async mounted() {
+    const studentvalue = localStorage.getItem("student");
+    this.student = JSON.parse(studentvalue);
+    this.getcontact = await getStudentContactByid(this.student[0].student_id);
 
+    console.log(this.getcontact);
+  },
   data() {
     return {
+      id:"",
       addContact: ref(false),
       editcontact: ref(false),
       contactName: "",
       new_name_contact: "",
       model: ref(null),
       contacts: ["Facebook", "LINE", "Email", "Phone"],
+      student: [],
+      getcontact: [],
+      deletecontact: false,
     };
   },
 };

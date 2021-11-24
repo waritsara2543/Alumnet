@@ -41,9 +41,6 @@ export default {
     
     
 
-    L.marker([7.894962, 98.352373]).addTo(this.map).bindPopup('You are here.')
-    .openPopup().bindTooltip("You");
-
     L.marker([7.894962, 98]).addTo(this.map).bindTooltip("Arnont Photdoung");
     
     
