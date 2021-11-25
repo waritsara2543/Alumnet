@@ -61,7 +61,7 @@ import {
 } from "firebase/storage";
 import { getAuth } from "firebase/auth";
 
-import { updateprofile } from "../api/api";
+import { updateprofile, getDetailById } from "../api/api";
 export default {
   methods: {
     // backconfirmEmail() {
@@ -119,6 +119,9 @@ export default {
     const value = localStorage.getItem("student");
     this.student = JSON.parse(value);
     this.imageProfile = this.student[0].image_profile;
+    console.log(this.student[0].email);
+    let detail = await getDetailById(this.student[0].email);
+    localStorage.setItem("detail", JSON.stringify(detail));
   },
 
   data() {
