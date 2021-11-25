@@ -1,5 +1,5 @@
 <template>
-  <q-page padding>
+  <q-page padding style="background: #d0dfe6">
     <!-- card profile -->
 
     <q-card

@@ -1,5 +1,5 @@
 <template>
-  <q-page padding>
+  <q-page padding style="background: #d0dfe6">
     <div>
       <q-toolbar class="text-white rounded-borders" style="background: #032030">
         <q-btn

@@ -1,5 +1,5 @@
 <template>
-  <q-page>
+  <q-page style="background: #d0dfe6">
     <div class="row justify-center q-gutter-md " style="margin:0 auto;">
 
       

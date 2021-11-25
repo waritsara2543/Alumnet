@@ -1,5 +1,5 @@
 <template>
-  <q-page>
+  <q-page style="background: #d0dfe6">
     <inputsearchComponent></inputsearchComponent>
   </q-page>
 </template>

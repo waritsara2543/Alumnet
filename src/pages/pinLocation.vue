@@ -35,7 +35,7 @@ export default {
         var r = confirm("Your location is " + this.lat + " , " + this.lng);
         if (r == true) {
           console.log("true");
-         window.location = '/#/studentAddress';
+         window.location = '/#/regist/studentAddress';
         } else {
          
         }

@@ -1,6 +1,6 @@
 <template>
-  <q-page>
-    <div class="q-pa-md " >
+  <q-page style="background: #d0dfe6">
+    <div class="q-pa-md "  >
       <div class="q-gutter-y-md column" >
         <q-toolbar
           class="text-white rounded-borders"
