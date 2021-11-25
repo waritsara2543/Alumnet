@@ -234,7 +234,7 @@
                   transition-show="scale"
                   transition-hide="scale"
                 >
-                  <q-date v-model="startdate">
+                  <q-date v-model="startdate" :options="optionsStart">
                     <div class="row items-center justify-end">
                       <q-btn v-close-popup label="Close" color="primary" flat />
                     </div>
@@ -259,7 +259,7 @@
                     transition-show="scale"
                     transition-hide="scale"
                   >
-                    <q-date v-model="enddate">
+                    <q-date v-model="enddate" :options="optionsEnd">
                       <div class="row items-center justify-end">
                         <q-btn
                           v-close-popup
@@ -364,7 +364,6 @@ export default {
             alert("Please fill out the information completely.")
         }else{
           
-
         let update = await updateCurrentJob(
           this.student[0].student_id)
         
@@ -384,14 +383,24 @@ export default {
         if(this.workplace_name==="" || this.position==="" || this.startdate === "" || this.enddate === ""){
             alert("Please fill out the information completely.")
         }else{
+
+          if(this.startdate >= this.enddate){
+            alert("Have somthing wrong on start date and end date.")
+          }else{
+            
           let workbefore = await createworkplacebefore(
           this.workplace_name,
           this.position,
           this.student[0].student_id,
           date.formatDate(this.startdate, "YYYY-MM-DD"),
           date.formatDate(this.enddate, "YYYY-MM-DD")
+           );
+            
+          }
           
-        );
+
+          
+       
         
         location.reload();
         }
@@ -481,6 +490,13 @@ export default {
       editEpigram: ref(false),
       newStatus: "",
       newEpigram: "",
+
+       optionsStart (startdate) {
+        return startdate <= date.formatDate(Date.now(), 'YYYY/MM/DD') 
+      },
+      optionsEnd (enddate) {
+        return  enddate <= date.formatDate(Date.now(), 'YYYY/MM/DD')
+      },
     };
   },
 };
