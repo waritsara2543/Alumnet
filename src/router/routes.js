@@ -149,6 +149,14 @@ const routes = [
         path: "Approve",
         component: () => import("pages/Approve.vue"),
       },
+      {
+        path: "searchForAdmin",
+        component: () => import("pages/searchForAdmin.vue"),
+      },
+      {
+        path: "importAlumni",
+        component: () => import("pages/importAlumni.vue"),
+      },
       { path: "testchart", component: () => import("pages/testchart.vue") },
     ],
   },

@@ -29,11 +29,7 @@
           v-for="(col, index) in details"
           :key="index"
           class="my-card text-black full-width"
-          style="
-            background: white;
-            margin: 0 auto;
-            margin-top: 20px;
-          "
+          style="background: white; margin: 0 auto; margin-top: 20px"
         >
           <q-card-section>
             <div class="row" style="text-align: center">
@@ -51,7 +47,6 @@
                   Congratulate
                   {{ this.details[index].firstname }}
                   {{ this.details[index].lastname }}
-                  
                 </div>
 
                 <!-- <q-icon name="business_center" /> -->
@@ -117,7 +112,7 @@ export default {
     console.log(this.detail);
     console.log(this.details);
     this.profile = this.student[0].image_profile;
-    
+
     // await this.timelinefeed();
 
     const messaging = getMessaging();
@@ -131,10 +126,16 @@ export default {
           // ...
           console.log("currentToken");
           // const messaging = getMessaging();
-          // onMessage(messaging, (payload) => {
-          //   console.log("Message received. ", payload);
-          //   // ...
-          // });
+          onMessage(messaging, (payload) => {
+             console.log("Message received. ", payload);
+             this.content =payload.notification.body
+             this.title =payload.notification.title
+             alert(this.title+" : "+this.content)
+            
+             
+
+            // ...
+         });
         } else {
           // Show permission request UI
           console.log(
@@ -156,6 +157,8 @@ export default {
       student: [],
       details: [],
       timeline: [],
+      title:"",
+      content:"",
       profile: ref(""),
     };
   },

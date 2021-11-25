@@ -101,6 +101,7 @@ export default {
             const user = userCredential.user;
 
             sendEmailVerification(auth.currentUser).then(() => {
+              alert("Please verify your email and login again")
               const email_verified = auth.currentUser.emailVerified;
               console.log(email_verified);
               this.backLogin();

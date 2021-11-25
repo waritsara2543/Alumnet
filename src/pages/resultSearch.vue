@@ -158,7 +158,7 @@ export default {
     //   this.$router.push({ name: "confirmEmail" });
     // },
     backtosearch() {
-      this.$router.go(-2)
+      this.$router.go(-1)
     },
     getDate: function (date) {
       return moment(date, "YYYY-MM-DD").format("DD MMMM YYYY");
