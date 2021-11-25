@@ -81,7 +81,16 @@
             bottom-slots
             style="padding: 20px 20px 20px 15px"
           />
-          <q-input square outlined v-model="contactName" label="name" :rules="[(val) => !!val || 'contact name is required']" />
+           <!-- Phone -->
+        <q-input v-if="model == contacts[3]"
+          v-model="contactName"
+          label="Please specify your contact"
+          id="contact"
+          :dense="dense"
+          mask="(###) ### - ####"
+          style="padding: 20px 20px 20px 15px"
+        />
+          <q-input  v-if="model == contacts[0] || model == contacts[1] ||model == contacts[2] " square outlined v-model="contactName" label="name" :rules="[(val) => !!val || 'contact name is required']" />
         </q-card-section>
 
         <q-card-actions align="right" class="text-primary">
@@ -123,7 +132,7 @@
 </template>
  <script>
 import { ref } from "vue";
-import { getStudentContactByid, createinformation } from "../api/api";
+import { getStudentContactByid, createinformation ,deleteStudentContact } from "../api/api";
 export default {
   methods: {
     
@@ -134,6 +143,9 @@ export default {
     },
     async deleteContact() {
      console.log(this.id);
+     let deletect = await deleteStudentContact (this.id);
+     location.reload();
+
     },
    
     back() {
@@ -177,6 +189,7 @@ export default {
       student: [],
       getcontact: [],
       deletecontact: false,
+      dense: ref(false),
     };
   },
 };

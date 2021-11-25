@@ -1,5 +1,5 @@
 <template>
-  <div id="map"  ></div>
+  <div id="map"></div>
 </template>
 
 <script>
@@ -11,8 +11,6 @@ import { getStudentlattlongAll, getStudentlattlongByid } from "../api/api";
 export default {
   name: "LeafletMap",
   methods: {
-    
-
     async pinmap() {
       const studentvalue = localStorage.getItem("student");
       this.student = JSON.parse(studentvalue);
@@ -30,14 +28,18 @@ export default {
       var customPane = this.map.createPane("customPane");
       var canvasRenderer = L.canvas({ pane: "customPane" });
       customPane.style.zIndex = 399; // put just behind the standard overlay pane which is at 400
-        this.map.on("click", function (e) {
+      this.map.on("click", function (e) {
         this.lat = e.latlng.lat;
         this.lng = e.latlng.lng;
-        console.log(this.lat, this.lng); 
-        alert("Your location is " +this.lat +" , "+this.lng)
+        console.log(this.lat, this.lng);
+        var r = confirm("Your location is " + this.lat + " , " + this.lng);
+        if (r == true) {
+          console.log("true");
+         window.location = '/#/studentAddress';
+        } else {
+         
+        }
       });
-      
-      
     },
   },
   data() {
