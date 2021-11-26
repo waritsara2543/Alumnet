@@ -100,7 +100,7 @@ export default {
           this.address_detail
         );
 
-        this.$router.push({ name: "pinLocation" });
+        this.$router.push({ name: "editLocation" });
       }
     },
   },

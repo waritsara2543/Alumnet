@@ -101,9 +101,18 @@
       </div>
       <div class="col-md-6 col-sm-12 col-xs-12" >
         <div class="row " >
-          <div class="col" style="margin-left:20px"><BarChart style="width:500px" /></div>
-          <div class="col"><DonutChart style="width:500px" /></div>
-          <div class="col"><PieChart style="width:500px" /></div>
+          <div class="col" style="margin-left:20px">
+            number of alumni who employed
+            <BarChart style="width:500px" />
+          </div>
+          <div class="col">
+            province where alumni reside
+            <DonutChart style="width:500px" />
+            </div>
+          <div class="col">
+            alumni job titles
+            <PieChart style="width:500px" />
+            </div>
           
         
         

@@ -4,7 +4,7 @@ import { Pie } from 'vue3-chart-v2'
 import {getStudentWorkByPosition} from "../api/api";
 
 export default {
-  name: 'MonthlyChart',
+  name: 'Alumni job titles',
   extends: Pie,
   async mounted () {
     const adminvalue = localStorage.getItem("admin");
@@ -21,7 +21,7 @@ export default {
       labels: this.positions,
       datasets: [
         {
-          label: 'GitHub Commits',
+          label: 'Alumni job titles',
           backgroundColor:  ['#e7a33e','#27a8a1','#f95dd6','#FFD700','#00FA9A','#48D1CC'],
           data: this.count
         }

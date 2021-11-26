@@ -436,7 +436,7 @@ export default {
       }
     },
     editLocation() {
-      this.$router.push({ name: "pinLocation" });
+      this.$router.push({ name: "editStudentAddress" });
     },
     async updateStatus() {
       console.log(this.person[0].status);

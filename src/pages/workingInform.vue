@@ -137,12 +137,12 @@ export default {
             }
             
            
-            this.$router.push({ name: "pinLocation" });
+            this.$router.push({ name: "studentAddress" });
           }
         }
       } else {
        
-        this.$router.push({ name: "pinLocation" });
+        this.$router.push({ name: "studentAddress" });
       }
     },
   },

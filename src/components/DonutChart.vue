@@ -4,7 +4,7 @@ import { Doughnut } from 'vue3-chart-v2'
 import {getStudentAddress} from "../api/api";
 
 export default {
-  name: 'MonthlyChart',
+  name: 'Province where alumni reside',
   extends: Doughnut,
   async mounted () {
 
