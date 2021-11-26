@@ -365,5 +365,9 @@ export async function getStudentGraduateyear(faculty_id) {
     let res = await api.get(`/admin/dashboard/graduateyear/${faculty_id}`);
     return res.data.results
 }
+export async function getStudentWorkByPosition(faculty_id) {
+    let res = await api.get(`/admin/dashboard/workposition/${faculty_id}`);
+    return res.data.results
+}
 
 
