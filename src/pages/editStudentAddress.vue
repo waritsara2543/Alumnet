@@ -65,7 +65,7 @@
  <script>
 import { ref } from "vue";
 import { date } from "quasar";
-import { getLocationByid, createAddressByid } from "../api/api";
+import { getLocationByid, createAddressByid ,getLocationByStudentid} from "../api/api";
 
 export default {
   methods: {
@@ -104,10 +104,13 @@ export default {
       }
     },
   },
-  mounted() {
+  async mounted() {
     const value = localStorage.getItem("student");
     this.student = JSON.parse(value);
     console.log(this.student[0].student_id);
+    this.getlobystudentid = await getLocationByStudentid(this.student[0].student_id)
+    console.log(this.getlobystudentid);
+    
   },
 
   data() {
@@ -120,6 +123,7 @@ export default {
       tumbons: [],
       amphones: [],
       provinces: [],
+      getlobystudentid:[]
     };
   },
 };
