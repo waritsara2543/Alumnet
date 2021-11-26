@@ -233,6 +233,9 @@ export default {
     },
 
     async getFile() {
+      if(this.text === "" || this.date_start ===""  || this.date_end ===""|| this.Title ===""){
+        alert("Please fill out the information completely.")
+      }else{
       this.showLoading();
       const auth = getAuth();
       const files = this.file;
@@ -268,6 +271,7 @@ export default {
             console.error("Upload failed", error);
           });
       }
+    }
     },
   },
   mounted() {

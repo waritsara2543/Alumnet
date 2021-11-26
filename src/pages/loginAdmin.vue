@@ -60,6 +60,7 @@ import { LocalStorage } from 'quasar';
 export default {
   methods: {
     login() {
+      if(this.username ==='admin@phuket.psu.ac.th'){
       const auth = getAuth();
       const email = this.username;
       const password = this.password;
@@ -74,7 +75,11 @@ export default {
         .catch((error) => {
           const errorCode = error.code;
           const errorMessage = error.message;
+          alert("Email or Password is wrong")
         });
+        }else{
+          alert("Email or Password is wrong")
+        }
     },
     async tohome(email) {
       try {

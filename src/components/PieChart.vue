@@ -1,7 +1,7 @@
 <script>
 import { defineComponent } from 'vue'
 import { Pie } from 'vue3-chart-v2'
-import {getStudentWork} from "../api/api";
+import {getStudentWorkByPosition} from "../api/api";
 
 export default {
   name: 'MonthlyChart',
@@ -9,22 +9,30 @@ export default {
   async mounted () {
     const adminvalue = localStorage.getItem("admin");
     this.admin = JSON.parse(adminvalue);
-    this.working = await getStudentWork(this.admin[0].faculty_id)
+    this.position = await getStudentWorkByPosition(this.admin[0].faculty_id)
+
+    for(let i = 0 ; i<this.position.length;i++){
+      this.positions[i] =this.position[i].position
+      this.count[i]=this.position[i].count
+     
+  }
     // Overwriting base render method with actual data.
     this.renderChart({
-      labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'],
+      labels: this.positions,
       datasets: [
         {
           label: 'GitHub Commits',
-          backgroundColor: '#f87979',
-          data: [40, 20, 12, 39, 10, 40, 39, 80, 40, 20, 12, 11]
+          backgroundColor:  ['#e7a33e','#27a8a1','#f95dd6','#FFD700','#00FA9A','#48D1CC'],
+          data: this.count
         }
       ]
     })
   },
   data(){
     return{
-      working:[],
+      position:[],
+      positions:[],
+      count:[],
     }
   }
 }

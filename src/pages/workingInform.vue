@@ -32,9 +32,9 @@
             :rules="[(val) => !!val || 'Company name is required']"
           />
 
-          <q-input
+          <q-select
             v-model="position"
-            id="position"
+            :options="positions"
             label="Position"
             :dense="dense"
             style="padding: 15px"
@@ -42,11 +42,20 @@
           />
 
           <q-input
+            v-if="this.position == 'Other'"
+            v-model="spectify"
+            id="position"
+            label="Spectify"
+            :dense="dense"
+            style="padding: 15px"
+            :rules="[(val) => !!val || 'Please spectify']"
+          />
+
+          <q-input
             label="start date"
             v-model="startdate"
             mask="date"
             :rules="['date']"
-            
             style="padding: 15px"
           >
             <template v-slot:append>
@@ -86,8 +95,7 @@
  <script>
 import { ref } from "vue";
 import { date } from "quasar";
-import { createworkplace } from "../api/api"
-
+import { createworkplace } from "../api/api";
 
 export default {
   methods: {
@@ -96,61 +104,79 @@ export default {
     // },
     async toavatar() {
       // const newDate = new Date(this.date)
-      if(this.employed === 'employed'){
-        if(this.workplace_name ==="" ||this.position === "" || this.startdate===null ){
-          alert("Please fill out the information completely.")
-        }else{
-          console.log("pass");
-          let timeStamp = Date.now();
-      let formattedString = date.formatDate(this.startdate, "YYYY-MM-DD");
-      let work = await createworkplace(
-        this.workplace_name,
-        this.position,
-        this.student[0].student_id,
-        date.formatDate(this.startdate, "YYYY-MM-DD")
-      );
-      console.log(this.formattedString);
-      console.log(this.workplace_name);
-      this.$router.push({ name: "pinLocation" });
+      if (this.employed === "employed") {
 
+        if (
+          this.workplace_name === "" ||
+          this.position === "" ||
+          this.startdate === null
+        ) {
+          alert("Please fill out the information completely.");
+        } else {
+
+          if (this.position === "Other" && this.spectify === "") {
+            alert("Please spectify your position.");
+          } else {
+
+
+            if(this.position === "Other"){
+             let work = await createworkplace(
+              this.workplace_name,
+              this.spectify,
+              this.student[0].student_id,
+              date.formatDate(this.startdate, "YYYY-MM-DD")
+            );
+            }else{
+              let work = await createworkplace(
+              this.workplace_name,
+              this.position,
+              this.student[0].student_id,
+              date.formatDate(this.startdate, "YYYY-MM-DD")
+            );
+
+            }
+            
+           
+            this.$router.push({ name: "pinLocation" });
+          }
         }
-
-      }else{
-        let id=false
-         console.log("pass");
-      let work = await createworkplace(
-        this.workplace_name,
-        this.position,
-        this.student[0].student_id,
-        date.formatDate(this.date, "YYYY-MM-DD")
-      );
-      console.log(this.formattedString);
-      console.log(this.workplace_name);
-      this.$router.push({ name: "pinLocation"});
-
+      } else {
+       
+        this.$router.push({ name: "pinLocation" });
       }
-      
     },
   },
   async mounted() {
     const value = localStorage.getItem("student");
     this.student = JSON.parse(value);
     console.log(this.student[0].student_id);
-    console.log(date.formatDate(Date.now(), 'YYYY/MM/DD'));
+    console.log(date.formatDate(Date.now(), "YYYY/MM/DD"));
   },
 
-  setup() {
+  data() {
     return {
-      
       workplace_name: ref(""),
       position: ref(""),
+      spectify: "",
       dense: ref(false),
       student: [],
-      startdate:null,
+      startdate: null,
       employed: ref("unemployed"),
+      positions: [
+        "Backend Developer",
+        "Frontend Developer",
+        "Fullstack Developer",
+        "Tester",
+        "Business Analyst",
+        "System Analyst",
+        "Quality Assurance",
+        "UX-UI Design",
+        "Project Manager",
+        "Other",
+      ],
 
-      optionsFn (startdate) {
-        return startdate <= date.formatDate(Date.now(), 'YYYY/MM/DD')
+      optionsFn(startdate) {
+        return startdate <= date.formatDate(Date.now(), "YYYY/MM/DD");
       },
     };
   },
