@@ -380,8 +380,8 @@ export async function updateAddressLocation(student_id) {
 
 export async function getLocationByStudentid(student_id) {
     try {
-        const res = await api.put(`/student/addresslocationbystudentid/${student_id}`)
-        return res
+        const res = await api.get(`/student/addresslocationbystudentid/${student_id}`)
+        return res.data.results
     }
     catch (err) {
         console.log(err);
