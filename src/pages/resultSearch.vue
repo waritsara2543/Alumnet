@@ -158,11 +158,13 @@ export default {
     this.student = JSON.parse(value);
     await this.detailstudent(this.student[0].student_id);
     this.profile = this.student[0].image_profile;
+    console.log(this.student_id);
     
   },
 
   data() {
     return {
+      studen_id : this.$route.params.index,
       prompt: ref(false),
       address: ref(""),
       person: [],
