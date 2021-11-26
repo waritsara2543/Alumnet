@@ -334,3 +334,32 @@ export async function deleteStudentContact (student_contact_id) {
         console.log(err);
     }
 }
+
+export async function getLocationByid(postcode) {
+    let res = await api.get(`/student/locationbyapi/${postcode}`);
+    return res.data.results
+}
+
+////////////////////// Dashboard //////////////////////
+
+export async function getStudentUsedsystem() {
+    let res = await api.get(`/admin/dashboard/usedsystem`);
+    return res.data.results
+}
+
+export async function getStudentWork(faculty_id) {
+    let res = await api.get(`/admin/dashboard/userwork/${faculty_id}`);
+    return res.data.results
+}
+
+export async function getStudentAddress(faculty_id) {
+    let res = await api.get(`/admin/dashboard/useraddress/${faculty_id}`);
+    return res.data.results
+}
+
+export async function getStudentGraduateyear(faculty_id) {
+    let res = await api.get(`/admin/dashboard/graduateyear/${faculty_id}`);
+    return res.data.results
+}
+
+
