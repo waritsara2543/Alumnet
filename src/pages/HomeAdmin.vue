@@ -58,13 +58,7 @@
               />
             </div>
           </q-card>
-          <div class="q-pa-md q-gutter-sm">
-            <q-btn
-              style="color: white; width: 100%; background: #b42425"
-              label="IMPORT ALUMNI LIST"
-              @click="dialog = true"
-            />
-          </div>
+         
         </div>
       </div>
     </div>
@@ -151,53 +145,7 @@
     </div>
   </div>
 
-  <!-- alert import alumni list -->
-  <q-dialog
-    v-model="dialog"
-    persistent
-    :maximized="maximizedToggle"
-    transition-show="slide-up"
-    transition-hide="slide-down"
-  >
-    <q-card class="bg-white text-black">
-      <q-bar>
-        <q-space />
-        <q-btn dense flat icon="close" v-close-popup>
-          <q-tooltip class="bg-white text-primary">Close</q-tooltip>
-        </q-btn>
-      </q-bar>
 
-      <q-card-section>
-        <div class="text-h6">Import Alumni List</div>
-      </q-card-section>
-
-      <q-card-section class="">
-        <q-input
-          v-model="year"
-          label="Graduation's year of alumni list"
-          style="padding: 15px; margin-top: 50px"
-          :rules="[
-            (val) => val.length != 0 || 'year is required',
-            (val) => val.length > 3 || 'Please input year',
-            (val) => val.length < 5 || 'Please input year',
-          ]"
-        />
-
-        <q-file
-          v-model="file"
-          label="Pick Alumni List File"
-          outlined
-          multiple
-          accept=".jpg, image/*"
-          max-files="1"
-          style="padding: 15px; margin-top: 50px"
-        />
-      </q-card-section>
-      <q-card-actions align="right">
-        <q-btn flat label="SAVE" color="primary" v-close-popup />
-      </q-card-actions>
-    </q-card>
-  </q-dialog>
 
   <!-- alert edit event -->
 
