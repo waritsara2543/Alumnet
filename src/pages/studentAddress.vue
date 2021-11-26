@@ -18,6 +18,19 @@
             type="textarea"
           />
 
+          <div style="padding: 15px">
+          <q-btn 
+            @click="toavatar"
+            rounded
+            label="CONTINUE"
+            class="full-width text-white"
+            style="
+              font-size: 15px;
+              background: linear-gradient(#b42425 0%, #b42425 100%);
+            "
+          />
+        </div>
+
     </div>
     
   </q-page>
@@ -30,10 +43,14 @@ import { createworkplace } from "../api/api"
 
 export default {
   methods: {
-    
+    toavatar(){
+
+           this.$router.push({ name: "homepage" });
+
+         
+    },
   },
   mounted() {
-  
   },
 
   setup() {

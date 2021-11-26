@@ -35,7 +35,7 @@ export default {
         var r = confirm("Your location is " + this.lat + " , " + this.lng);
         if (r == true) {
           console.log("true");
-         window.location = '/#/regist/studentAddress';
+         window.location = '/#/regist/studentAddress/';
         } else {
          
         }
@@ -50,10 +50,12 @@ export default {
       student: [],
       lat: "",
       lng: "",
+     
     };
   },
   async mounted() {
     this.pinmap();
+    
   },
   onBeforeUnmount() {
     if (this.map) {

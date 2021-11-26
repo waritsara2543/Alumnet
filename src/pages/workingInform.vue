@@ -111,11 +111,12 @@ export default {
       );
       console.log(this.formattedString);
       console.log(this.workplace_name);
-      this.$router.push({ name: "toavatar" });
+      this.$router.push({ name: "pinLocation" });
 
         }
 
       }else{
+        let id=false
          console.log("pass");
       let work = await createworkplace(
         this.workplace_name,
@@ -125,7 +126,7 @@ export default {
       );
       console.log(this.formattedString);
       console.log(this.workplace_name);
-      this.$router.push({ name: "toavatar" });
+      this.$router.push({ name: "pinLocation"});
 
       }
       
@@ -140,6 +141,7 @@ export default {
 
   setup() {
     return {
+      
       workplace_name: ref(""),
       position: ref(""),
       dense: ref(false),
