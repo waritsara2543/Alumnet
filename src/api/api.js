@@ -344,6 +344,34 @@ export async function getLocationByid(postcode) {
     return res.data.results
 }
 
+export async function createAddressByid(student_id, tumbon, amphone, province, postcode, country) {
+    data= {
+        tumbon:tumbon,
+        amphone:amphone,
+        province:province,
+        postcode:postcode,
+        country:country
+    }
+    try {
+        let res = await api.post(`/student/addressbyid/${student_id}`,data);
+        return res
+    }
+    catch (err) {
+        console.log(err);
+    }
+
+}
+
+export async function updateLatLong(lat,long,student_id) {
+    try {
+        const res = await api.put(`/student/latlong/${lat}/${long}/${student_id}`)
+        return res
+    }
+    catch (err) {
+        console.log(err);
+    }
+}
+
 ////////////////////// Dashboard //////////////////////
 
 export async function getStudentUsedsystem() {
