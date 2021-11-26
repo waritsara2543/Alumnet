@@ -92,6 +92,7 @@ export default {
       const password = this.password;
       const confirmpassword = this.confirmpassword;
       if (confirmpassword == "" || confirmpassword != password) {
+        alert("confirmpassword is not equal with password")
       } else {
         console.log(email);
         createUserWithEmailAndPassword(auth, email, password)
@@ -100,6 +101,7 @@ export default {
             const user = userCredential.user;
 
             sendEmailVerification(auth.currentUser).then(() => {
+              alert("Please verify your email and login again")
               const email_verified = auth.currentUser.emailVerified;
               console.log(email_verified);
               this.backLogin();

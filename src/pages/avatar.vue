@@ -73,12 +73,13 @@ export default {
       console.log("Hello I am " + url);
     },
     async getImage() {
+
       const auth = getAuth();
       const files = this.files;
       const user = auth.currentUser;
 
-      if (user) {
-        console.log("sign in");
+      if(files != null){
+        
         // Create the file metadata
         /** @type {any} */
         const metadata = {
@@ -103,8 +104,15 @@ export default {
           .catch((error) => {
             console.error("Upload failed", error);
           });
-      } else {
+
+      }else{
+
+        this.nourl =this.student[0].image_profile;
+        this.tohomepage(this.nourl);
+
       }
+
+     
     },
   },
   async mounted() {
@@ -122,6 +130,7 @@ export default {
       url: [],
       student: [],
       imageProfile: "",
+      nourl:''
     };
   },
 };

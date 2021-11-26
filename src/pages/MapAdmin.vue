@@ -20,15 +20,22 @@ import "leaflet/dist/leaflet.css";
 import L from "leaflet";
 import 'leaflet-defaulticon-compatibility/dist/leaflet-defaulticon-compatibility.webpack.css'; 
 import 'leaflet-defaulticon-compatibility';
+import { getLatLongForAdmin} from "../api/api";
 
 export default {
   name: "LeafletMap",
   data() {
     return {
       map: null,
+      latlng:[],
     };
   },
-  mounted() {
+  async mounted() {
+    const adminvalue = localStorage.getItem("admin");
+    this.admin = JSON.parse(adminvalue); 
+    console.log(this.admin[0].faculty_id);
+     this.latlng = await getLatLongForAdmin(this.admin[0].faculty_id);
+
     this.map = L.map("mapContainer").setView([13.7087384,100.1625354,9.75], 5);
     L.tileLayer("http://{s}.tile.osm.org/{z}/{x}/{y}.png", {
       attribution:
@@ -41,27 +48,10 @@ export default {
     
     
 
-    L.marker([7.894962, 98.352373]).addTo(this.map).bindPopup('You are here.')
-    .openPopup().bindTooltip("You");
-
-    L.marker([7.894962, 98]).addTo(this.map).bindTooltip("Arnont Photdoung");
-    
-    
-    // var pathOne = L.curve(["M", [50, 14], "Q", [53, 20], [49, 25]], {
-    //   renderer: canvasRenderer,
-    // }).addTo(this.map);
-    // L.curve(["M", [50, 14], "Q", [52, 20], [49, 25]], {
-    //   renderer: canvasRenderer,
-    // }).addTo(this.map);
-    // L.curve(["M", [50, 14], "Q", [51, 20], [49, 25]], {
-    //   renderer: canvasRenderer,
-    // }).addTo(this.map);
-    // L.curve(["M", [50, 14], "Q", [50, 20], [49, 25]], {
-    //   renderer: canvasRenderer,
-    // }).addTo(this.map);
-    // L.curve(["M", [50, 14], "Q", [47, 20], [49, 25]], {
-    //   renderer: canvasRenderer,
-    // }).addTo(this.map);
+    for(let i = 0; i < this.latlng.length ; i++ ){
+      let student_name = this.latlng[i].firstname +" "+this.latlng[i].lastname
+    L.marker([this.latlng[i].lattitude,this.latlng[i].longitude]).addTo(this.map).bindTooltip(student_name);
+    }
   },
   onBeforeUnmount() {
     if (this.map) {

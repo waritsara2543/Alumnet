@@ -8,7 +8,7 @@ import axios from 'axios'
 // for each client)
 var qs = require('qs');
 import { devapi, herokuapi,projectapi } from './currentapi'
-const api = axios.create({ baseURL: devapi}, {
+const api = axios.create({ baseURL: projectapi}, {
     headers: {
         'Content-Type': 'application/json'
     },
@@ -293,13 +293,9 @@ export async function getDatainGoogleSheets() {
     return res.data.values
 }
 
-export async function updateCurrentJob(student_id,finish_work) {
-    var data = {
-        student_id: student_id,
-        finish_work: finish_work
-    }
+export async function updateCurrentJob(student_id) {
     try {
-        const res = await api.put(`/student/currentjob/${student_id}/${finish_work}`, data)
+        const res = await api.put(`/student/currentjob/${student_id}`)
         return res
     }
     catch (err) {

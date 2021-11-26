@@ -44,10 +44,12 @@ export default {
     // },
     
     async topersonalInform() {
-      
+      // if(
+
+      // ){}else{
+      //   alert("This student ID has already been used.")
+      // }
       const email = localStorage.getItem("email");
-      console.log(email);
-      console.log(this.student_id);
       // console.log(email);
        let test = await confirmEmaill(email,this.student_id);
       console.log(test);

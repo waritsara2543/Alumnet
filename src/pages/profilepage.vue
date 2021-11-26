@@ -1,5 +1,5 @@
 <template>
-  <q-page padding>
+  <q-page padding style="background: #d0dfe6">
     <!-- card profile -->
 
     <q-card
@@ -49,9 +49,9 @@
           </div>
         </div>
 
-        <div class="row">
+        <div class="row" v-if="this.person[0].position!=null">
           <q-icon name="business_center" style="margin-right: 10px" />
-          <div id="workplace" class="col">
+          <div  id="workplace" class="col">
             {{ this.person[0].position }} at {{ this.person[0].workplace }}
           </div>
         </div>
@@ -234,7 +234,7 @@
                   transition-show="scale"
                   transition-hide="scale"
                 >
-                  <q-date v-model="startdate">
+                  <q-date v-model="startdate" :options="optionsStart">
                     <div class="row items-center justify-end">
                       <q-btn v-close-popup label="Close" color="primary" flat />
                     </div>
@@ -259,7 +259,7 @@
                     transition-show="scale"
                     transition-hide="scale"
                   >
-                    <q-date v-model="enddate">
+                    <q-date v-model="enddate" :options="optionsEnd">
                       <div class="row items-center justify-end">
                         <q-btn
                           v-close-popup
@@ -343,7 +343,8 @@ import {
   getTimelineById,
   updateinformation,
   createworkplace,
-  createworkplacebefore
+  createworkplacebefore,
+  updateCurrentJob
 } from "../api/api";
 import { getAuth, signOut } from "firebase/auth";
 import moment from "moment";
@@ -357,24 +358,53 @@ export default {
      
       
       if (this.currentJob == true) {
-        // ไม่มี finish_work
+         // ไม่มี finish_work 
+
+        if(this.workplace_name==="" || this.position==="" || this.startdate === ""){
+            alert("Please fill out the information completely.")
+        }else{
+          
+        let update = await updateCurrentJob(
+          this.student[0].student_id)
+        
         let work = await createworkplace(
           this.workplace_name,
           this.position,
           this.student[0].student_id,
           date.formatDate(this.startdate, "YYYY-MM-DD")
         );
-        console.log("current job");
+       location.reload();
+
+        }
+       
+
       } else {
-        let workbefore = await createworkplacebefore(
+        // มี finish_work
+        if(this.workplace_name==="" || this.position==="" || this.startdate === "" || this.enddate === ""){
+            alert("Please fill out the information completely.")
+        }else{
+
+          if(this.startdate >= this.enddate){
+            alert("Have somthing wrong on start date and end date.")
+          }else{
+            
+          let workbefore = await createworkplacebefore(
           this.workplace_name,
           this.position,
           this.student[0].student_id,
           date.formatDate(this.startdate, "YYYY-MM-DD"),
           date.formatDate(this.enddate, "YYYY-MM-DD")
-        );
-        // มี finish_work
-        console.log("old job");
+           );
+            
+          }
+          
+
+          
+       
+        
+        location.reload();
+        }
+        
       }
     },
     editLocation() {
@@ -388,6 +418,7 @@ export default {
         this.newStatus,
         this.student[0].student_id
       );
+      location.reload();
     },
     async updateEpigram() {
       console.log(this.newEpigram);
@@ -396,6 +427,7 @@ export default {
         this.newStatus,
         this.student[0].student_id
       );
+      location.reload();
     },
     getDate: function (date) {
       return moment(date, "YYYY-MM-DD").format("DD MMMM YYYY");
@@ -458,6 +490,13 @@ export default {
       editEpigram: ref(false),
       newStatus: "",
       newEpigram: "",
+
+       optionsStart (startdate) {
+        return startdate <= date.formatDate(Date.now(), 'YYYY/MM/DD') 
+      },
+      optionsEnd (enddate) {
+        return  enddate <= date.formatDate(Date.now(), 'YYYY/MM/DD')
+      },
     };
   },
 };

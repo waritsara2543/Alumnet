@@ -1,15 +1,11 @@
 <template>
-  <div class="q-pa-md">
-    <div class="q-gutter-y-md column" style="max-width: 100%">
-      <q-toolbar class="text-white rounded-borders" style="background: #032030">
-        <q-input
-          dark
-          dense
-          standout
+  <q-page >
+    <q-input
+            square 
+          filled
           v-model="search"
           input-class="text-left"
-          class="q-ml-md "
-          style="width: 1000px; max-width: 100%"
+          style="width: 1000px; max-width: 100%;margin:0 auto"
           label="Search by name or surname"
         >
           <template v-slot:append>
@@ -17,27 +13,12 @@
           </template>
         </q-input>
 
-        <q-space />
-
-        <q-btn
-          round
-          dense
-          flat
-          class="q-mr-xs"
-          style="margin-left: 20px"
-          @click="backtohome()"
-          >cancle</q-btn
-        >
-      </q-toolbar>
-    </div>
-
-    
-      <q-card 
+         <q-card 
       v-for="(col, index) in searchList"
           :key="index"
       rounded
       class="my-card text-white"
-      style="margin: 0 auto; margin-top: 10px; background: linear-gradient(#032030 0%, #1794a5 100%);"
+      style="margin: 0 auto; margin-top: 10px; background: linear-gradient(#032030 0%, #1794a5 100%);width: 1000px; max-width: 100%;"
       @click="result(this.searchList[index].student_id )"
     >
 
@@ -61,12 +42,9 @@
 
     </q-card>
 
-    
-    
-
-  </div>
+  </q-page>
 </template>
-<script>
+ <script>
 import { ref } from "vue";
 import { getSearch } from '../api/api'
 export default {

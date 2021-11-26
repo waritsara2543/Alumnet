@@ -63,6 +63,18 @@ export default {
           icon: "home",
           to: "/admin/homeadmin",
         },
+        
+        {
+          label: "Search",
+          icon: "search",
+          to: "/admin/searchForAdmin",
+        },
+         {
+          label: "importAlumni",
+          icon: "group_add",
+          to: "/admin/importAlumni",
+          
+        },
         {
           label: "map",
           icon: "map",
@@ -73,12 +85,7 @@ export default {
           icon: "pie_chart",
           to: "/admin/reportadmin",
         },
-        {
-          label: "notifications",
-          icon: "notifications",
-          to: "/admin/Approve",
-          
-        },
+       
       ],
     };
   },

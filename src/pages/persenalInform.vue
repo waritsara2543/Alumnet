@@ -50,18 +50,48 @@
           :options="contacts"
           label="Contact type"
           bottom-slots
-          hint="Choose a convenient channel for contact."
+          hint="Choose a convenient channel for contact. (not required )"
           style="padding: 20px 20px 20px 15px"
         />
-       
-        <q-input
+       <!-- facebook -->
+        <q-input v-if="model == contacts[0]"
+          v-model="contact"
+          label="Please specify your contact"
+          id="contact"
+         
+          :dense="dense"
+          style="padding: 20px 20px 20px 15px"
+        />
+        <!-- LINE -->
+        <q-input v-if="model == contacts[1]"
           v-model="contact"
           label="Please specify your contact"
           id="contact"
           :dense="dense"
+         
+          style="padding: 20px 20px 20px 15px"
+        />
+        <!-- Email -->
+        <q-input v-if="model == contacts[2]"
+          v-model="contact"
+          type="email"
+          label="Please specify your contact"
+          id="contact"
+          :dense="dense"
+          
+          style="padding: 20px 20px 20px 15px"
+        />
+        <!-- Phone -->
+        <q-input v-if="model == contacts[3]"
+          v-model="contact"
+          label="Please specify your contact"
+          id="contact"
+          :dense="dense"
+          mask="(###) ### - ####"
           style="padding: 20px 20px 20px 15px"
         />
         <q-input
+        hint="not required"
           v-model="status"
           label="Status"
           id="status"
@@ -69,6 +99,7 @@
           style="padding: 15px"
         />
         <q-input
+        hint="not required"
           v-model="epigram"
           label="Epigram"
           id="epigram"
@@ -114,6 +145,7 @@ export default {
     async personInformation() {
       this.person = await getPersonInformation(this.student[0].student_id);
     },
+   
   },
   async mounted() {
     const value = localStorage.getItem("student");
@@ -133,6 +165,7 @@ export default {
       dense: ref(false),
       person: [],
       student: [],
+      regEmail: "",
     };
   },
 };

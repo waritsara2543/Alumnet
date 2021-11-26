@@ -43,9 +43,10 @@
 
           <q-input
             label="start date"
-            v-model="date"
+            v-model="startdate"
             mask="date"
             :rules="['date']"
+            
             style="padding: 15px"
           >
             <template v-slot:append>
@@ -55,7 +56,7 @@
                   transition-show="scale"
                   transition-hide="scale"
                 >
-                  <q-date v-model="date">
+                  <q-date v-model="startdate" :options="optionsFn">
                     <div class="row items-center justify-end">
                       <q-btn v-close-popup label="Close" color="primary" flat />
                     </div>
@@ -85,7 +86,9 @@
  <script>
 import { ref } from "vue";
 import { date } from "quasar";
-import { createworkplace } from "../api/api";
+import { createworkplace } from "../api/api"
+
+
 export default {
   methods: {
     // backconfirmEmail() {
@@ -93,8 +96,27 @@ export default {
     // },
     async toavatar() {
       // const newDate = new Date(this.date)
-      let timeStamp = Date.now();
-      let formattedString = date.formatDate(this.date, "YYYY-MM-DD");
+      if(this.employed === 'employed'){
+        if(this.workplace_name ==="" ||this.position === "" || this.startdate===null ){
+          alert("Please fill out the information completely.")
+        }else{
+          console.log("pass");
+          let timeStamp = Date.now();
+      let formattedString = date.formatDate(this.startdate, "YYYY-MM-DD");
+      let work = await createworkplace(
+        this.workplace_name,
+        this.position,
+        this.student[0].student_id,
+        date.formatDate(this.startdate, "YYYY-MM-DD")
+      );
+      console.log(this.formattedString);
+      console.log(this.workplace_name);
+      this.$router.push({ name: "toavatar" });
+
+        }
+
+      }else{
+         console.log("pass");
       let work = await createworkplace(
         this.workplace_name,
         this.position,
@@ -104,22 +126,30 @@ export default {
       console.log(this.formattedString);
       console.log(this.workplace_name);
       this.$router.push({ name: "toavatar" });
+
+      }
+      
     },
   },
   async mounted() {
     const value = localStorage.getItem("student");
     this.student = JSON.parse(value);
     console.log(this.student[0].student_id);
+    console.log(date.formatDate(Date.now(), 'YYYY/MM/DD'));
   },
 
-  data() {
+  setup() {
     return {
       workplace_name: ref(""),
       position: ref(""),
       dense: ref(false),
       student: [],
-      date: null,
+      startdate:null,
       employed: ref("unemployed"),
+
+      optionsFn (startdate) {
+        return startdate <= date.formatDate(Date.now(), 'YYYY/MM/DD')
+      },
     };
   },
 };

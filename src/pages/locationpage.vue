@@ -7,15 +7,23 @@ import "leaflet/dist/leaflet.css";
 import L from "leaflet";
 import 'leaflet-defaulticon-compatibility/dist/leaflet-defaulticon-compatibility.webpack.css'; 
 import 'leaflet-defaulticon-compatibility';
-
+import { getStudentlattlongAll ,getStudentlattlongByid} from "../api/api";
 export default {
   name: "LeafletMap",
   data() {
     return {
       map: null,
+      allLatLonng:[],
+      myLatLong:[],
+      student: [],
     };
   },
-  mounted() {
+  async mounted() {
+     const studentvalue = localStorage.getItem("student");
+     this.student = JSON.parse(studentvalue);
+    this.allLatLonng = await getStudentlattlongAll(this.student[0].student_id);
+    this.myLatLong = await getStudentlattlongByid(this.student[0].student_id);
+   
     this.map = L.map("mapContainer").setView([13.7087384,100.1625354,9.75], 5);
     L.tileLayer("http://{s}.tile.osm.org/{z}/{x}/{y}.png", {
       attribution:
@@ -27,28 +35,16 @@ export default {
     customPane.style.zIndex = 399; // put just behind the standard overlay pane which is at 400
     
     
-
-    L.marker([7.894962, 98.352373]).addTo(this.map).bindPopup('You are here.')
+for(let j = 0; j < this.myLatLong.length ; j++ ){
+    L.marker([this.myLatLong[j].lattitude , this.myLatLong[j].longitude]).addTo(this.map).bindPopup('You are here.')
     .openPopup().bindTooltip("You");
+}
 
-    L.marker([7.894962, 98]).addTo(this.map).bindTooltip("Arnont Photdoung");
-    
-    
-    // var pathOne = L.curve(["M", [50, 14], "Q", [53, 20], [49, 25]], {
-    //   renderer: canvasRenderer,
-    // }).addTo(this.map);
-    // L.curve(["M", [50, 14], "Q", [52, 20], [49, 25]], {
-    //   renderer: canvasRenderer,
-    // }).addTo(this.map);
-    // L.curve(["M", [50, 14], "Q", [51, 20], [49, 25]], {
-    //   renderer: canvasRenderer,
-    // }).addTo(this.map);
-    // L.curve(["M", [50, 14], "Q", [50, 20], [49, 25]], {
-    //   renderer: canvasRenderer,
-    // }).addTo(this.map);
-    // L.curve(["M", [50, 14], "Q", [47, 20], [49, 25]], {
-    //   renderer: canvasRenderer,
-    // }).addTo(this.map);
+    for(let i = 0; i < this.allLatLonng.length ; i++ ){
+      console.log(this.allLatLonng[i].lattitude , this.allLatLonng[i].longitude );
+      let student_name = this.allLatLonng[i].firstname +" "+this.allLatLonng[i].lastname
+    L.marker([this.allLatLonng[i].lattitude,this.allLatLonng[i].longitude]).addTo(this.map).bindTooltip(student_name);
+    }
   },
   onBeforeUnmount() {
     if (this.map) {

@@ -2,7 +2,12 @@
   <div class="row">
     <div class="col-4">
       <div class="q-pa-md">
-        <div class="col" style="padding: 5px 100px 100px 100px">
+        <div
+          class="col"
+          style="padding: 5px 100px 100px 100px"
+          v-for="(col, index) in admin"
+          :key="index"
+        >
           <q-card
             class="my-card text-white text-center"
             style="background: #d0dfe6; height: 100px; margin: 0 auto"
@@ -29,7 +34,7 @@
               <img src="../assets/man.png" style="" />
             </q-avatar>
             <div class="text-caption" id="" style="font-size: 20px">
-              Manee Mebun
+              {{ this.admin[0].firstname }} {{ this.admin[0].lastname }}
             </div>
             <div
               class="row justify-center"
@@ -388,6 +393,7 @@ import moment from "moment";
 import { getAuth, signOut } from "firebase/auth";
 import { useQuasar } from "quasar";
 import { getEvent, updateEvent, deleteEvent } from "../api/api";
+import { getMessaging, getToken, onMessage } from "firebase/messaging";
 import {
   getStorage,
   uploadBytesResumable,
@@ -490,7 +496,36 @@ export default {
     const adminvalue = localStorage.getItem("admin");
     this.admin = JSON.parse(adminvalue);
     this.events = await getEvent(this.admin[0].faculty_id);
-    console.log(this.events);
+
+    const messaging = getMessaging();
+    getToken(messaging, {
+      vapidKey:
+        "BOhHaLekJ-yRU8irFFqEfMubAczwPG8kF5xixND5nmvWYYHy0BY5HVM9IOnlCEEtkRCnCqXq4FqG04kpSwheRa8",
+    })
+      .then((currentToken) => {
+        if (currentToken) {
+          console.log(currentToken);
+          console.log("currentToken");
+
+          const registrationTokens = [currentToken];
+
+          getMessaging()
+            .subscribeToTopic(registrationTokens, topic)
+            .then((response) => {
+              console.log("Successfully subscribed to topic:", response);
+            })
+            .catch((error) => {
+              console.log("Error subscribing to topic:", error);
+            });
+        } else {
+          console.log(
+            "No registration token available. Request permission to generate one."
+          );
+        }
+      })
+      .catch((err) => {
+        console.log("An error occurred while retrieving token. ", err);
+      });
   },
   data() {
     const $q = useQuasar();

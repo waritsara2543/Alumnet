@@ -309,6 +309,7 @@ export default {
           timer = void 0;
         }, 20000);
       },
+
     };
   },
 };
