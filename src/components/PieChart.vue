@@ -1,11 +1,15 @@
 <script>
 import { defineComponent } from 'vue'
 import { Pie } from 'vue3-chart-v2'
+import {getStudentWork} from "../api/api";
 
-export default defineComponent({
+export default {
   name: 'MonthlyChart',
   extends: Pie,
-  mounted () {
+  async mounted () {
+    const adminvalue = localStorage.getItem("admin");
+    this.admin = JSON.parse(adminvalue);
+    this.working = await getStudentWork(this.admin[0].faculty_id)
     // Overwriting base render method with actual data.
     this.renderChart({
       labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'],
@@ -17,6 +21,11 @@ export default defineComponent({
         }
       ]
     })
+  },
+  data(){
+    return{
+      working:[],
+    }
   }
-})
+}
 </script>
