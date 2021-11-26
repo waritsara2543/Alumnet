@@ -368,6 +368,28 @@ export async function updateLatLong(lat,long,student_id) {
     }
 }
 
+export async function updateAddressLocation(student_id) {
+    try {
+        const res = await api.put(`/student/addresslocation/${student_id}`)
+        return res
+    }
+    catch (err) {
+        console.log(err);
+    }
+}
+
+export async function getLocationByStudentid(student_id) {
+    try {
+        const res = await api.put(`/student/addresslocationbystudentid/${student_id}`)
+        return res
+    }
+    catch (err) {
+        console.log(err);
+    }
+}
+
+
+
 ////////////////////// Dashboard //////////////////////
 
 export async function getStudentUsedsystem() {
