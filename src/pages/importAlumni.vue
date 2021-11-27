@@ -24,7 +24,6 @@
       />
       <q-tr v-for="col in this.value" :key="col" >
         {{ col[0]}}
-        {{col[1]}}
       </q-tr>
 
     </div>
@@ -39,7 +38,7 @@ export default {
 
     for (let index = 0; index < this.value.length; index++) {
       const element = this.value[index];
-      this.rows[index] = [
+      this.rows= [
         {
           name: element[0],
           calories: element[1],
@@ -52,6 +51,7 @@ export default {
       ];
       // console.log(rows[0]);
     }
+    console.log(this.rows);
   },
 
   data() {
