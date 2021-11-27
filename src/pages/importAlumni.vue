@@ -22,34 +22,30 @@
         :columns="columns"
         row-key="name"
       />
-      <q-tr v-for="col in this.value" :key="col" >
+      <!-- <q-tr v-for="col in this.value" :key="col" >
         {{ col[0]}}
-      </q-tr>
-
+        {{col[1]}}
+      </q-tr> -->
     </div>
   </q-page>
 </template>
 <script>
 import { getDatainGoogleSheets } from "../api/api";
 export default {
+  methods: {},
+
   async mounted() {
     this.value = await getDatainGoogleSheets();
-    console.log(this.value);
+    // console.log(this.value);
 
     for (let index = 0; index < this.value.length; index++) {
       const element = this.value[index];
-      this.rows= [
-        {
-          name: element[0],
-          calories: element[1],
-          // fat: element[2],
-          // carbs: element[3],
-          // protein: element[4],
-          // sodium: element[5],
-          // calcium: element[6],
-        },
-      ];
-      // console.log(rows[0]);
+      let row = {
+        Student_id: element[0],
+        Firstname: element[1],
+        Lastname: element[2],
+      };
+      this.rows.push(row)
     }
     console.log(this.rows);
   },
@@ -59,32 +55,13 @@ export default {
       value: [],
       columns: [
         {
-          name: "name",
-          required: true,
-          label: "Student ID",
+          name: "Student_id",
+          label: "Student_id",
+          field: "Student_id",
           align: "left",
-          field: (row) => row.name,
-          format: (val) => `${val}`,
-          sortable: true,
         },
-        {
-          name: "calories",
-          align: "center",
-          label: "Calories",
-          field: "calories",
-          sortable: true,
-        },
-        { name: "fat", label: "Fat (g)", field: "fat", sortable: true },
-        { name: "carbs", label: "Carbs (g)", field: "carbs" },
-        { name: "protein", label: "Protein (g)", field: "protein" },
-        { name: "sodium", label: "Sodium (mg)", field: "sodium" },
-        {
-          name: "calcium",
-          label: "Calcium (%)",
-          field: "calcium",
-          sortable: true,
-          sort: (a, b) => parseInt(a, 10) - parseInt(b, 10),
-        },
+        { name: "Firstname", label: "Firstname", field: "Firstname" },
+        { name: "Lastname", label: "Lastname", field: "Lastname" },
       ],
       rows: [],
     };
