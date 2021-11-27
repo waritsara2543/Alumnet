@@ -158,7 +158,6 @@ const routes = [
         component: () => import("pages/importAlumni.vue"),
       },
       { path: "testchart", component: () => import("pages/testchart.vue") },
-      { path: "test1", component: () => import("pages/test1.vue") },
     ],
   },
 
