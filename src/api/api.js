@@ -322,7 +322,7 @@ export async function getDatainGoogleSheets() {
 
 export async function deleteGoogleSheet () {
     try {
-        const res = await api.delete(`https://sheets.googleapis.com/v4/spreadsheets/1L0p43e9RCRS_0sjcz7xz35Uoi5Ev2PxklGUGHeLPSlA/values/sheet1!A2:L300/?key=AIzaSyCXRNRo1tvekH4YLwrw2kKnqaHlpAwz7TA`)
+        const res = await api.get(`/admin/deletegooglesheet`)
         return res
     }
     catch (err) {
