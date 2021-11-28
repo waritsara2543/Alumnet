@@ -293,6 +293,16 @@ export async function getDatainGoogleSheets() {
     return res.data.values
 }
 
+export async function deleteGoogleSheet () {
+    try {
+        const res = await api.get(`/admin/deletegooglesheet`)
+        return res
+    }
+    catch (err) {
+        console.log(err);
+    }
+}
+
 export async function updateCurrentJob(student_id) {
     try {
         const res = await api.put(`/student/currentjob/${student_id}`)
@@ -367,6 +377,28 @@ export async function updateLatLong(lat,long,student_id) {
         console.log(err);
     }
 }
+
+export async function updateAddressLocation(student_id) {
+    try {
+        const res = await api.put(`/student/addresslocation/${student_id}`)
+        return res
+    }
+    catch (err) {
+        console.log(err);
+    }
+}
+
+export async function getLocationByStudentid(student_id) {
+    try {
+        const res = await api.get(`/student/addresslocationbystudentid/${student_id}`)
+        return res.data.results
+    }
+    catch (err) {
+        console.log(err);
+    }
+}
+
+
 
 ////////////////////// Dashboard //////////////////////
 
