@@ -96,7 +96,7 @@ import { getDatainGoogleSheets,getSearchGuess } from "../api/api"
 export default {
   async mounted(){
     let test = await getDatainGoogleSheets()
-    console.log("test:", test);
+    
   },
   methods :{
     toPageLogin(){
@@ -110,7 +110,7 @@ export default {
      
       this.search = this.search.charAt(0).toUpperCase() + this.search.slice(1)
       this.searchList =  await getSearchGuess(this.search,this.search)
-      console.log(this.searchList);
+      
     },
     toPageLogin() {
       this.$router.push({ name: "loginPage" });

@@ -72,7 +72,7 @@ export default {
     async positioncode() {
       
       let getcode = await getLocationByid(this.code);
-      console.log(getcode);
+
        if(getcode.length == 0){
          alert("zipcode is incorrect")
 
@@ -107,9 +107,9 @@ export default {
   async mounted() {
     const value = localStorage.getItem("student");
     this.student = JSON.parse(value);
-    console.log(this.student[0].student_id);
+
     this.getlobystudentid = await getLocationByStudentid(this.student[0].student_id)
-    console.log(this.getlobystudentid);
+ 
     this.amphone =this.getlobystudentid[0].amphone
     this.province =this.getlobystudentid[0].province
     this.code =this.getlobystudentid[0].postcode

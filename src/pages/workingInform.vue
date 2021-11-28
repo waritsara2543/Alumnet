@@ -149,8 +149,7 @@ export default {
   async mounted() {
     const value = localStorage.getItem("student");
     this.student = JSON.parse(value);
-    console.log(this.student[0].student_id);
-    console.log(date.formatDate(Date.now(), "YYYY/MM/DD"));
+   
   },
 
   data() {

@@ -72,7 +72,7 @@ export default {
     async positioncode() {
       
       let getcode = await getLocationByid(this.code);
-      console.log(getcode);
+     
        if(getcode.length == 0){
          alert("zipcode is incorrect")
 
@@ -107,7 +107,7 @@ export default {
   mounted() {
     const value = localStorage.getItem("student");
     this.student = JSON.parse(value);
-    console.log(this.student[0].student_id);
+   
   },
 
   data() {

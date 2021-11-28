@@ -101,9 +101,9 @@ export default {
       try {
         let value = await getStudentById(email);
         let detail = await getDetailById(email);
-        console.log(value);
+        
         if (value.length == 0) {
-          console.log("don't have database");
+       
           localStorage.setItem("email", email);
           this.$router.push({ name: "stdIdSignup" });
         } else {
@@ -113,12 +113,11 @@ export default {
           this.$router.push({ name: "homepage" });
         }
       } catch (e) {
-        console.log(e);
-        console.log("done");
+      
       }
     },
     singinGoogle() {
-      console.log("click");
+    
 
       const auth = getAuth();
 
@@ -132,13 +131,11 @@ export default {
           // The signed-in user info.
           const user = result.user;
           const email =user.email;
-          console.log(result);
+       
           
           this.tohome(email);
           // ...
-          // console.log(token);
-          // console.log(user);
-          // console.log(user.email);
+      
         })
         .catch((error) => {
           // Handle Errors here.
@@ -155,15 +152,13 @@ export default {
       const auth = getAuth();
       const email = this.username;
       const password = this.password;
-      console.log("click");
+      
       signInWithEmailAndPassword(auth, email, password)
         .then((userCredential) => {
           // Signed in
           const user = userCredential.user;
 
-          console.log("login");
-          console.log(auth.currentUser.emailVerified);
-          console.log(auth.currentUser.email);
+         
           if (auth.currentUser.emailVerified) {
             this.tohome(email);
           } else {
@@ -173,7 +168,7 @@ export default {
         .catch((error) => {
           const errorCode = error.code;
           const errorMessage = error.message;
-          console.log(errorMessage);
+         
           alert("Email or Password is wrong")
         });
     },

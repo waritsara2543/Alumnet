@@ -370,8 +370,8 @@ export default {
         this.admin[0].faculty_id,
         this.public_relation_id
       );
-      console.log(this.newTitle);
-      console.log("Update Event");
+    
+     
       location.reload();
     },
 
@@ -408,9 +408,9 @@ export default {
       const auth = getAuth();
       const files = this.file;
       const user = auth.currentUser;
-      console.log("click");
 
-      console.log("sign in");
+
+
       // Create the file metadata
       /** @type {any} */
       const metadata = {
@@ -423,14 +423,10 @@ export default {
         const imageRef = ref(storage, "eventFile/" + files[0].name);
         uploadBytesResumable(imageRef, files[0], metadata)
           .then((snapshot) => {
-            // console.log(files[0]);
-            // console.log("Uploaded", snapshot.totalBytes, "bytes.");
-            // console.log("File metadata:", snapshot.metadata);
-            // Let's get a download URL for the file.
+            
             getDownloadURL(snapshot.ref).then((url) => {
-              console.log("File available at", url);
-              // var img = document.getElementById("imageurl");
-              //   console.log(img.getAttribute("src"));
+          
+              
               this.updateEv(url);
             });
           })
@@ -452,27 +448,24 @@ export default {
     })
       .then((currentToken) => {
         if (currentToken) {
-          console.log(currentToken);
-          console.log("currentToken");
+         
 
           const registrationTokens = [currentToken];
 
           getMessaging()
             .subscribeToTopic(registrationTokens, topic)
             .then((response) => {
-              console.log("Successfully subscribed to topic:", response);
+             
             })
             .catch((error) => {
-              console.log("Error subscribing to topic:", error);
+              
             });
         } else {
-          console.log(
-            "No registration token available. Request permission to generate one."
-          );
+          
         }
       })
       .catch((err) => {
-        console.log("An error occurred while retrieving token. ", err);
+       
       });
   },
   data() {
@@ -507,7 +500,7 @@ export default {
       },
       async deleteThisEvent(index) {
         let deleteEv = await deleteEvent(this.events[index].public_relation_id);
-        console.log("Delete Event");
+        
         location.reload();
       },
 
@@ -518,14 +511,14 @@ export default {
           cancel: true,
         })
           .onOk(() => {
-            console.log(index);
+            
             this.deleteThisEvent(index);
           })
           .onCancel(() => {
-            console.log("Cancel");
+           
           })
           .onDismiss(() => {
-            // console.log('I am triggered on both OK and Cancel')
+            
           });
       },
     };

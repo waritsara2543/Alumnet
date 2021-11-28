@@ -37,20 +37,15 @@ import { ref } from "vue";
 import { confirmEmaill , getStudentById} from "../api/api";
 export default {
   methods: {
-    // async mounted() {
-    //   const email = localStorage.getItem("email");
-    //   console.log(email);
-    //   let test = await getStudentById(email);
-    //   console.log(test);
-    // },
+   
     
     async topersonalInform() {
       const email = localStorage.getItem("email");
-      // console.log(email);
+      
        let test = await confirmEmaill(email,this.student_id);
-      console.log(test);
+     
       let value = await getStudentById(email);
-      console.log(value);
+     
       
       if(value.length == 0){
         alert("This student ID doesn't have")

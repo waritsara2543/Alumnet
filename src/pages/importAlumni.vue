@@ -65,7 +65,7 @@ export default {
 
     async getgoogleSheet() {
       this.value = await getDatainGoogleSheets();
-      console.log(this.sheet);
+      
       for (let index = 0; index < this.value.length; index++) {
         const element = this.value[index];
         let row = {
@@ -117,7 +117,7 @@ export default {
           image_profile: null,
         };
         await createstudentgooglesheet(javascripts);
-        console.log(javascripts);
+        
       }
       
     },

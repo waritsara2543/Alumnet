@@ -41,7 +41,6 @@ for(let j = 0; j < this.myLatLong.length ; j++ ){
 }
 
     for(let i = 0; i < this.allLatLonng.length ; i++ ){
-      console.log(this.allLatLonng[i].lattitude , this.allLatLonng[i].longitude );
       let student_name = this.allLatLonng[i].firstname +" "+this.allLatLonng[i].lastname
     L.marker([this.allLatLonng[i].lattitude,this.allLatLonng[i].longitude]).addTo(this.map).bindTooltip(student_name);
     }

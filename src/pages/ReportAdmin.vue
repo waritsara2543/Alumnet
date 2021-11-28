@@ -153,12 +153,12 @@ export default {
      var c= 0;
     const adminvalue = localStorage.getItem("admin");
     this.admin = JSON.parse(adminvalue);
-    console.log(this.admin[0].faculty_id);
+   
     this.studentUsedsystem = await getStudentUsedsystem()
     this.working = await getStudentWork(this.admin[0].faculty_id)
     this.graduate = await getStudentGraduateyear(this.admin[0].faculty_id)
     this.address = await getStudentAddress(this.admin[0].faculty_id)
-    console.log(this.graduate);
+   
     for(let i =0 ;i< this.graduate.length;i++){
       var a = parseInt(this.graduate[i].count);
       b = b + a
@@ -173,9 +173,6 @@ export default {
       
       
     }
-    // console.log(this.graduated);
-     console.log(this.working);
-     console.log(this.address);
     
 
   },

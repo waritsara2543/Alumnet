@@ -209,29 +209,6 @@ export default {
       this.$router.push({ name: "homeadmin" });
     },
 
-    sendNoti() {
-      // const topic = "highScores";
-
-      // const message = {
-      //   data: {
-      //     score: "850",
-      //     time: "2:45",
-      //   },
-      //   topic: topic,
-      // };
-      // // Send a message to devices subscribed to the provided topic.
-      // onBackgroundMessage(messaging, (payload) => {});
-      // getMessaging()
-      //   .send(message)
-      //   .then((response) => {
-      //     // Response is a message ID string.
-      //     console.log("Successfully sent message:", response);
-      //   })
-      //   .catch((error) => {
-      //     console.log("Error sending message:", error);
-      //   });
-    },
-
     async getFile() {
       if(this.text === "" || this.date_start ===""  || this.date_end ===""|| this.Title ===""){
         alert("Please fill out the information completely.")
@@ -244,27 +221,20 @@ export default {
       if (this.file == "") {
         this.create(this.nohaveUrl);
       } else {
-        console.log("sign in");
+        
         // Create the file metadata
         /** @type {any} */
         const metadata = {
           contentType: "",
         };
-        console.log(files);
+      
         const storage = getStorage();
         const imageRef = ref(storage, "eventFile/" + files[0].name);
         uploadBytesResumable(imageRef, files[0], metadata)
           .then((snapshot) => {
-            // console.log(files[0]);
-            // console.log("Uploaded", snapshot.totalBytes, "bytes.");
-            // console.log("File metadata:", snapshot.metadata);
-            // Let's get a download URL for the file.
             getDownloadURL(snapshot.ref).then((url) => {
-              console.log("File available at", url);
-              // var img = document.getElementById("imageurl");
-              //   console.log(img.getAttribute("src"));
               this.create(url);
-              this.sendNoti();
+              
             });
           })
           .catch((error) => {

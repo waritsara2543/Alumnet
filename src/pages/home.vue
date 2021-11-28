@@ -91,10 +91,7 @@ export default {
       this.detail[0].campus_id,
       this.detail[0].graduate_year
     );
-    console.log(this.student[0].image_profile);
-    console.log(this.student);
-    console.log(this.detail);
-    console.log(this.details);
+    
     this.profile = this.student[0].image_profile;
 
     // await this.timelinefeed();
@@ -109,10 +106,10 @@ export default {
           // Send the token to your server and update the UI if necessary
           // ...
           this.checkToken(currentToken)
-          console.log(currentToken);
+         
           // const messaging = getMessaging();
           onMessage(messaging, (payload) => {
-            console.log("Message received. ", payload);
+            
             this.content = payload.notification.body;
             this.title = payload.notification.title;
             alert(this.title + " : " + this.content);
@@ -121,14 +118,12 @@ export default {
           });
         } else {
           // Show permission request UI
-          console.log(
-            "No registration token available. Request permission to generate one."
-          );
+          
           // ...
         }
       })
       .catch((err) => {
-        console.log("An error occurred while retrieving token. ", err);
+       
         // ...
       });
   },
@@ -146,7 +141,7 @@ export default {
     },
     searchPage() {
       this.$router.push({ name: "searchPage" });
-      console.log("hhikk");
+     
     },
     getDate: function (date) {
       return moment(date, "YYYY-MM-DD").format("DD MMMM YYYY");

@@ -160,15 +160,15 @@ export default {
     updateName() {
       const newfirstname = this.newfirstname;
       const newlastname = this.newlastname;
-      console.log(newfirstname + "   " + newlastname);
+     
     },
     updateEmail() {
       const newemail = this.newemail;
-      console.log(newemail);
+    
       const auth = getAuth();
       updateEmail(auth.currentUser, newemail)
         .then(() => {
-          console.log("Email updated!");
+        
           // Email updated!
           // ...
         })

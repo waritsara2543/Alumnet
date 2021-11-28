@@ -439,8 +439,7 @@ export default {
       this.$router.push({ name: "editStudentAddress" });
     },
     async updateStatus() {
-      console.log(this.person[0].status);
-      console.log(this.newStatus);
+   
       let updateStatus = await updateinformation(
         this.newEpigram,
         this.newStatus,
@@ -449,7 +448,7 @@ export default {
       location.reload();
     },
     async updateEpigram() {
-      console.log(this.newEpigram);
+    
       let updateEpigram = await updateinformation(
         this.newEpigram,
         this.newStatus,
@@ -484,8 +483,7 @@ export default {
     async detailstudent() {
       this.person = await getProfileById(this.student[0].student_id);
       this.timeline = await getTimelineById(this.student[0].student_id);
-      console.log(this.timeline);
-      console.log(this.person);
+     
     },
   },
   async mounted() {

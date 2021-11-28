@@ -31,13 +31,12 @@ export default {
   methods: {
     async searchs() {
       let testcase = await getSearch(this.search, this.search);
-      console.log(testcase);
-      console.log(this.search);
+     
     },
   },
   async mounted() {
     this.value = await getDatainGoogleSheets();
-    console.log(this.value);
+   
     for (let i = 0; i < this.value.length; i++) {
       const element = this.value[i];
       let major_id = 0;
@@ -66,7 +65,7 @@ export default {
         image_profile: null
       };
       await createstudentgooglesheet(javascripts)
-      console.log(javascripts);
+     
     }
   },
   data() {

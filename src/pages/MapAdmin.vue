@@ -33,7 +33,7 @@ export default {
   async mounted() {
     const adminvalue = localStorage.getItem("admin");
     this.admin = JSON.parse(adminvalue); 
-    console.log(this.admin[0].faculty_id);
+  
      this.latlng = await getLatLongForAdmin(this.admin[0].faculty_id);
 
     this.map = L.map("mapContainer").setView([13.7087384,100.1625354,9.75], 5);

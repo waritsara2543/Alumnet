@@ -17,8 +17,7 @@ const api = axios.create(
   }
 );
 export function put_workplace_history(data) {
-  console.log(data);
-  console.log(mainapi);
+  
   let test = {
     workplace_history_id: "3",
     workplace_id: "1",
@@ -36,18 +35,13 @@ export function put_workplace_history(data) {
     },
     data: data,
   };
-  console.log(config);
   axios(config)
     .then(function (response) {
-      console.log(JSON.stringify(response.data));
     })
     .catch(function (error) {
-      console.log(error);
     });
 }
 export async function getTimelineById(student_id) {
-  console.log(student_id);
-  console.log("timelineById");
   let res = await api.get(`/student/timeline/${student_id}`);
   return res.data.results;
 }
@@ -80,18 +74,15 @@ export async function getDetailById(email) {
 }
 
 export async function getPersonInformation(student_id) {
-  // console.log(email);
   let res = await api.get(`/student/infomation/${student_id}`);
   return res.data.results;
 }
 
 export async function getStudentById(email) {
-  // console.log(email);
   let res = await api.get(`/student/${email}`);
   return res.data.results;
 }
 export function test(email) {
-  console.log(email);
 }
 export async function confirmEmaill(email, student_id) {
   // var axios = require('axios');
@@ -110,10 +101,8 @@ export async function confirmEmaill(email, student_id) {
 
   // axios(config)
   // .then(function (response) {
-  //   console.log(JSON.stringify(response.data));
   // })
   // .catch(function (error) {
-  //   console.log(error);
   // });
 
   var data = {
@@ -123,7 +112,6 @@ export async function confirmEmaill(email, student_id) {
     const res = await api.put(`/student/updateemail/${student_id}`, data);
     return res;
   } catch (err) {
-    console.log(err);
   }
 }
 
@@ -137,17 +125,14 @@ export async function createinformation(student_id, contact_type, contact_url) {
     const res = await api.post(`/student_contact`, data);
     return res;
   } catch (err) {
-    console.log(err);
   }
 }
 
 export async function createstudentgooglesheet(data) {
-  console.log(data);
   try {
     const res = await api.post(`/student`, data);
     return res;
   } catch (err) {
-    console.log(err);
   }
 }
 
@@ -160,7 +145,6 @@ export async function updateinformation(epigram, status, student_id) {
     const res = await api.put(`/student/epigram_status/${student_id}`, data);
     return res;
   } catch (err) {
-    console.log(err);
   }
 }
 
@@ -180,7 +164,6 @@ export async function createworkplace(
     let res = await api.post(`/student/workplace`, data);
     return res;
   } catch (err) {
-    console.log(err);
   }
 }
 
@@ -202,7 +185,6 @@ export async function createworkplacebefore(
     let res = await api.post(`/student/workplacebefore`, data);
     return res;
   } catch (err) {
-    console.log(err);
   }
 }
 
@@ -214,17 +196,14 @@ export async function updateprofile(image_profile, student_id) {
     const res = await api.put(`/student/image_profile/${student_id}`, data);
     return res;
   } catch (err) {
-    console.log(err);
   }
 }
 export async function getProfileById(student_id) {
-  // console.log(email);
   let res = await api.get(`/student/profile/${student_id}`);
   return res.data.results;
 }
 
 export async function getadminbyemail(email) {
-  // console.log(email);
   let res = await api.get(`/admin/${email}`);
   return res.data.results;
 }
@@ -250,7 +229,6 @@ export async function createEvent(
     const res = await api.post(`/admin/createevent/`, data);
     return res;
   } catch (err) {
-    console.log(err);
   }
 }
 
@@ -275,7 +253,6 @@ export async function updateEvent(
     const res = await api.put(`/admin/updateevent/${public_relation_id}`, data);
     return res;
   } catch (err) {
-    console.log(err);
   }
 }
 
@@ -284,7 +261,6 @@ export async function deleteEvent(public_relation_id) {
     const res = await api.delete(`/admin/deleteevent/${public_relation_id}`);
     return res;
   } catch (err) {
-    console.log(err);
   }
 }
 
@@ -293,7 +269,6 @@ export async function getEvent(faculty_id) {
     const res = await api.get(`/admin/getevent/${faculty_id}`);
     return res.data.results;
   } catch (err) {
-    console.log(err);
   }
 }
 
@@ -304,7 +279,6 @@ export async function getEventBypublicid(faculty_id, public_relation_id) {
     );
     return res.data.results;
   } catch (err) {
-    console.log(err);
   }
 }
 
@@ -326,7 +300,6 @@ export async function updateCurrentJob(student_id) {
     const res = await api.put(`/student/currentjob/${student_id}`);
     return res;
   } catch (err) {
-    console.log(err);
   }
 }
 
@@ -359,7 +332,6 @@ export async function deleteStudentContact(student_contact_id) {
     );
     return res;
   } catch (err) {
-    console.log(err);
   }
 }
 
@@ -387,7 +359,6 @@ export async function createAddressByid(
     let res = await api.post(`/student/addressbyid/${student_id}`, data);
     return res;
   } catch (err) {
-    console.log(err);
   }
 }
 
@@ -396,7 +367,6 @@ export async function updateLatLong(lat, long, student_id) {
     const res = await api.put(`/student/latlong/${lat}/${long}/${student_id}`);
     return res;
   } catch (err) {
-    console.log(err);
   }
 }
 
@@ -412,7 +382,6 @@ export async function updateAddressLocation(tumbon,amphone, province,postcode,co
     const res = await api.put(`/student/addresslocation/${student_id}`,data);
     return res;
   } catch (err) {
-    console.log(err);
   }
 }
 
@@ -423,7 +392,6 @@ export async function getLocationByStudentid(student_id) {
     );
     return res.data.results;
   } catch (err) {
-    console.log(err);
   }
 }
 
@@ -466,7 +434,6 @@ export async function notificationEvent(titles,content) {
         return res
     }
     catch (err) {
-        console.log(err);
     }
 
 }
@@ -481,7 +448,6 @@ export async function createToken(student_id,token_id) {
         return res
     }
     catch (err) {
-        console.log(err);
     }
 
 }
@@ -495,7 +461,6 @@ export async function updateToken(token_id,student_id) {
         return res
     }
     catch (err) {
-        console.log(err);
     }
 
 }

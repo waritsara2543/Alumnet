@@ -26,12 +26,10 @@ export default {
       this.map.on("click", async function (e) {
         this.lat = e.latlng.lat;
         this.lng = e.latlng.lng;
-        console.log(this.lat, this.lng);
         var r = confirm("Your location is " + this.lat + " , " + this.lng);
         if (r == true) {
           
          window.location = '/#/homepage';
-         console.log(this.lat,this.lng);
          let update = await updateLatLong (this.lat,this.lng,student_id)
          
         } else {

@@ -167,8 +167,7 @@ export default {
     async detailstudent() {
       this.person = await getProfileById(this.student_id);
       this.timeline = await getTimelineById(this.student_id);
-      console.log(this.timeline);
-      console.log(this.person);
+  
     },
   },
 
@@ -177,9 +176,9 @@ export default {
     this.student = JSON.parse(value);
     await this.detailstudent(this.student_id);
     this.profile = this.person[0].image_profile;
-    console.log(this.student_id);
+   
     this.getcontact = await getStudentContactByid(this.student_id);
-    console.log(this.getcontact);
+    
   },
 
   data() {
