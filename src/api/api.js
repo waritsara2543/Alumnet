@@ -320,7 +320,7 @@ export async function getDatainGoogleSheets() {
   return res.data.values;
 }
 
-export async function deleteGoogleSheet (student_contact_id) {
+export async function deleteGoogleSheet () {
     try {
         const res = await api.delete(`https://sheets.googleapis.com/v4/spreadsheets/1L0p43e9RCRS_0sjcz7xz35Uoi5Ev2PxklGUGHeLPSlA/values/sheet1!A2:L300/?key=AIzaSyCXRNRo1tvekH4YLwrw2kKnqaHlpAwz7TA`)
         return res
