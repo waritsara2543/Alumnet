@@ -106,16 +106,6 @@ export default {
               
               this.backLogin();
 
-              // if (confirm("Please verify your email")) {
-
-              //   if (this.email_verified) {
-              //     this.toConfirmEmail();
-            
-              //   } else {
-              //     // this.toConfirmEmail();
-            
-              //   }
-              // }
             });
           })
           .catch((error) => {
