@@ -72,7 +72,7 @@ import { getSearch } from '../api/api'
 export default {
   methods: {
     backtohome() {
-      this.$router.go(-1) 
+      this.$router.push({ name: "homepage"});
       // this.$router.push({ name: "homepage" });
     },
     async clicksearch(){

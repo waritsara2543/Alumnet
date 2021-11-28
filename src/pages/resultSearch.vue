@@ -1,18 +1,22 @@
 <template>
-  <q-page padding>
-      <q-btn
-            round
-            dense
-            flat
-            class="q-mr-xs"
-            icon="arrow_back"
-            @click="backtosearch()"
-          ></q-btn>
+  <q-page padding style="background: #d0dfe6">
+    <q-btn
+      round
+      dense
+      flat
+      class="q-mr-xs"
+      icon="arrow_back"
+      @click="backtosearch()"
+    ></q-btn>
     <q-card
       v-for="(col, index) in person"
       :key="index"
       class="my-card text-white"
-      style="height: 385px; margin-top: 30px;background: linear-gradient(#032030 0%, #1794a5 100%);"
+      style="
+        
+        margin-top: 30px;
+        background: linear-gradient(#032030 0%, #1794a5 100%);
+      "
     >
       <q-card-section class="text-center">
         <q-avatar
@@ -45,7 +49,6 @@
           <div id="graduate" class="col">
             Graduation {{ this.person[0].major }}
             {{ this.person[0].graduate_year }} at {{ this.person[0].campus }}
-            
           </div>
         </div>
 
@@ -54,7 +57,6 @@
 
           <div id="workplace" class="col">
             {{ this.person[0].position }} at {{ this.person[0].workplace }}
-            
           </div>
         </div>
 
@@ -71,7 +73,7 @@
           <q-icon name="favorite" style="margin-right: 10px" />
 
           <div id="status" class="col">
-            {{ this.person[0].status }} 
+            {{ this.person[0].status }}
           </div>
         </div>
 
@@ -82,19 +84,31 @@
             {{ this.person[0].epigram }}
           </div>
         </div>
-        <div>
-          Facebook :
+        <div
+          v-for="(col, index) in getcontact"
+          :key="index"
+          style="margin-top: 3px"
+        >
+          <div>
+            <q-icon v-if="this.getcontact[index].contact_type === 'Phone'" name="phone_iphone" style="font-size: 20px" />
+            <q-icon v-if="this.getcontact[index].contact_type === 'Email'" name="email" style="font-size: 20px" />
+            <img
+           
+            v-if="this.getcontact[index].contact_type === 'Facebook'"
+          src="../assets/fb.png"
+          alt=""
+          style="width: 15px; margin-left:2px"
+        />
+        <img
+            v-if="this.getcontact[index].contact_type === 'LINE'"
+          src="../assets/line.png"
+          alt=""
+          style="width: 15px;margin-left:2px "
+        />
+          
+            {{ this.getcontact[index].contact_url }}
+          </div>
         </div>
-        <div>
-          LINE :
-        </div>
-        <div>
-          Email :
-        </div>
-        <div>
-          Phone :
-        </div>
-
       </q-card-section>
     </q-card>
 
@@ -103,12 +117,17 @@
     <div style="margin-left: 15px; margin-right: 15px">
       <q-timeline color="secondary">
         <q-timeline-entry :avatar="this.profile" class="text-h6">
-          My Timeline
+          Timeline
         </q-timeline-entry>
-        <q-scroll-area style="height: 200px"
+        <q-scroll-area style="height: 350px"
           ><div v-for="(col, index) in timeline" :key="index">
-            <q-timeline-entry :subtitle="getDate (this.timeline[index].start_work)">
-              <q-card class="text-white" style="background: linear-gradient(#032030 0%, #1794a5 100%);">
+            <q-timeline-entry
+              :subtitle="getDate(this.timeline[index].start_work)"
+            >
+              <q-card
+                class="text-white"
+                style="background: linear-gradient(#032030 0%, #1794a5 100%)"
+              >
                 <div style="text-align: center">
                   <div>
                     <q-icon name="business_center" />
@@ -122,54 +141,58 @@
         </q-scroll-area>
       </q-timeline>
     </div>
-
-   
   </q-page>
 </template>
  <script>
 import { ref } from "vue";
-import { getProfileById, getTimelineById } from "../api/api";
+import {
+  getProfileById,
+  getTimelineById,
+  getStudentContactByid,
+} from "../api/api";
 import { getAuth, signOut } from "firebase/auth";
-import moment from 'moment';
+import moment from "moment";
 export default {
   methods: {
     // backconfirmEmail() {
     //   this.$router.push({ name: "confirmEmail" });
     // },
     backtosearch() {
-      this.$router.push({ name: "searchPage" });
+      this.$router.go(-1)
     },
-    getDate : function (date) {
-                return moment(date, 'YYYY-MM-DD').format('DD MMMM YYYY');
-            },
-    
-   
-    
+    getDate: function (date) {
+      return moment(date, "YYYY-MM-DD").format("DD MMMM YYYY");
+    },
+
     async detailstudent() {
-      this.person = await getProfileById(this.student[0].student_id);
-      this.timeline = await getTimelineById(this.student[0].student_id);
+      this.person = await getProfileById(this.student_id);
+      this.timeline = await getTimelineById(this.student_id);
       console.log(this.timeline);
       console.log(this.person);
     },
   },
-  
+
   async mounted() {
     const value = localStorage.getItem("student");
     this.student = JSON.parse(value);
-    await this.detailstudent(this.student[0].student_id);
-    this.profile = this.student[0].image_profile;
-    
+    await this.detailstudent(this.student_id);
+    this.profile = this.person[0].image_profile;
+    console.log(this.student_id);
+    this.getcontact = await getStudentContactByid(this.student_id);
+    console.log(this.getcontact);
   },
 
   data() {
     return {
+      student_id: this.$route.params.index,
       prompt: ref(false),
       address: ref(""),
       person: [],
       timeline: [],
       student: [],
       profile: ref(""),
-      showdate:("")
+      showdate: "",
+      getcontact: [],
     };
   },
 };
