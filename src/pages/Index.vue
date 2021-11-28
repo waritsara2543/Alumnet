@@ -59,11 +59,12 @@
     >
 
       <q-card-section class="row"  >
-        <q-avatar class="q-mr-xs q-ml-md" id="image_profile">
-          <img v-if="this.searchList[index].image_profile !== null"  :src="this.searchList[index].image_profile" />
-          <img  src="../assets/man.png" />
-          
+        <q-avatar class="q-mr-xs q-ml-md" id="image_profile" v-if="this.searchList[index].image_profile !== null"  >
+         
+          <img :src="this.searchList[index].image_profile" />
+           <img v-if="this.searchList[index].image_profile == null"  src="../assets/man.png" /> 
         </q-avatar>
+        
 
         <div
           class="text-subtitle2"

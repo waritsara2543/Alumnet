@@ -53,7 +53,7 @@
           </div>
         </div>
 
-        <div class="row" v-if="this.person[0].position != null">
+        <div class="row" >
           <q-icon name="business_center" style="margin-right: 10px" />
           <div id="workplace" class="col">
             {{ this.person[0].position }} at {{ this.person[0].workplace }}
