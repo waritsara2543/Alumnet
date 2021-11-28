@@ -4,6 +4,14 @@
       <p>Original message: "{{ message }}"</p>
       <p>Computed reversed message: "{{ reversedMessage }}"</p>
 
+      <q-btn
+        color="blue"
+        glossy
+        icon="cloud_download"
+        label="2.Download data from google sheet"
+        @click="test"
+      />
+
       <q-input
         filled
         v-model="name"
@@ -19,8 +27,19 @@
 </template>
 
 <script>
+import {notificationEvent} from '../api/api'
 export default {
   methods: {
+    async test(){
+       this.titles = "Hello"
+       this.content = "have a good day"
+     this.value = await notificationEvent( this.titles,this.content)
+     console.log(this.value);
+      console.log(this.titles);
+      console.log(this.content);
+      console.log("gggggg");
+    },
+
     search() {
       console.log(this.name);
       // this.searchname = this.name;
@@ -48,6 +67,9 @@ export default {
       message: "Hello",
       name: "name",
       searchname: "",
+      title: "",
+      content: "",
+      value: [],
     };
   },
 };

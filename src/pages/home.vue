@@ -68,28 +68,12 @@
 </template>
  <script>
 import { ref } from "vue";
-import { getFeedById } from "../api/api";
+import { getFeedById, createToken } from "../api/api";
 import moment from "moment";
 import { getMessaging, getToken, onMessage } from "firebase/messaging";
 import { initializeApp } from "firebase/app";
 export default {
-  methods: {
-    // async timelinefeed() {
-    //   console.log(this.student[0].student_id);
-    //   this.timeline = await getTimelineById(this.student[0].student_id,this.student[0].major_id,
-    //   this.student[0].faculty_id,this.student[0].campus_id,this.student[0].graduate_year);
 
-    //   console.log("timeline");
-    //   console.log(this.timeline);
-    // },
-    searchPage() {
-      this.$router.push({ name: "searchPage" });
-      console.log("hhikk");
-    },
-    getDate: function (date) {
-      return moment(date, "YYYY-MM-DD").format("DD MMMM YYYY");
-    },
-  },
 
   // async getFeed(major_id,faculty_id,campus_id,graduate_year){
 
@@ -124,18 +108,17 @@ export default {
         if (currentToken) {
           // Send the token to your server and update the UI if necessary
           // ...
-          console.log("currentToken");
+          this.addToken(this.student[0].student_id, currentToken);
+          console.log(currentToken);
           // const messaging = getMessaging();
           onMessage(messaging, (payload) => {
-             console.log("Message received. ", payload);
-             this.content =payload.notification.body
-             this.title =payload.notification.title
-             alert(this.title+" : "+this.content)
-            
-             
+            console.log("Message received. ", payload);
+            this.content = payload.notification.body;
+            this.title = payload.notification.title;
+            alert(this.title + " : " + this.content);
 
             // ...
-         });
+          });
         } else {
           // Show permission request UI
           console.log(
@@ -149,6 +132,26 @@ export default {
         // ...
       });
   },
+    methods: {
+    // async timelinefeed() {
+    //   console.log(this.student[0].student_id);
+    //   this.timeline = await getTimelineById(this.student[0].student_id,this.student[0].major_id,
+    //   this.student[0].faculty_id,this.student[0].campus_id,this.student[0].graduate_year);
+
+    //   console.log("timeline");
+    //   console.log(this.timeline);
+    // },
+    searchPage() {
+      this.$router.push({ name: "searchPage" });
+      console.log("hhikk");
+    },
+    getDate: function (date) {
+      return moment(date, "YYYY-MM-DD").format("DD MMMM YYYY");
+    },
+    async addToken(student_id, token) {
+      this.value = await createToken(student_id, token);
+    },
+  },
 
   data() {
     return {
@@ -157,9 +160,10 @@ export default {
       student: [],
       details: [],
       timeline: [],
-      title:"",
-      content:"",
+      title: "",
+      content: "",
       profile: ref(""),
+      value: [],
     };
   },
 };
