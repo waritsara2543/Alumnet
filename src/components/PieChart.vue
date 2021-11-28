@@ -22,7 +22,7 @@ export default {
       datasets: [
         {
           label: 'Alumni job titles',
-          backgroundColor:  ['#e7a33e','#27a8a1','#f95dd6','#FFD700','#00FA9A','#48D1CC'],
+          backgroundColor:  ['#e7a33e','#27a8a1','#f95dd6','#FFD700','#00FA9A','#48D1CC','#D02090','#A020F0','#76504F','#99BBAD','#9C4B28','#4382BB'],
           data: this.count
         }
       ]
