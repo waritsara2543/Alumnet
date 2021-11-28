@@ -486,7 +486,7 @@ export async function createToken(student_id,token_id) {
 
 }
 
-export async function updateToken(token_id) {
+export async function updateToken(token_id,student_id) {
     var data= {
         token_id:token_id
     }
@@ -500,7 +500,7 @@ export async function updateToken(token_id) {
 
 }
 
-export async function getToken(student_id) {
+export async function getTokenID(student_id) {
     let res = await api.get(`/student/messaging/${student_id}`);
     return res.data.results
 }

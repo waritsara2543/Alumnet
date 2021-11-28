@@ -68,7 +68,7 @@
 </template>
  <script>
 import { ref } from "vue";
-import { getFeedById, createToken } from "../api/api";
+import { getFeedById, createToken,getTokenID,updateToken } from "../api/api";
 import moment from "moment";
 import { getMessaging, getToken, onMessage } from "firebase/messaging";
 import { initializeApp } from "firebase/app";
@@ -108,7 +108,7 @@ export default {
         if (currentToken) {
           // Send the token to your server and update the UI if necessary
           // ...
-          this.addToken(this.student[0].student_id, currentToken);
+          this.checkToken(currentToken)
           console.log(currentToken);
           // const messaging = getMessaging();
           onMessage(messaging, (payload) => {
@@ -133,14 +133,17 @@ export default {
       });
   },
     methods: {
-    // async timelinefeed() {
-    //   console.log(this.student[0].student_id);
-    //   this.timeline = await getTimelineById(this.student[0].student_id,this.student[0].major_id,
-    //   this.student[0].faculty_id,this.student[0].campus_id,this.student[0].graduate_year);
+    async checkToken(token){
 
-    //   console.log("timeline");
-    //   console.log(this.timeline);
-    // },
+       this.token = await getTokenID(this.student[0].student_id)
+          if(this.token.length == 0){
+            this.addToken(this.student[0].student_id, token);
+          }else{
+            await updateToken(token);
+
+          }
+
+    },
     searchPage() {
       this.$router.push({ name: "searchPage" });
       console.log("hhikk");
@@ -164,6 +167,7 @@ export default {
       content: "",
       profile: ref(""),
       value: [],
+      token:[],
     };
   },
 };
