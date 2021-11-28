@@ -50,7 +50,7 @@
                 </div>
 
                 <!-- <q-icon name="business_center" /> -->
-
+                
                 for starting a new position as
                 {{ this.details[index].position }} at
                 {{ this.details[index].workplace }}

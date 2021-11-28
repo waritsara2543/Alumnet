@@ -320,15 +320,6 @@ export async function getDatainGoogleSheets() {
   return res.data.values;
 }
 
-export async function deleteGoogleSheet () {
-    try {
-        const res = await api.get(`/admin/deletegooglesheet`)
-        return res
-    }
-    catch (err) {
-        console.log(err);
-    }
-}
 
 export async function updateCurrentJob(student_id) {
   try {
