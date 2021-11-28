@@ -452,3 +452,38 @@ export async function getStudentWorkByPosition(faculty_id) {
   let res = await api.get(`/admin/dashboard/workposition/${faculty_id}`);
   return res.data.results;
 }
+
+
+// notification //
+
+export async function notificationEvent(titles,content) {
+    var data= {
+        titles:titles,
+        content:content
+    }
+    try {
+        let res = await api.post(`/admin/notification`,data);
+        return res
+    }
+    catch (err) {
+        console.log(err);
+    }
+
+}
+
+export async function createToken(student_id,token_id) {
+    var data= {
+        student_id:student_id,
+        token_id:token_id
+    }
+    try {
+        let res = await api.post(`/messaging`,data);
+        return res
+    }
+    catch (err) {
+        console.log(err);
+    }
+
+}
+
+
