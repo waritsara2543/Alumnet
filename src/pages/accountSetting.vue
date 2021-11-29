@@ -166,13 +166,13 @@ export default {
       const newemail = this.newemail;
 
       const auth = getAuth();
-      console.log(auth);
+      // console.log(auth);
       updateEmail(auth.currentUser, newemail)
         .then(() => {
           sendEmailVerification(auth.currentUser)
           .then(() => {
            this.updateEmailSuccess(newemail)
-          console.log("Email updated!");
+          // console.log("Email updated!");
             });
 
          
@@ -180,7 +180,7 @@ export default {
         })
         .catch((error) => {
           // An error occurred
-          console.log(error);
+          // console.log(error);
           // ...
         });
     },
@@ -196,7 +196,7 @@ export default {
         updatePassword(user, newPassword)
           .then(() => {
             // Update successful.
-            console.log("Update successful");
+            // console.log("Update successful");
           })
           .catch((error) => {
             // An error ocurred
@@ -208,7 +208,7 @@ export default {
   mounted(){
     const studentvalue = localStorage.getItem("student");
      this.student = JSON.parse(studentvalue);
-     console.log(this.student[0].student_id);
+    //  console.log(this.student[0].student_id);
      this.newemail = this.student[0].email
      },
 
