@@ -94,7 +94,7 @@ export default {
       if (confirmpassword == "" || confirmpassword != password) {
         alert("confirmpassword is not equal with password")
       } else {
-        console.log(email);
+      
         createUserWithEmailAndPassword(auth, email, password)
           .then((userCredential) => {
             // Signed in
@@ -103,20 +103,9 @@ export default {
             sendEmailVerification(auth.currentUser).then(() => {
               alert("Please verify your email and login again")
               const email_verified = auth.currentUser.emailVerified;
-              console.log(email_verified);
+              
               this.backLogin();
 
-              // if (confirm("Please verify your email")) {
-
-              //   if (this.email_verified) {
-              //     this.toConfirmEmail();
-              //     console.log("verify");
-              //   } else {
-              //     // this.toConfirmEmail();
-              //     console.log("not verify");
-              //     console.log(email_verified);
-              //   }
-              // }
             });
           })
           .catch((error) => {

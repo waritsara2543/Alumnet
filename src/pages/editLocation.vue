@@ -10,15 +10,9 @@ import "leaflet-defaulticon-compatibility";
 import { getStudentlattlongAll, getStudentlattlongByid,updateLatLong } from "../api/api";
 export default {
   name: "LeafletMap",
+  
   methods: {
     async pinmap(student_id) {
-      const studentvalue = localStorage.getItem("student");
-      this.student = JSON.parse(studentvalue);
-      this.student_id= this.student[0].student_id;
-      this.allLatLonng = await getStudentlattlongAll(
-        this.student[0].student_id
-      );
-      this.myLatLong = await getStudentlattlongByid(this.student[0].student_id);
 
       this.map = L.map("map").setView([13.7087384, 100.1625354, 9.75], 5);
       L.tileLayer("http://{s}.tile.osm.org/{z}/{x}/{y}.png", {
@@ -32,13 +26,12 @@ export default {
       this.map.on("click", async function (e) {
         this.lat = e.latlng.lat;
         this.lng = e.latlng.lng;
-       
         var r = confirm("Your location is " + this.lat + " , " + this.lng);
         if (r == true) {
-      
-         window.location = '/#/toavatar';
+          
+         window.location = '/#/homepage';
          let update = await updateLatLong (this.lat,this.lng,student_id)
-        
+         
         } else {
          
         }
@@ -53,12 +46,12 @@ export default {
       student: [],
       lat: "",
       lng: "",
-      student_id:""
+      
      
     };
   },
   async mounted() {
-     let studentvalue = localStorage.getItem("student");
+      let studentvalue = localStorage.getItem("student");
       this.student = JSON.parse(studentvalue);
       let student_id = this.student[0].student_id
     this.pinmap(student_id);

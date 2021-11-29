@@ -42,14 +42,14 @@ import { getEvent } from "../api/api";
 export default {
   methods: {
     toDetailContent(public_relation_id){
-      console.log(public_relation_id);
+     
       this.$router.push({ name: "detailContent" , params:{ public_relation_id }  });
     },
   },
   async mounted(){
     const detailvalue = localStorage.getItem("detail");
     this.detail = JSON.parse(detailvalue);
-    console.log( this.detail[0].faculty_id);
+    
     this.events = await getEvent(this.detail[0].faculty_id);
 
   },

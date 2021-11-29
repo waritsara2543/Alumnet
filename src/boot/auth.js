@@ -9,6 +9,6 @@ export default boot(({ app }) => {
     const app1 = initializeApp(firebaseConfig);
     // const analytics = getAnalytics(app1);
 
-    console.log("Firebase initialized auth");
+
     app.config.globalProperties.$auth = app1.auth;
   });

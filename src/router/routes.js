@@ -39,6 +39,16 @@ const routes = [
         component: () => import("pages/studentAddress.vue"),
       },
       {
+        name: "editStudentAddress",
+        path: "editStudentAddress",
+        component: () => import("pages/editStudentAddress.vue"),
+      },
+      {
+        name: "editLocation",
+        path: "editLocation",
+        component: () => import("pages/editLocation.vue"),
+      },
+      {
         name: "toavatar",
         path: "/toavatar",
         component: () => import("pages/avatar.vue"),

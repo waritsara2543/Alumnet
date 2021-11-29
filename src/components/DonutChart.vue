@@ -1,22 +1,43 @@
 <script>
 import { defineComponent } from 'vue'
 import { Doughnut } from 'vue3-chart-v2'
+import {getStudentAddress} from "../api/api";
 
-export default defineComponent({
-  name: 'MonthlyChart',
+export default {
+  name: 'Province where alumni reside',
   extends: Doughnut,
-  mounted () {
+  async mounted () {
+
+    const adminvalue = localStorage.getItem("admin");
+    this.admin = JSON.parse(adminvalue);
+    this.address = await getStudentAddress(this.admin[0].faculty_id)
+
+    for(let i = 0 ; i<this.address.length;i++){
+      this.province[i] =this.address[i].province
+      this.count[i]=this.address[i].count
+     
+  }
+   
     // Overwriting base render method with actual data.
     this.renderChart({
-      labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'],
+      labels: this.province,
       datasets: [
         {
-          label: 'GitHub Commits',
-          backgroundColor: ['#f87979', 'green', 'red', 'yellow', 'green', 'black','white','purple','#f87979','yellow','white'],
-          data: [40, 20, 12, 39, 10, 40, 39, 80, 40, 20, 12, 11]
+          label: 'Province where alumni reside',
+          backgroundColor:['#e7a33e','#27a8a1','#f95dd6','#FFD700','#00FA9A','#48D1CC','#D02090','#A020F0','#76504F','#99BBAD','#9C4B28','#4382BB'],
+          data: this.count
         }
       ]
     })
+  },
+  data(){
+    return{
+      address:[],
+      province:[],
+      count:[]
+    }
+    
+
   }
-})
+}
 </script>

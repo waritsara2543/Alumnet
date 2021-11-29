@@ -138,11 +138,9 @@ export default {
     
     showDialogDelete(id) {
       this.id=id;
-      console.log(id);
       this.deletecontact = true;
     },
     async deleteContact() {
-     console.log(this.id);
      let deletect = await deleteStudentContact (this.id);
      location.reload();
 
@@ -154,7 +152,6 @@ export default {
     async contact() {
       const contact_type = this.model;
       const contact_name = this.contactName;
-      console.log(contact_type + " : " + contact_name);
       if(this.contactName === ''||this.model==='' ){
         alert("Please fill out the information completely.")
 
@@ -175,7 +172,6 @@ export default {
     this.student = JSON.parse(studentvalue);
     this.getcontact = await getStudentContactByid(this.student[0].student_id);
 
-    console.log(this.getcontact);
   },
   data() {
     return {

@@ -37,17 +37,15 @@ export default {
   methods: {
     async classdirectory(){
       this.friend = await getClassdirectoryById(this.person[0].major_id,this.person[0].faculty_id,this.person[0].campus_id,this.person[0].graduate_year);
-      console.log(this.friend);
     }
   },
   async mounted() {
 
     const value = localStorage.getItem("detail");
     this.person = JSON.parse(value);
-    console.log(this.person);
     this.friend = await getClassdirectoryById(this.person[0].major_id,this.person[0].faculty_id,this.person[0].campus_id,this.person[0].graduate_year);
     // await this.classdirectory();
-console.log(this.friend);
+
   },
 
   data() {

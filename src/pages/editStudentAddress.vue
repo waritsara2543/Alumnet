@@ -65,14 +65,14 @@
  <script>
 import { ref } from "vue";
 import { date } from "quasar";
-import { getLocationByid, createAddressByid } from "../api/api";
+import { getLocationByid, updateAddressLocation ,getLocationByStudentid} from "../api/api";
 
 export default {
   methods: {
     async positioncode() {
       
       let getcode = await getLocationByid(this.code);
-     
+
        if(getcode.length == 0){
          alert("zipcode is incorrect")
 
@@ -90,24 +90,31 @@ export default {
       ) {
         alert("Please fill out the information completely.");
       } else {
-        let create = createAddressByid(
-          this.student[0].student_id,
+        let update = updateAddressLocation(
           this.tumbon,
           this.amphone,
           this.province,
           this.code,
           "Thailand",
-          this.address_detail
+          this.student[0].student_id,
+          
         );
 
-        this.$router.push({ name: "pinLocation" });
+        this.$router.push({ name: "editLocation" });
       }
     },
   },
-  mounted() {
+  async mounted() {
     const value = localStorage.getItem("student");
     this.student = JSON.parse(value);
-   
+
+    this.getlobystudentid = await getLocationByStudentid(this.student[0].student_id)
+ 
+    this.amphone =this.getlobystudentid[0].amphone
+    this.province =this.getlobystudentid[0].province
+    this.code =this.getlobystudentid[0].postcode
+    this.tumbon =this.getlobystudentid[0].tumbon
+
   },
 
   data() {
@@ -120,6 +127,7 @@ export default {
       tumbons: [],
       amphones: [],
       provinces: [],
+      getlobystudentid:[]
     };
   },
 };

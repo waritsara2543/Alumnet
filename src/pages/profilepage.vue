@@ -6,7 +6,11 @@
       v-for="(col, index) in person"
       :key="index"
       class="my-card text-white"
-      style="height: 385px; margin-top: 90px ;background: linear-gradient(#032030 0%, #1794a5 100%);"
+      style="
+        height: 385px;
+        margin-top: 90px;
+        background: linear-gradient(#032030 0%, #1794a5 100%);
+      "
     >
       <q-card-section class="text-center">
         <!-- profile image -->
@@ -49,9 +53,9 @@
           </div>
         </div>
 
-        <div class="row" v-if="this.person[0].position!=null">
+        <div class="row" >
           <q-icon name="business_center" style="margin-right: 10px" />
-          <div  id="workplace" class="col">
+          <div id="workplace" class="col">
             {{ this.person[0].position }} at {{ this.person[0].workplace }}
           </div>
         </div>
@@ -85,7 +89,7 @@
 
     <!-- timeline -->
 
-    <div style="margin-left: 15px; margin-right: 15px;">
+    <div style="margin-left: 15px; margin-right: 15px">
       <q-timeline color="secondary">
         <q-timeline-entry :avatar="this.profile" class="text-h6">
           <div class="row justify-start">My Timeline</div>
@@ -103,7 +107,10 @@
             <q-timeline-entry
               :subtitle="getDate(this.timeline[index].start_work)"
             >
-              <q-card class="text-white" style="background: linear-gradient(#032030 0%, #1794a5 100%);">
+              <q-card
+                class="text-white"
+                style="background: linear-gradient(#032030 0%, #1794a5 100%)"
+              >
                 <div style="text-align: center">
                   <div>
                     <q-icon name="business_center" />
@@ -201,23 +208,38 @@
         </q-card-section>
 
         <q-card-section>
-           <q-checkbox right-label v-model="currentJob" label="Current Job" style=" margin-top: 50px"/>
+          <q-checkbox
+            right-label
+            v-model="currentJob"
+            label="Current Job"
+            style="margin-top: 50px"
+          />
           <q-input
             v-model="workplace_name"
             id="workplace_name"
             label="Company name"
             :dense="dense"
-            style="padding: 15px;"
+            style="padding: 15px"
             :rules="[(val) => !!val || 'Company name is required']"
           />
 
-          <q-input
+          <q-select
             v-model="position"
-            id="position"
+            :options="positions"
             label="Position"
             :dense="dense"
             style="padding: 15px"
             :rules="[(val) => !!val || 'Position is required']"
+          />
+
+          <q-input
+            v-if="this.position == 'Other'"
+            v-model="spectify"
+            id="position"
+            label="Spectify"
+            :dense="dense"
+            style="padding: 15px"
+            :rules="[(val) => !!val || 'Please spectify']"
           />
 
           <q-input
@@ -243,7 +265,6 @@
               </q-icon>
             </template>
           </q-input>
-         
 
           <div v-if="currentJob === false">
             <q-input
@@ -344,7 +365,7 @@ import {
   updateinformation,
   createworkplace,
   createworkplacebefore,
-  updateCurrentJob
+  updateCurrentJob,
 } from "../api/api";
 import { getAuth, signOut } from "firebase/auth";
 import moment from "moment";
@@ -355,64 +376,70 @@ export default {
     //   this.$router.push({ name: "confirmEmail" });
     // },
     async addWorkplace() {
-     
-      
       if (this.currentJob == true) {
-         // ไม่มี finish_work 
+        // ไม่มี finish_work
 
-        if(this.workplace_name==="" || this.position==="" || this.startdate === ""){
-            alert("Please fill out the information completely.")
-        }else{
-          
-        let update = await updateCurrentJob(
-          this.student[0].student_id)
-        
-        let work = await createworkplace(
-          this.workplace_name,
-          this.position,
-          this.student[0].student_id,
-          date.formatDate(this.startdate, "YYYY-MM-DD")
-        );
-       location.reload();
+        if (
+          this.workplace_name === "" ||
+          this.position === "" ||
+          this.startdate === ""
+        ) {
+          alert("Please fill out the information completely.");
+        } else {
+          if (this.position === "Other" && this.spectify === "") {
+            alert("Please spectify your position.");
+          } else {
+            let update = await updateCurrentJob(this.student[0].student_id);
 
+            if (this.position === "Other") {
+              let work = await createworkplace(
+                this.workplace_name,
+                this.spectify,
+                this.student[0].student_id,
+                date.formatDate(this.startdate, "YYYY-MM-DD")
+              );
+            } else {
+              let work = await createworkplace(
+                this.workplace_name,
+                this.position,
+                this.student[0].student_id,
+                date.formatDate(this.startdate, "YYYY-MM-DD")
+              );
+            }
+            location.reload();
+          }
         }
-       
-
       } else {
         // มี finish_work
-        if(this.workplace_name==="" || this.position==="" || this.startdate === "" || this.enddate === ""){
-            alert("Please fill out the information completely.")
-        }else{
-
-          if(this.startdate >= this.enddate){
-            alert("Have somthing wrong on start date and end date.")
-          }else{
-            
-          let workbefore = await createworkplacebefore(
-          this.workplace_name,
-          this.position,
-          this.student[0].student_id,
-          date.formatDate(this.startdate, "YYYY-MM-DD"),
-          date.formatDate(this.enddate, "YYYY-MM-DD")
-           );
-            
+        if (
+          this.workplace_name === "" ||
+          this.position === "" ||
+          this.startdate === "" ||
+          this.enddate === ""
+        ) {
+          alert("Please fill out the information completely.");
+        } else {
+          if (this.startdate >= this.enddate) {
+            alert("Have somthing wrong on start date and end date.");
+          } else {
+            let workbefore = await createworkplacebefore(
+              this.workplace_name,
+              this.position,
+              this.student[0].student_id,
+              date.formatDate(this.startdate, "YYYY-MM-DD"),
+              date.formatDate(this.enddate, "YYYY-MM-DD")
+            );
           }
-          
 
-          
-       
-        
-        location.reload();
+          location.reload();
         }
-        
       }
     },
     editLocation() {
-      this.$router.push({ name: "pinLocation" });
+      this.$router.push({ name: "editStudentAddress" });
     },
     async updateStatus() {
-      console.log(this.person[0].status);
-      console.log(this.newStatus);
+   
       let updateStatus = await updateinformation(
         this.newEpigram,
         this.newStatus,
@@ -421,7 +448,7 @@ export default {
       location.reload();
     },
     async updateEpigram() {
-      console.log(this.newEpigram);
+    
       let updateEpigram = await updateinformation(
         this.newEpigram,
         this.newStatus,
@@ -456,8 +483,7 @@ export default {
     async detailstudent() {
       this.person = await getProfileById(this.student[0].student_id);
       this.timeline = await getTimelineById(this.student[0].student_id);
-      console.log(this.timeline);
-      console.log(this.person);
+     
     },
   },
   async mounted() {
@@ -490,12 +516,25 @@ export default {
       editEpigram: ref(false),
       newStatus: "",
       newEpigram: "",
+      spectify: "",
+      positions: [
+        "Backend Developer",
+        "Frontend Developer",
+        "Fullstack Developer",
+        "Tester",
+        "Business Analyst",
+        "System Analyst",
+        "Quality Assurance",
+        "UX-UI Design",
+        "Project Manager",
+        "Other",
+      ],
 
-       optionsStart (startdate) {
-        return startdate <= date.formatDate(Date.now(), 'YYYY/MM/DD') 
+      optionsStart(startdate) {
+        return startdate <= date.formatDate(Date.now(), "YYYY/MM/DD");
       },
-      optionsEnd (enddate) {
-        return  enddate <= date.formatDate(Date.now(), 'YYYY/MM/DD')
+      optionsEnd(enddate) {
+        return enddate <= date.formatDate(Date.now(), "YYYY/MM/DD");
       },
     };
   },

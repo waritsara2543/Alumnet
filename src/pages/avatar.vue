@@ -70,7 +70,7 @@ export default {
     async tohomepage(url) {
       let profile = await updateprofile(url, this.student[0].student_id);
       this.$router.push({ name: "homepage" });
-      console.log("Hello I am " + url);
+   
     },
     async getImage() {
 
@@ -80,7 +80,7 @@ export default {
 
       if(files != null){
         
-        // Create the file metadata
+      
         /** @type {any} */
         const metadata = {
           contentType: "image/png",
@@ -90,14 +90,10 @@ export default {
         const imageRef = ref(storage, "images/" + files[0].name);
         uploadBytesResumable(imageRef, files[0], metadata)
           .then((snapshot) => {
-            // console.log(files[0]);
-            // console.log("Uploaded", snapshot.totalBytes, "bytes.");
-            // console.log("File metadata:", snapshot.metadata);
-            // Let's get a download URL for the file.
+            
             getDownloadURL(snapshot.ref).then((url) => {
-              console.log("File available at", url);
-              // var img = document.getElementById("imageurl");
-              //   console.log(img.getAttribute("src"));
+              
+             
               this.tohomepage(url);
             });
           })
@@ -119,7 +115,6 @@ export default {
     const value = localStorage.getItem("student");
     this.student = JSON.parse(value);
     this.imageProfile = this.student[0].image_profile;
-    console.log(this.student[0].email);
     let detail = await getDetailById(this.student[0].email);
     localStorage.setItem("detail", JSON.stringify(detail));
   },

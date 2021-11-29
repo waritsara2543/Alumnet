@@ -60,28 +60,33 @@ import { LocalStorage } from 'quasar';
 export default {
   methods: {
     login() {
+      if(this.username ==='admin@phuket.psu.ac.th'){
       const auth = getAuth();
       const email = this.username;
       const password = this.password;
-      console.log("click");
+      
       signInWithEmailAndPassword(auth, email, password)
         .then((userCredential) => {
           // Signed in
           const user = userCredential.user;
           this.tohome(email);
-          console.log("login");
+         
         })
         .catch((error) => {
           const errorCode = error.code;
           const errorMessage = error.message;
+          alert("Email or Password is wrong")
         });
+        }else{
+          alert("Email or Password is wrong")
+        }
     },
     async tohome(email) {
       try {
         
         let value = await getadminbyemail(email);
         // if (value.length == 0) {
-        //   console.log("don't have database");
+      
           localStorage.setItem("admin", JSON.stringify(value));
           this.$router.push({ name: "homeadmin" });
         // } else {
@@ -90,8 +95,7 @@ export default {
         // this.$router.push({ name: "home" });
         // }
       } catch (e) {
-        console.log(e);
-        console.log("done");
+        
       }
     },
   },

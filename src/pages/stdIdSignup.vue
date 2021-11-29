@@ -11,6 +11,7 @@
       </h6>
 
       <q-input
+        mask="##########"
         outlined
         v-model="student_id"
         label=""
@@ -36,26 +37,22 @@ import { ref } from "vue";
 import { confirmEmaill , getStudentById} from "../api/api";
 export default {
   methods: {
-    // async mounted() {
-    //   const email = localStorage.getItem("email");
-    //   console.log(email);
-    //   let test = await getStudentById(email);
-    //   console.log(test);
-    // },
+   
     
     async topersonalInform() {
-      // if(
-
-      // ){}else{
-      //   alert("This student ID has already been used.")
-      // }
       const email = localStorage.getItem("email");
-      // console.log(email);
+      
        let test = await confirmEmaill(email,this.student_id);
-      console.log(test);
+     
       let value = await getStudentById(email);
+     
+      
+      if(value.length == 0){
+        alert("This student ID doesn't have")
+      }else{
       localStorage.setItem("student", JSON.stringify(value));
       this.$router.push({ name: "persenalInform" });
+      }
     },
   },
 

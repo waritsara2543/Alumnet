@@ -34,14 +34,11 @@ export default {
        this.titles = "Hello"
        this.content = "have a good day"
      this.value = await notificationEvent( this.titles,this.content)
-     console.log(this.value);
-      console.log(this.titles);
-      console.log(this.content);
-      console.log("gggggg");
+    
     },
 
     search() {
-      console.log(this.name);
+     
       // this.searchname = this.name;
       if (this.name.length >= 10) {
         this.searchname = this.name;
@@ -58,7 +55,7 @@ export default {
     },
     searchText: function () {
       // `this` points to the vm instance
-      //   console.log(this.name);
+      
       this.search();
     },
   },

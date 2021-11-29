@@ -59,11 +59,12 @@
     >
 
       <q-card-section class="row"  >
-        <q-avatar class="q-mr-xs q-ml-md" id="image_profile">
-          <img v-if="this.searchList[index].image_profile !== null"  :src="this.searchList[index].image_profile" />
-          <img  src="../assets/man.png" />
-          
+        <q-avatar class="q-mr-xs q-ml-md" id="image_profile" v-if="this.searchList[index].image_profile !== null"  >
+         
+          <img :src="this.searchList[index].image_profile" />
+           <img v-if="this.searchList[index].image_profile == null"  src="../assets/man.png" /> 
         </q-avatar>
+        
 
         <div
           class="text-subtitle2"
@@ -95,7 +96,7 @@ import { getDatainGoogleSheets,getSearchGuess } from "../api/api"
 export default {
   async mounted(){
     let test = await getDatainGoogleSheets()
-    console.log("test:", test);
+    
   },
   methods :{
     toPageLogin(){
@@ -109,7 +110,7 @@ export default {
      
       this.search = this.search.charAt(0).toUpperCase() + this.search.slice(1)
       this.searchList =  await getSearchGuess(this.search,this.search)
-      console.log(this.searchList);
+      
     },
     toPageLogin() {
       this.$router.push({ name: "loginPage" });

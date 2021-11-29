@@ -3,13 +3,7 @@
     <div class="q-pa-md q-gutter-sm">
       <h3 class="text-weight-bold">Import alumni list</h3>
 
-      <q-btn
-        color="green"
-        icon="description"
-        glossy
-        label="1.delete google sheet"
-        @click="deleteSheet"
-      />
+     
 
       <q-btn
         color="green"
@@ -52,6 +46,8 @@ import {
   createstudentgooglesheet,
   deleteGoogleSheet,
 } from "../api/api";
+import { useQuasar, QSpinnerGears } from 'quasar'
+import { onBeforeUnmount } from 'vue'
 
 export default {
   methods: {
@@ -61,25 +57,32 @@ export default {
       );
     },
 
-    async deleteSheet(){
-      await deleteGoogleSheet();
-    },
+    // async deleteSheet(){
+     
+    //    await deleteGoogleSheet();
+    // },
 
 
     async getgoogleSheet() {
       this.value = await getDatainGoogleSheets();
-      console.log(this.sheet);
+      
       for (let index = 0; index < this.value.length; index++) {
         const element = this.value[index];
         let row = {
           Student_id: element[0],
           Firstname: element[1],
           Lastname: element[2],
+          Sex:element[3],
+          EducationStatus:element[4],
+          GraduateYear:element[5],
+          Major:element[6],
+
         };
         this.rows.push(row);
       }
     },
     async uploadgooglesheet() {
+      this.showLoading();
       this.sheet = await getDatainGoogleSheets();
       // let valtime = 0;
       // let time = date.format(valtime,'YYYY-MM-DD');
@@ -114,12 +117,22 @@ export default {
           image_profile: null,
         };
         await createstudentgooglesheet(javascripts);
-        console.log(javascripts);
+        
       }
+      
     },
   },
 
   data() {
+    const $q = useQuasar()
+    let timer
+
+    onBeforeUnmount(() => {
+      if (timer !== void 0) {
+        clearTimeout(timer)
+        $q.loading.hide()
+      }
+    })
     return {
       value: [],
       columns: [
@@ -131,10 +144,36 @@ export default {
         },
         { name: "Firstname", label: "Firstname", field: "Firstname" },
         { name: "Lastname", label: "Lastname", field: "Lastname" },
+        { name: "Sex", label: "Sex", field: "Sex" },
+        { name: "EducationStatus", label: "EducationStatus", field: "EducationStatus" },
+        { name: "GraduateYear", label: "GraduateYear", field: "GraduateYear" },
+        { name: "Major", label: "Major", field: "Major" },
       ],
       rows: [],
       sheet: [],
-    };
+
+      showLoading () {
+        $q.loading.show({
+          message: 'Gonna upload it in 3 seconds...'
+        })
+
+        timer = setTimeout(() => {
+          $q.loading.show({
+            spinner: QSpinnerGears,
+            spinnerColor: 'red',
+            messageColor: 'black',
+            backgroundColor: 'yellow',
+            message: 'Upload'
+          })
+
+          timer = setTimeout(() => {
+            $q.loading.hide()
+            timer = void 0
+          }, 2000)
+        }, 2000)
+      }
+    }
+    
   },
 };
 </script>
