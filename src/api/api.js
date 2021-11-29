@@ -478,4 +478,8 @@ export async function getToken(student_id) {
     return res.data.results
 }
 
+export async function getTokenOnlyByadmiin(faculty_id,campus_id) {
+    let res = await api.get(`/admin/tokenonly/${faculty_id}/${campus_id}`);
+    return res.data.results
+}
 

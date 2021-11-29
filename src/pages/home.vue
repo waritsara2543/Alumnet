@@ -110,6 +110,8 @@ export default {
           // ...
           this.addToken(this.student[0].student_id, currentToken);
           console.log(currentToken);
+
+          
           // const messaging = getMessaging();
           onMessage(messaging, (payload) => {
             console.log("Message received. ", payload);

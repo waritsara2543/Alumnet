@@ -167,10 +167,7 @@
                 "
                 class="full-width"
                 label="Submit"
-                @click="
-                  getFile();
-                  
-                "
+                @click="getFile()"
               />
             </div>
           </div>
@@ -181,7 +178,11 @@
 </template>
 
 <script>
-import { createEvent } from "../api/api";
+import {
+  createEvent,
+  getTokenOnlyByadmiin,
+  notificationEvent,
+} from "../api/api";
 import {
   getStorage,
   uploadBytesResumable,
@@ -196,6 +197,18 @@ import { onBackgroundMessage } from "firebase/messaging/sw";
 
 
 export default {
+  async mounted() {
+    const adminvalue = localStorage.getItem("admin");
+    this.admin = JSON.parse(adminvalue);
+    this.value = await getTokenOnlyByadmiin(
+      this.admin[0].faculty_id,
+      this.admin[0].campus_id
+    );
+
+    // console.log(this.value[0].token_id );
+    // console.log(this.value);
+    console.log(this.admin[0].campus_id);
+  },
   methods: {
     async create(url) {
       let create = await createEvent(
@@ -206,12 +219,18 @@ export default {
         this.date_end,
         this.admin[0].faculty_id
       );
+      
+      let notification = await notificationEvent(
+        this.Title,
+        this.text
+      );
+
+      console.log(this.value);
       this.$router.push({ name: "homeadmin" });
     },
 
     sendNoti() {
       // const topic = "highScores";
-
       // const message = {
       //   data: {
       //     score: "850",
@@ -270,11 +289,6 @@ export default {
       }
     },
   },
-  mounted() {
-    const adminvalue = localStorage.getItem("admin");
-    this.admin = JSON.parse(adminvalue);
-   
-  },
 
   data() {
     const $q = useQuasar();
@@ -287,14 +301,14 @@ export default {
       }
     });
     return {
-      nohaveUrl:"",
+      nohaveUrl: "",
       text: "",
       time: "",
       date: "",
       date_end: "",
       date_start: "",
       Title: "",
-
+      value: [],
       file: "",
       showLoading() {
         $q.loading.show({
@@ -309,7 +323,6 @@ export default {
           timer = void 0;
         }, 20000);
       },
-
     };
   },
 };
