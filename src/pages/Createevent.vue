@@ -167,10 +167,7 @@
                 "
                 class="full-width"
                 label="Submit"
-                @click="
-                  getFile();
-                  
-                "
+                @click="getFile()"
               />
             </div>
           </div>
@@ -196,6 +193,18 @@ import { onBackgroundMessage } from "firebase/messaging/sw";
 
 
 export default {
+  async mounted() {
+    const adminvalue = localStorage.getItem("admin");
+    this.admin = JSON.parse(adminvalue);
+    this.value = await getTokenOnlyByadmiin(
+      this.admin[0].faculty_id,
+      this.admin[0].campus_id
+    );
+
+    // console.log(this.value[0].token_id );
+    // console.log(this.value);
+    console.log(this.admin[0].campus_id);
+  },
   methods: {
     async create(url) {
       let create = await createEvent(
@@ -207,12 +216,34 @@ export default {
         this.admin[0].faculty_id
       );
       
-      for (let index = 0; index < array.length; index++) {
-       
+      for (let index = 0; index < this.token.length; index++) {
+        let messaging = await notificationEvent(this.Title,this.text,)
         
       }
-       let messaging = await notificationEvent(this.Title,this.text,)
+      
       this.$router.push({ name: "homeadmin" });
+    },
+
+    sendNoti() {
+      // const topic = "highScores";
+      // const message = {
+      //   data: {
+      //     score: "850",
+      //     time: "2:45",
+      //   },
+      //   topic: topic,
+      // };
+      // // Send a message to devices subscribed to the provided topic.
+      // onBackgroundMessage(messaging, (payload) => {});
+      // getMessaging()
+      //   .send(message)
+      //   .then((response) => {
+      //     // Response is a message ID string.
+      //     console.log("Successfully sent message:", response);
+      //   })
+      //   .catch((error) => {
+      //     console.log("Error sending message:", error);
+      //   });
     },
 
     async getFile() {
@@ -250,10 +281,10 @@ export default {
     }
     },
   },
-  mounted() {
+  async mounted() {
     const adminvalue = localStorage.getItem("admin");
     this.admin = JSON.parse(adminvalue);
-    this.token = await 
+    this.token = await getTokenOnlyByadmiin(this.admin[0].faculty_id,this.admin[0].campus_id)
    
   },
 
@@ -268,7 +299,7 @@ export default {
       }
     });
     return {
-      nohaveUrl:"",
+      nohaveUrl: "",
       text: "",
       time: "",
       date: "",
@@ -291,7 +322,6 @@ export default {
           timer = void 0;
         }, 20000);
       },
-
     };
   },
 };

@@ -4,8 +4,20 @@
       href="https://fonts.googleapis.com/css?family=Josefin+Sans"
       rel="stylesheet"
     />
+    
 
     <q-card style="background: #d0dfe6; margin: 10px" >
+      <q-btn
+      onclick="window.print();"
+        label="Print this page "
+        class="full-width bg-secondary text-white text-right"
+        style="
+        max-width:300px;
+          font-size: 20px;
+          background: linear-gradient(#b42425 0%, #b42425 100%);
+        "
+      />
+     
       <div class="row">
         <div class="col">
           <q-card
@@ -101,17 +113,17 @@
       </div>
       <div class="col-md-6 col-sm-12 col-xs-12" >
         <div class="row " >
-          <div class="col" style="margin-left:20px">
+          <div class="col" style="margin-left:20px ; ">
             number of alumni who employed
-            <BarChart style="width:500px" />
+            <BarChart style="width:400px" />
           </div>
           <div class="col">
             province where alumni reside
-            <DonutChart style="width:500px" />
+            <DonutChart style="width:400px" />
             </div>
           <div class="col">
             alumni job titles
-            <PieChart style="width:500px" />
+            <PieChart style="width:450px" />
             </div>
           
         
