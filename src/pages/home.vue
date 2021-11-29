@@ -50,7 +50,7 @@
                 </div>
 
                 <!-- <q-icon name="business_center" /> -->
-                
+
                 for starting a new position as
                 {{ this.details[index].position }} at
                 {{ this.details[index].workplace }}
@@ -68,13 +68,11 @@
 </template>
  <script>
 import { ref } from "vue";
-import { getFeedById, createToken,getTokenID,updateToken } from "../api/api";
+import { getFeedById, createToken, getTokenID, updateToken } from "../api/api";
 import moment from "moment";
 import { getMessaging, getToken, onMessage } from "firebase/messaging";
 import { initializeApp } from "firebase/app";
 export default {
-
-
   // async getFeed(major_id,faculty_id,campus_id,graduate_year){
 
   //   await getFeedById(major_id,faculty_id,campus_id,graduate_year)
@@ -91,7 +89,8 @@ export default {
       this.detail[0].campus_id,
       this.detail[0].graduate_year
     );
-    
+    this.token= await getTokenID(this.student[0].student_id)
+
     this.profile = this.student[0].image_profile;
 
     // await this.timelinefeed();
@@ -103,13 +102,27 @@ export default {
     })
       .then((currentToken) => {
         if (currentToken) {
+          // These registration tokens come from the client FCM SDKs.
+          const registrationTokens = this.token;
+
+          // Subscribe the devices corresponding to the registration tokens to the
+          // topic.
+          getMessaging()
+            .subscribeToTopic(registrationTokens, topic)
+            .then((response) => {
+              // See the MessagingTopicManagementResponse reference documentation
+              // for the contents of response.
+              console.log("Successfully subscribed to topic:", response);
+            })
+            .catch((error) => {
+              console.log("Error subscribing to topic:", error);
+            });
           // Send the token to your server and update the UI if necessary
           // ...
-          this.checkToken(currentToken)
-         
+          this.checkToken(currentToken);
+
           // const messaging = getMessaging();
           onMessage(messaging, (payload) => {
-            
             this.content = payload.notification.body;
             this.title = payload.notification.title;
             alert(this.title + " : " + this.content);
@@ -118,30 +131,24 @@ export default {
           });
         } else {
           // Show permission request UI
-          
           // ...
         }
       })
       .catch((err) => {
-       
         // ...
       });
   },
-    methods: {
-    async checkToken(token){
-
-       this.token = await getTokenID(this.student[0].student_id)
-          if(this.token.length == 0){
-            this.addToken(this.student[0].student_id, token);
-          }else{
-            await updateToken(token);
-
-          }
-
+  methods: {
+    async checkToken(token) {
+      this.token = await getTokenID(this.student[0].student_id);
+      if (this.token.length == 0) {
+        this.addToken(this.student[0].student_id, token);
+      } else {
+        await updateToken(token);
+      }
     },
     searchPage() {
       this.$router.push({ name: "searchPage" });
-     
     },
     getDate: function (date) {
       return moment(date, "YYYY-MM-DD").format("DD MMMM YYYY");
@@ -162,7 +169,7 @@ export default {
       content: "",
       profile: ref(""),
       value: [],
-      token:[],
+      token: [],
     };
   },
 };
