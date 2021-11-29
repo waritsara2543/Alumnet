@@ -424,14 +424,14 @@ export async function getStudentWorkByPosition(faculty_id) {
 
 // notification //
 
-export async function notificationEvent(titles,content,token) {
+export async function notificationEvent(title,content,token) {
     var data= {
-        titles:titles,
+        title:title,
         content:content,
         token:token
     }
     try {
-        let res = await api.post(`/admin/notification`,data);
+        let res = await api.post(`/admin/fcm`,data);
         return res
     }
     catch (err) {

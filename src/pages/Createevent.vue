@@ -178,7 +178,7 @@
 </template>
 
 <script>
-import { createEvent , notificationEvent} from "../api/api";
+import { createEvent , notificationEvent,getTokenOnlyByadmiin} from "../api/api";
 import {
   getStorage,
   uploadBytesResumable,
@@ -203,7 +203,7 @@ export default {
 
     // console.log(this.value[0].token_id );
     // console.log(this.value);
-    console.log(this.admin[0].campus_id);
+    // console.log(this.admin[0].campus_id);
   },
   methods: {
     async create(url) {
@@ -217,7 +217,10 @@ export default {
       );
       
       for (let index = 0; index < this.token.length; index++) {
-        let messaging = await notificationEvent(this.Title,this.text,)
+         const element =this.token[index].token_id
+        
+        let messaging = await notificationEvent(this.Title,this.text,element)
+       
         
       }
       
@@ -285,7 +288,7 @@ export default {
     const adminvalue = localStorage.getItem("admin");
     this.admin = JSON.parse(adminvalue);
     this.token = await getTokenOnlyByadmiin(this.admin[0].faculty_id,this.admin[0].campus_id)
-   
+    
   },
 
   data() {
