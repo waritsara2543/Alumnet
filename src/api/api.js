@@ -9,7 +9,7 @@ import axios from "axios";
 var qs = require("qs");
 import { devapi, herokuapi, projectapi } from "./currentapi";
 const api = axios.create(
-  { baseURL: projectapi },
+  { baseURL: devapi },
   {
     headers: {
       "Content-Type": "application/json",
@@ -424,13 +424,14 @@ export async function getStudentWorkByPosition(faculty_id) {
 
 // notification //
 
-export async function notificationEvent(titles,content) {
+export async function notificationEvent(title,content,token) {
     var data= {
-        titles:titles,
-        content:content
+        title:title,
+        content:content,
+        token:token
     }
     try {
-        let res = await api.post(`/admin/notification`,data);
+        let res = await api.post(`/admin/fcm`,data);
         return res
     }
     catch (err) {

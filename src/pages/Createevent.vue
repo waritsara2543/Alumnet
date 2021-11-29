@@ -178,11 +178,7 @@
 </template>
 
 <script>
-import {
-  createEvent,
-  getTokenOnlyByadmiin,
-  notificationEvent,
-} from "../api/api";
+import { createEvent , notificationEvent,getTokenOnlyByadmiin} from "../api/api";
 import {
   getStorage,
   uploadBytesResumable,
@@ -207,7 +203,7 @@ export default {
 
     // console.log(this.value[0].token_id );
     // console.log(this.value);
-    console.log(this.admin[0].campus_id);
+    // console.log(this.admin[0].campus_id);
   },
   methods: {
     async create(url) {
@@ -220,12 +216,14 @@ export default {
         this.admin[0].faculty_id
       );
       
-      let notification = await notificationEvent(
-        this.Title,
-        this.text
-      );
-
-      console.log(this.value);
+      for (let index = 0; index < this.token.length; index++) {
+         const element =this.token[index].token_id
+        
+        let messaging = await notificationEvent(this.Title,this.text,element)
+       
+        
+      }
+      
       this.$router.push({ name: "homeadmin" });
     },
 
@@ -286,6 +284,12 @@ export default {
     }
     },
   },
+  async mounted() {
+    const adminvalue = localStorage.getItem("admin");
+    this.admin = JSON.parse(adminvalue);
+    this.token = await getTokenOnlyByadmiin(this.admin[0].faculty_id,this.admin[0].campus_id)
+    
+  },
 
   data() {
     const $q = useQuasar();
@@ -305,7 +309,8 @@ export default {
       date_end: "",
       date_start: "",
       Title: "",
-      value: [],
+      token:[],
+
       file: "",
       showLoading() {
         $q.loading.show({
