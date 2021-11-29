@@ -4,6 +4,7 @@
       href="https://fonts.googleapis.com/css?family=Josefin+Sans"
       rel="stylesheet"
     />
+    <h4 onclick="window.print();"> Print </h4>
 
     <q-card style="background: #d0dfe6; margin: 10px" >
       <div class="row">
@@ -11,11 +12,11 @@
           <q-card
             class="my-card"
             style="
-              height: 173px;
-              width: 730px;
+              
               background: #e7a33e;
               margin: 0 auto;
               margin-top:30px
+              margin-left:10px
             "
           >
             <q-card-section>
@@ -43,8 +44,7 @@
           <q-card
             class="my-card"
             style="
-              height: 173px;
-              width: 730px;
+              
               background: #27a8a1;
                margin: 0 auto;
                margin-top:30px;
@@ -74,12 +74,11 @@
           <q-card
             class="my-card"
             style="
-              height: 373px;
-              width: 690px;
+              
               background: #f95dd6;
                margin: 0 auto;
-               margin-top:30px;
-               margin-bottom:30px
+               margin-top:40px;
+             
             "
           >
             <q-card-section
@@ -100,18 +99,18 @@
         </div>
       </div>
       <div class="col-md-6 col-sm-12 col-xs-12" >
-        <div class="row " >
-          <div class="col" style="margin-left:20px">
+        <div class="row " style="margin:0 auto" >
+          <div class="col">
             number of alumni who employed
-            <BarChart style="width:500px" />
+            <BarChart style="width:400px" />
           </div>
           <div class="col">
             province where alumni reside
-            <DonutChart style="width:500px" />
+            <DonutChart style="width:400px" />
             </div>
           <div class="col">
             alumni job titles
-            <PieChart style="width:500px" />
+            <PieChart style="width:450px" />
             </div>
           
         
