@@ -181,7 +181,7 @@
 </template>
 
 <script>
-import { createEvent } from "../api/api";
+import { createEvent , notificationEvent} from "../api/api";
 import {
   getStorage,
   uploadBytesResumable,
@@ -206,6 +206,12 @@ export default {
         this.date_end,
         this.admin[0].faculty_id
       );
+      
+      for (let index = 0; index < array.length; index++) {
+       
+        
+      }
+       let messaging = await notificationEvent(this.Title,this.text,)
       this.$router.push({ name: "homeadmin" });
     },
 
@@ -247,6 +253,7 @@ export default {
   mounted() {
     const adminvalue = localStorage.getItem("admin");
     this.admin = JSON.parse(adminvalue);
+    this.token = await 
    
   },
 
@@ -268,6 +275,7 @@ export default {
       date_end: "",
       date_start: "",
       Title: "",
+      token:[],
 
       file: "",
       showLoading() {
